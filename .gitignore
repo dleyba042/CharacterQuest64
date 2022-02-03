@@ -1,0 +1,5 @@
+# Ignores these files when pushing to GitHub
+
+vendor/
+tmp/
+composer.lock
