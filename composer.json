@@ -1,0 +1,22 @@
+{
+  "name": "dleybabrown/328/CharacterQuest64",
+  "description": "Our Sdev 328 project",
+  "license": "open source",
+  "authors": [
+    {
+      "name": "Devin Leyba",
+      "email": "leyba-brown.devin@student.greenriver.edu"
+    },
+    {
+      "name": "Colton Marty",
+      "email": "marty.colton@student.greenriver.edu"
+    },
+    {
+      "name": "Lyra Darling",
+      "email": "darling.lyra@student.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
