@@ -1,4 +1,5 @@
-# ignores added files
+# Ignores these files when pushing to GitHub
 
-composer.lock
 vendor/
+tmp/
+composer.lock
