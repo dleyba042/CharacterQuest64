@@ -1,0 +1,76 @@
+body{
+    background: url("../images/stone.jpeg") no-repeat center ;
+}
+
+.btn{
+    color:black !important;
+    background-color:teal;
+    border:2px solid black;
+}
+
+.choice-btn{
+    color: black !important;
+    background-color:teal;
+    font-weight:bolder;
+}
+
+h1{
+    font-family: cursive;
+    font-weight:bolder;
+    text-align:center;
+    background:rgba(255,255,255,.8);
+    color: black;
+    margin-bottom: 0;
+}
+
+
+.container{
+    padding-left: 10% !important;
+    padding-right: 10% !important;
+
+}
+
+#game-screen{
+    background-image: url("../images/grotto.jpeg");
+    width:100%;
+    height: 50vh;
+    background-color: black;
+    color:silver;
+    border: 3px solid black;
+}
+
+#scenario-text{
+    font-family: Helvetica, Arial, serif;
+    font-size: 1rem;
+    margin-top:0;
+    width:70%;
+    height: 100%;
+    background-color: white;
+    border: 5px solid teal;
+    color:black;
+    padding:1rem;
+}
+
+#choice-div{
+    font-family: Helvetica, Arial, serif;
+    font-size: 1rem;
+    margin-top:0;
+    width:100%;
+    height: 100%;
+    background-color: rgba(255,255,255,.8);
+    color: black;
+    padding:.5rem;
+}
+
+#inventory-div{
+    font-family: Helvetica, Arial, serif;
+    font-size: 1rem;
+    text-align:center;
+    margin-top:0;
+    width:29%;
+    height: 100%;
+    background-color: silver;
+    background-image: url("../images/scroll.jpeg");
+    color:black;
+    padding:.5rem;
+}

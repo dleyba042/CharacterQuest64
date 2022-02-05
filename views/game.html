@@ -9,13 +9,40 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- DatingStyleSheet -->
-    <link rel = "stylesheet" href = "../styles/gamePage.css">
+    <link rel = "stylesheet" href = "styles/gamePage.css">
 
     <title>Character Quest 64</title>
 
 </head>
 
 <body>
+
+<div class = "container">
+
+    <h1>Character Quest</h1>
+    <div id = "game-screen">
+    </div>
+    <div id = "scenario-text" class ="d-inline-block">
+        <p>You awaken in a daze, a sword, some cash, and some armor is at your side.</p>
+        <p>You realize that you are in unsafe territory, when you hear what sounds like </p>
+        <p>bandits approaching. You only have time to grab one of the items next to you</p>
+        <p>what do you choose?</p>
+    </div>
+    <div class = "d-inline-block" id = "inventory-div">
+        <a class="btn"> Inventory</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h6> coin: <span id = "coin"> 0 </span></h6>
+    </div>
+    <div id = "choice-div" >
+        <p><a class="btn choice-btn">A.</a> Grab the sword, better to be on the offensive</p>
+        <p><a class="btn choice-btn">B.</a> Grab your armor, better to be protected from attack</p>
+        <p><a class="btn choice-btn">C.</a> Grab the coin, better to haggle out of a sticky situation</p>
+    </div>
+
+</div>
 
 </body>
 </html>
