@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- font import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
+
 
     <!-- DatingStyleSheet -->
     <link rel = "stylesheet" href = "styles/gamePage.css">
@@ -19,30 +25,106 @@
 
 <div class = "container">
 
-    <h1>Character Quest</h1>
-    <div id = "game-screen">
-    </div>
-    <div id = "scenario-text" class ="d-inline-block">
-        <p>You awaken in a daze, a sword, some cash, and some armor is at your side.</p>
-        <p>You realize that you are in unsafe territory, when you hear what sounds like </p>
-        <p>bandits approaching. You only have time to grab one of the items next to you</p>
-        <p>what do you choose?</p>
-    </div>
-    <div class = "d-inline-block" id = "inventory-div">
-        <a class="btn"> Inventory</a>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h6> coin: <span id = "coin"> 0 </span></h6>
-    </div>
-    <div id = "choice-div" >
-        <p><a class="btn choice-btn">A.</a> Grab the sword, better to be on the offensive</p>
-        <p><a class="btn choice-btn">B.</a> Grab your armor, better to be protected from attack</p>
-        <p><a class="btn choice-btn">C.</a> Grab the coin, better to haggle out of a sticky situation</p>
-    </div>
+    <div class = "row"><!-- main row -->
+
+        <h1 class = "col col-12">Character Quest</h1>
+        <div id = "game-screen" class = "col col-12">
+        </div>
+        <div id = "scenario-text" class ="col col-12 col-lg-8">
+            <p>You awaken in a daze, a sword, some cash, and some armor is at your side.</p>
+            <p>You realize that you are in unsafe territory, when you hear what sounds like </p>
+            <p>bandits approaching. You only have time to grab one of the items next to you</p>
+            <p>what do you choose?</p>
+        </div>
+        <div id = "inventory-div" class = "col col-12 col-lg-4">
+            <a class="btn" type="button" data-toggle="modal" data-target="#invMod"> Inventory</a>
+
+            <div class = "modal fade"
+                 id = "invMod" tabindex="-1" role="dialog"
+                 aria-labelledby="inventoryModal" aria-hidden="true"> <!-- start of modal -->
+
+                <div class = "modal-dialog modal-dialog-centered" role = "document">
+
+                    <div class = "modal-content"> <!-- start of modal content -->
+
+                        <div class = "modal-header">
+                            <h3 class = "modal-title" id = "invTitle"> Inventory </h3>
+                            <button type="button" class = "close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class = "modal-body" id = "invBody"> <!-- Body -->
+                            <ul class = "inventoryList">
+                                <li>Sword</li>
+                                <li>Potion</li>
+                                <li>Armor</li>
+                            </ul>
+                        </div><!-- Body -->
+                        <div class = "modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div> <!-- start of modal content -->
+
+                </div>
+
+            </div><!-- start of modal -->
+
+            <br>
+            <br>
+            <br>
+            <a class="btn" type="button" data-toggle="modal" data-target="#statsMod"> Stats</a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="statsMod" tabindex="-1" role="dialog" aria-labelledby="statsModal" aria-hidden="true">
+
+                <div class="modal-dialog modal-dialog-centered" role="document">
+
+                    <div class="modal-content"><!-- start of modal content -->
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">Character Stats</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body"><!-- Body -->
+                            <ul>
+                                <li>Strength</li>
+                                <li>Intellect</li>
+                                <li>Stamina</li>
+                                <li>Dexterity</li>
+                                <li>Luck</li>
+                            </ul>
+                        </div><!-- Body -->
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div><!-- start of modal content -->
+                </div>
+            </div>
+
+
+            <br>
+            <br>
+            <br>
+            <h6> Coin: <span id = "coin"> 0 </span></h6>
+        </div>
+        <div id = "choice-div" class = "col col-12" >
+            <p><a class="btn choice-btn">A.</a> Grab the sword, better to be on the offensive</p>
+            <p><a class="btn choice-btn">B.</a> Grab your armor, better to be protected from attack</p>
+            <p><a class="btn choice-btn">C.</a> Grab the coin, better to haggle out of a sticky situation</p>
+        </div>
+
+    </div><!-- main row -->
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -1,12 +1,39 @@
+/* elements */
+
 body{
     background: url("../images/stone.jpeg") no-repeat center ;
+    font-family: 'Quintessential', cursive;
 }
+
+h1{
+    font-weight:bolder;
+    text-align:center;
+    font-size:2.75rem;
+    background:rgba(255,255,255,.8);
+    color: black;
+    margin-bottom: 0;
+}
+
+li{
+    list-style-type: upper-roman;
+}
+
+h6,span{
+    font-weight:bold;
+}
+
+
+
+/* classes */
+
 
 .btn{
     color:black !important;
     background-color:teal;
     border:2px solid black;
+    font-weight: bold;
 }
+
 
 .choice-btn{
     color: black !important;
@@ -14,13 +41,15 @@ body{
     font-weight:bolder;
 }
 
-h1{
-    font-family: cursive;
-    font-weight:bolder;
-    text-align:center;
-    background:rgba(255,255,255,.8);
+#choice-div{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top:0;
+    /*   width:100%;
+       height: 100%; */
+    background-color: rgba(255,255,255,.8);
     color: black;
-    margin-bottom: 0;
+    padding:.5rem;
 }
 
 
@@ -32,45 +61,45 @@ h1{
 
 #game-screen{
     background-image: url("../images/grotto.jpeg");
-    width:100%;
     height: 50vh;
     background-color: black;
     color:silver;
     border: 3px solid black;
 }
 
-#scenario-text{
-    font-family: Helvetica, Arial, serif;
-    font-size: 1rem;
-    margin-top:0;
-    width:70%;
-    height: 100%;
-    background-color: white;
-    border: 5px solid teal;
-    color:black;
-    padding:1rem;
-}
-
-#choice-div{
-    font-family: Helvetica, Arial, serif;
-    font-size: 1rem;
-    margin-top:0;
-    width:100%;
-    height: 100%;
-    background-color: rgba(255,255,255,.8);
-    color: black;
-    padding:.5rem;
-}
-
 #inventory-div{
-    font-family: Helvetica, Arial, serif;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     text-align:center;
     margin-top:0;
-    width:29%;
-    height: 100%;
+    /*   width:29%;
+       height: 100%; */
     background-color: silver;
     background-image: url("../images/scroll.jpeg");
     color:black;
     padding:.5rem;
+}
+
+#scenario-text{
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top:0;
+    /*  width:70%;
+      height: 100%; */
+    background-color: rgba(0,128,128,.9);
+    border: 5px groove green;
+    color:black;
+    padding:1rem;
+}
+
+
+
+
+/* media queries */
+
+@media screen and (max-width: 900px) {
+
+    #game-screen {
+        height: 40vh;
+    }
 }
