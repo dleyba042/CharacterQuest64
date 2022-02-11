@@ -1,0 +1,49 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Body Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+body {
+    font-family: 'Quintessential', cursive;
+}
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Header & Nav Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+header {
+    border-bottom: 2px solid #48291e;
+    background: url("../images/paper.jpg") no-repeat center center fixed;
+}
+
+.navbar-brand {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.navbar-brand:hover {
+    color: #000;
+}
+
+.navbar-brand, .navbar-brand i, .dropdown-item i {
+    color: #48291e;
+}
+
+.navbar-nav a:hover {
+    color: #f2e3cc;
+    background-color: #48291e;
+}
+
+.nav-link {
+    color: #f2e3cc;
+    background-color: #5e4134;
+}
+
+.nav-link i, .dropdown-item:hover i {
+    color: #b39e8b;
+}
+
+.dropdown-menu {
+    background: url("../images/paper.jpg") no-repeat center;
+}
+
+.dropdown-menu, .nav-link {
+    border: 2px solid #48291e;
+    border-radius: 8px;
+}
