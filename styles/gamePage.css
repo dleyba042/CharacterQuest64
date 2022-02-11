@@ -1,7 +1,7 @@
 /* elements */
 
 body{
-    background: url("../images/stone.jpeg") no-repeat center ;
+    background: url("../../CharacterQuest64/images/stone.jpeg") no-repeat center ;
     font-family: 'Quintessential', cursive;
 }
 
@@ -59,12 +59,26 @@ h6,span{
 
 }
 
+#cont-btn{
+    background-color: rgba(255,255,255,.9);
+    border-radius:5px;
+    padding: 5px;
+    border: 1px solid black;
+    width:fit-content;
+}
+
 #game-screen{
-    background-image: url("../images/grotto.jpeg");
+    /* background-image: url("../images/grotto.jpeg"); */  /* will be filled dynamically*/
+    background-size: cover;
+    background-repeat: no-repeat;
     height: 50vh;
     background-color: black;
     color:silver;
     border: 3px solid black;
+}
+
+.hidden{
+    display: none;
 }
 
 #inventory-div{
@@ -75,12 +89,12 @@ h6,span{
     /*   width:29%;
        height: 100%; */
     background-color: silver;
-    background-image: url("../images/scroll.jpeg");
+    background-image: url("../../CharacterQuest64/images/scroll.jpeg");
     color:black;
     padding:.5rem;
 }
 
-#scenario-text{
+#scenario-text-div{
     font-weight: bold;
     font-size: 1.2rem;
     margin-top:0;
@@ -103,3 +117,4 @@ h6,span{
         height: 40vh;
     }
 }
+

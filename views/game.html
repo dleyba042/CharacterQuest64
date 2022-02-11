@@ -30,14 +30,12 @@
         <h1 class = "col col-12">Character Quest</h1>
         <div id = "game-screen" class = "col col-12">
         </div>
-        <div id = "scenario-text" class ="col col-12 col-lg-8">
-            <p>You awaken in a daze, a sword, some cash, and some armor is at your side.</p>
-            <p>You realize that you are in unsafe territory, when you hear what sounds like </p>
-            <p>bandits approaching. You only have time to grab one of the items next to you</p>
-            <p>what do you choose?</p>
+        <div id = "scenario-text-div" class ="col col-12 col-lg-8">
+            <p id = "scenario-text"> <!-- FILLED DYNAMICALLY WITH JAVASCRIPT --> </p>
+            <a id = "cont-btn" class="button choice-btn hidden" type="button">Continue</a>
         </div>
         <div id = "inventory-div" class = "col col-12 col-lg-4">
-            <a class="btn" type="button" data-toggle="modal" data-target="#invMod"> Inventory</a>
+            <a class="btn" type="button" data-toggle="modal" data-target="#invMod" id = "inventory-button"> Inventory</a>
 
             <div class = "modal fade"
                  id = "invMod" tabindex="-1" role="dialog"
@@ -53,7 +51,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class = "modal-body" id = "invBody"> <!-- Body -->
+                        <div class = "modal-body" id = "inv-body"> <!-- Body -->
                             <ul class = "inventoryList">
                                 <li>Sword</li>
                                 <li>Potion</li>
@@ -73,7 +71,7 @@
             <br>
             <br>
             <br>
-            <a class="btn" type="button" data-toggle="modal" data-target="#statsMod"> Stats</a>
+            <a class="btn" type="button" data-toggle="modal" data-target="#statsMod" id = "stats-button"> Stats</a>
 
             <!-- Modal -->
             <div class="modal fade" id="statsMod" tabindex="-1" role="dialog" aria-labelledby="statsModal" aria-hidden="true">
@@ -88,7 +86,7 @@
                             </button>
                         </div>
 
-                        <div class="modal-body"><!-- Body -->
+                        <div class="modal-body" id = "stats-body"><!-- Body -->
                             <ul>
                                 <li>Strength</li>
                                 <li>Intellect</li>
@@ -113,9 +111,9 @@
             <h6> Coin: <span id = "coin"> 0 </span></h6>
         </div>
         <div id = "choice-div" class = "col col-12" >
-            <p><a class="btn choice-btn">A.</a> Grab the sword, better to be on the offensive</p>
-            <p><a class="btn choice-btn">B.</a> Grab your armor, better to be protected from attack</p>
-            <p><a class="btn choice-btn">C.</a> Grab the coin, better to haggle out of a sticky situation</p>
+            <a class="btn choice-btn my-2" id = "btn-a" type="button"><!-- filled dynamically --></a><br>
+            <a class="btn choice-btn my-2" id = "btn-b" type="button"><!-- filled dynamically --></a><br>
+            <a class="btn choice-btn my-2" id = "btn-c" type="button"><!-- filled dynamically --></a><br>
         </div>
 
     </div><!-- main row -->
@@ -125,6 +123,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="module" src="scripts/game/main.js"></script>
 
 </body>
 </html>
