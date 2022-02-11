@@ -34,6 +34,8 @@ $f3->route("GET|POST /character", function($f3){
 //define game route
 $f3->route("GET|POST /game", function($f3){
 
+    $f3->set('userStats',getStats());
+
     $view = new Template();
     echo $view->render('views/game.html');
 });

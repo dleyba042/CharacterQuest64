@@ -25,7 +25,7 @@
 
 <body>
 
-<includes href="views/header.html"></includes>
+<include href="views/header.html"></include>
 
 <div class = "container">
 
@@ -89,13 +89,14 @@
                             </button>
                         </div>
 
+
                         <div class="modal-body" id = "stats-body"><!-- Body -->
                             <ul>
-                                <li>Strength</li>
-                                <li>Intellect</li>
-                                <li>Stamina</li>
-                                <li>Dexterity</li>
-                                <li>Luck</li>
+                                <repeat group = "{{ @userStats }}" key = "{{ @key }}" value = " {{ @value }} ">
+
+                                    <li id = "{{ ucfirst(@key) }}" value = " {{ @value }} " > {{ @key }} : {{ @value }} </li>
+
+                                </repeat>
                             </ul>
                         </div><!-- Body -->
 
