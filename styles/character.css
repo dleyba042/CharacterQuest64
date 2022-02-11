@@ -1,0 +1,115 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HTML & Body Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100vh;
+    font-family: 'Quintessential', cursive;
+    background-image: url("../images/guild-hall.jpg");
+    background-size: cover;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Header & Nav Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+header {
+    border-bottom: 2px solid #48291e;
+    background: url("../images/paper.jpg") no-repeat center center fixed;
+}
+
+.navbar-brand {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.navbar-brand:hover {
+    color: #000;
+}
+
+.navbar-brand, .navbar-brand i, .dropdown-item i {
+    color: #48291e;
+}
+
+.navbar-nav a:hover {
+    color: #f2e3cc;
+    background-color: #48291e;
+}
+
+.nav-link {
+    color: #f2e3cc;
+    background-color: #5e4134;
+}
+
+.nav-link i, .dropdown-item:hover i {
+    color: #b39e8b;
+}
+
+.dropdown-menu {
+    background: url("../images/paper.jpg") no-repeat center;
+}
+
+.dropdown-menu, .nav-link {
+    border: 2px solid #48291e;
+    border-radius: 8px;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Main Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+form {
+    color: #48291e;
+    border: 3px solid #48291e;
+    background: url('../images/paper.jpg') no-repeat center;
+}
+
+.form-control, .form-control:enabled {
+    height: auto;
+    color: #48291e;
+    background-color: inherit;
+    border: none;
+    border-bottom: 2px solid #48291e;
+    border-radius: 0;
+}
+
+select#race {
+    height: auto;
+    color: #f2e3cc;
+    background-color: #5e4134;
+    border: 2px solid #48291e;
+    border-radius: 8px;
+}
+
+select#race option:disabled {
+    color: #f2e3cc;
+}
+
+.input-group {
+    border: none;
+}
+
+.input-group-text {
+    color: #48291e;
+    background-color: inherit;
+    border: none;
+}
+
+.fa-dice-d20 {
+    color: #861657;
+}
+
+#item-header, #traits-header {
+    border-bottom: 2px solid #48291e;
+}
+
+#character-creator {
+    color: #f2e3cc;
+    background-color: #5e4134;
+    border: 2px solid #48291e;
+    border-radius: 8px;
+}
+
+#character-creator:hover {
+    color: #f2e3cc;
+    background-color: #48291e;
+}
