@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- Font Import -->
+    <!-- Font Imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
@@ -21,146 +21,104 @@
     <title>Character Quest 64</title>
 </head>
 <body>
-    <include href="views/header.html"></include>
+<include href="views/header.html"></include>
 
-    <main class="container-fluid">
-        <div class="row mt-2 justify-content-around">
+<main class="container-fluid">
+    <div class="row justify-content-around">
 
-            <form class="col-12 col-md-10 my-3 p-5" action="#" method="post">
+        <form class="col-12 col-md-10 p-4 align-self-center" action="#" method="post">
 
-                <h1 class="text-center mb-4">Character Sheet</h1>
+            <h1 class="text-center mb-4">Character Sheet</h1>
 
-                <!-- Row -->
-                <div class="row">
-
-                    <!-- Name -->
-                    <div class="col-10 col-md-5 offset-md-3 form-group">
-                        <label class="sr-only" for="name">Name</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><strong>&nbsp&nbsp&nbspName:&nbsp&nbsp&nbsp</strong></div>
-                            </div>
-                            <input class="form-control" type="text" name="name" id="name">
-                        </div>
-                    </div>
+            <!-- Name -->
+            <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-lg mr-0 pr-0 text-right" for="name"><strong>Name:</strong></label>
+                <div class="col-8">
+                    <input class="form-control text-center" type="text" name="name" id="name">
                 </div>
 
-                <!-- Row -->
-                <div class="row justify-content-center">
+                <!-- Display an error if there is one -->
+                <check if="{{ isset(@errors['name']) }}">
+                    <span class="err mx-auto">{{ @errors["name"] }}</span>
+                </check>
+            </div>
 
-                    <!-- Left Column -->
-                    <div class="col-12 col-md-5 mt-4">
+            <!-- Row -->
+            <div class="row justify-content-center">
 
-                        <label class="control-label d-block text-center mb-4 pb-2" id="traits-header"><strong>Choose Your Race & Roll For Stats</strong></label>
+                <!-- Left Column -->
+                <div class="col-12 col-md-5 mt-3">
 
-                        <!-- Race -->
-                        <div class="form-group">
-                            <label class="sr-only" for="race">Race</label>
-                            <div class="input-group w-75">
-                                <div class="input-group-text"><strong>&nbsp&nbsp&nbsp&nbspRace:&nbsp&nbsp&nbsp&nbsp</strong></div>
-                                <select class="form-control text-center" name="race" id="race">
-                                    <option value="" selected="selected" disabled="disabled">Please Choose A Race</option>
-                                    <option value="beastman">BeastMan</option>
-                                    <option value="dwarf">Dwarf</option>
-                                    <option value="elf">Elf</option>
-                                    <option value="human">Human</option>
-                                    <option value="orc">Orc</option>
-                                    <option value="vampire">Vampire</option>
-                                </select>
-                            </div>
+                    <label class="control-label d-block text-center mb-4 pb-2" id="traits-header"><strong>Choose Your Race & Roll For Stats</strong></label>
+
+                    <!-- Race -->
+                    <div class="form-group row justify-content-between">
+                        <label class="col-4 col-form-label col-form-label-lg text-center" for="race"><strong>Race:</strong></label>
+                        <div class="col-8 my-auto">
+                            <select class="form-control px-2 text-center" name="race" id="race">
+                                <option value="" selected="selected" disabled="disabled">Choose One</option>
+                                <repeat group="{{ @races }}" value="{{ @race }}">
+                                    <option value="{{ @race }}">{{ ucfirst(@race) }}</option>
+                                </repeat>
+                            </select>
                         </div>
-
-                        <!-- Stats -->
-
-                        <!-- Dexterity -->
-                        <div class="form-group d-flex">
-                            <label class="sr-only" for="dexterity">Dexterity</label>
-                            <div class="input-group w-75">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><strong>Dexterity:</strong></div>
-                                </div>
-                                <input class="form-control text-center" type="text" name="dexterity" id="dexterity">
-                            </div>
-                            <a class="ml-4 my-auto" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
-                        </div>
-
-                        <!-- Intellect -->
-                        <div class="form-group d-flex">
-                            <label class="sr-only" for="intellect">Intellect</label>
-                            <div class="input-group w-75">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><strong>&nbspIntellect:&nbsp&nbsp</strong></div>
-                                </div>
-                                <input class="form-control text-center" type="text" name="intellect" id="intellect">
-                            </div>
-                            <a class="ml-4 my-auto" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
-                        </div>
-
-                        <!-- Luck -->
-                        <div class="form-group d-flex">
-                            <label class="sr-only" for="luck">Luck</label>
-                            <div class="input-group w-75">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><strong>&nbsp&nbsp&nbsp&nbspLuck:&nbsp&nbsp&nbsp&nbsp</strong></div>
-                                </div>
-                                <input class="form-control text-center" type="text" name="luck" id="luck">
-                            </div>
-                            <a class="ml-4 my-auto" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
-                        </div>
-
-                        <!-- Stamina -->
-                        <div class="form-group d-flex">
-                            <label class="sr-only" for="stamina">Stamina</label>
-                            <div class="input-group w-75">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><strong>&nbspStamina:&nbsp</strong></div>
-                                </div>
-                                <input class="form-control text-center" type="text" name="stamina" id="stamina">
-                            </div>
-                            <a class="ml-4 my-auto" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
-                        </div>
-
-                        <!-- Strength -->
-                        <div class="form-group d-flex">
-                            <label class="sr-only" for="strength">Strength</label>
-                            <div class="input-group w-75">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><strong>&nbspStrength:&nbsp</strong></div>
-                                </div>
-                                <input class="form-control text-center" type="text" name="strength" id="strength">
-                            </div>
-                            <a class="ml-4 my-auto" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
-                        </div>
-                    </div><!-- Left Column -->
-
-                    <!-- Right Column -->
-                    <div class="col-12 col-md-5 mt-4">
-                        <!-- Starting Item -->
-                        <div class="form-group">
-                            <label class="control-label d-block text-center mb-4 pb-2" id="item-header"><strong>Choose One Item To Take With You</strong></label>
-
-                            <div class="pl-0 pl-md-5 text-center text-md-left">
-                                <label class="mt-2 mb-4 pb-2"><input type="radio" name="item" value="key"><strong>&nbsp&nbsp&nbsp Key</strong></label><br>
-                                <label class="mb-4 pb-2"><input type="radio" name="item" value="book"><strong>&nbsp&nbsp&nbsp Skill Book</strong></label><br>
-                                <label class="mb-4 pb-2"><input type="radio" name="item" value="potion"><strong>&nbsp&nbsp&nbsp Potion</strong></label><br>
-                                <label class="mb-4 pb-2"><input type="radio" name="item" value="potion"><strong>&nbsp&nbsp&nbsp Magic Ring</strong></label><br>
-                                <label class="mb-4 pb-2"><input type="radio" name="item" value="money"><strong>&nbsp&nbsp&nbsp Coin</strong></label><br>
-                                <label class="mb-4"><input type="radio" name="item" value="random"><strong>&nbsp&nbsp&nbsp Random</strong></label>
-                            </div>
-                        </div>
-                    </div><!-- Right Column -->
-
-                    <!-- Submit Button -->
-                    <div class="col-12 mt-md-5 text-center">
-                        <button class="btn" id="character-creator" type="button">Create Character</button>
                     </div>
-                </div><!-- Row -->
-            </form>
-        </div>
-    </main>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                    <!-- Stats -->
+                    <repeat group="{{ @stats }}" value="{{ @stat }}" counter="{{ @ctr }}">
+                        <div class="form-group row justify-content-between">
+                            <label class="col-4 col-form-label col-form-label-lg text-center" for="{{ @stat }}"><strong>{{ ucfirst(@stat) }}:</strong></label>
+                            <div class="col-6">
+                                <input class="form-control text-center" type="text"
+                                       name="{{ @stat }}" id="{{ @stat }}"
+                                       value="<check if='{{ isset(@userStats[@ctr]) }}'>{{ @userStats[@ctr] }}</check>" readonly>
+                            </div>
+                            <a class="col-2 my-auto text-center" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
+
+                            <!-- Display error for stats if there is one -->
+                            <check if="{{ isset(@errors['stat']) }}">
+                                <span class="err text-center">{{ @errors["stat"] }}</span>
+                            </check>
+                        </div>
+                    </repeat>
+
+                    <!-- Display an error if there is one -->
+                    <check if="{{ isset(@errors['race']) }}">
+                        <span class="err d-flex justify-content-center">{{ @errors["race"] }}</span>
+                    </check>
+                </div><!-- Left Column -->
+
+                <!-- Right Column -->
+                <div class="col-12 col-md-5 mt-3">
+                    <!-- Starting Item -->
+                    <div class="form-group">
+                        <label class="control-label d-block text-center pb-2" id="item-header"><strong>Choose One Item To Take With You</strong></label>
+
+                        <div class="pl-0 pl-md-5 text-center text-md-left">
+                            <repeat group="{{ @items }}" value="{{ @item }}" counter="{{ @ctr }}">
+                                <label class="mt-2 mb-4 pb-2"><input type="radio" name="item" value="{{ @item }}"><strong>{{ ucwords(@item) }}</strong></label>
+                                <check if="{{ @ctr != count(@items) }}"><br></check>
+                            </repeat>
+                        </div>
+
+                        <!-- Display an error if there is one -->
+                        <check if="{{ isset(@errors['item']) }}">
+                            <span class="err d-flex justify-content-center">{{ @errors["item"] }}</span>
+                        </check>
+                    </div>
+                </div><!-- Right Column -->
+
+                <!-- Submit Button -->
+                <div class="col-12 mt-md-5 text-center">
+                    <button class="btn" id="character-creator" type="submit">Create Character</button>
+                </div>
+            </div><!-- Row -->
+        </form>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
