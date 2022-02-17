@@ -9,7 +9,7 @@ body {
 
 header {
     border-bottom: 2px solid #48291e;
-    background: url("../images/paper.jpg") no-repeat center center fixed;
+    background: url("../images/paper.jpg") no-repeat center;
 }
 
 .navbar-brand {
@@ -17,12 +17,12 @@ header {
     font-weight: bold;
 }
 
-.navbar-brand:hover {
-    color: #000;
+.navbar-brand, .navbar-brand i {
+    color: #48291e;
 }
 
-.navbar-brand, .navbar-brand i, .dropdown-item i {
-    color: #48291e;
+.navbar-brand:hover {
+    color: #5e4134;
 }
 
 .navbar-nav a:hover {
@@ -30,20 +30,30 @@ header {
     background-color: #48291e;
 }
 
-.nav-link {
+.nav-link, .dropdown-menu, .dropdown-item {
     color: #f2e3cc;
     background-color: #5e4134;
 }
 
-.nav-link i, .dropdown-item:hover i {
+.nav-link i, .dropdown-item i {
     color: #b39e8b;
 }
 
-.dropdown-menu {
-    background: url("../images/paper.jpg") no-repeat center;
-}
-
-.dropdown-menu, .nav-link {
+.dropdown-menu, .nav-link, .navbar-toggler {
     border: 2px solid #48291e;
     border-radius: 8px;
+}
+
+.navbar-toggler {
+    background-color: #5e4134;
+    width: 50px;
+    height: 38px;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='4 2 30 30'%3e%3cpath stroke='rgb(179, 158, 139)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler:hover>.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='4 2 30 30'%3e%3cpath stroke='rgb(200, 181, 161)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }

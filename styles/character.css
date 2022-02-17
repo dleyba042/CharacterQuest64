@@ -53,6 +53,14 @@ select#race option:disabled {
     color: #861657;
 }
 
+.err {
+    color: #9d0208;
+}
+
+#item-header {
+    margin-bottom: 10%;
+}
+
 #item-header, #traits-header {
     border-bottom: 2px solid #48291e;
 }
