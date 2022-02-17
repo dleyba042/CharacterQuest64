@@ -1,9 +1,13 @@
 <?php
 
-
+function getRaces() {
+    return array("beastman", "dwarf", "elf", "human", "orc", "vampire");
+}
 
 function getStats(){
+    return array("dexterity", "intelligence", "luck", "stamina", "strength");
+}
 
-    return array("Strength" => 15, "Intelligence" => 20, "Luck" => 5,"Stamina" => 12, "Dexterity" => 7);
-
+function getItems() {
+    return array("key", "skill book", "potion", "magic ring", "coin", "random");
 }
