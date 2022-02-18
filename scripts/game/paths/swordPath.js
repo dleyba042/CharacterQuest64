@@ -13,9 +13,9 @@ let choices1 = ["Flip the table and prepare for a brawl, you refuse to be disres
 let picture1 = "images/wizard.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
-let outcomes1 = [new Outcome("Outcome 1.", "Good 1.", "Bad1.",10),
-    new Outcome("Outcome 2.", "Good 2.", "Bad 2.",10),
-    new Outcome("Outcome 3.", "Good 3.", "Bad 3.",10)]
+let outcomes1 = [new Outcome("Outcome 1.", "Good 1.", "Bad1.",10,"strength"),
+    new Outcome("Outcome 2.", "Good 2.", "Bad 2.",10,"stamina"),
+    new Outcome("Outcome 3.", "Good 3.", "Bad 3.",10,"luck")]
 
 let sceneOne = new Scenario(text1, choices1, picture1,outcomes1);
 

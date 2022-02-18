@@ -6,10 +6,9 @@ import {swordPath as swordPath } from "./paths/swordPath.js";
 const gameScreen = document.getElementById('game-screen');
 const scenarioText = document.getElementById('scenario-text');
 const contBtn = document.getElementById("cont-btn");
-const inventoryButton = document.getElementById('inventory-button');
-const statsButton = document.getElementById('stats-button');
-const inventoryBody = document.getElementById('inventory-button');
-const statsBody = document.getElementById('stats-button');
+const inventoryList = document.getElementById('inventoryList');
+//TODO add buttons to access the value in each stat once we fix php
+
 const coinDisplay = document.getElementById('coin');
 const btnA = document.getElementById('btn-a');
 const btnB = document.getElementById('btn-b');
@@ -40,6 +39,11 @@ window.onload = () => {
 const displayScene = (scene) => {
 
 
+    // use this boolean to determine stat role at the end
+    let statsIncreased = {"intelligence":false,"strength":false,"dexterity":false,"stamina":false,"luck":false};
+    let increase = 0;
+    let usedAlready = false;
+
     if(contBtn.style.display === "block"){ //hide continue before displaying new scene
         contBtn.style.display = "none";
     }
@@ -68,11 +72,11 @@ const displayScene = (scene) => {
     }
 
     //add event listeners to inventory list buttons
-    let itemButtons = document.getElementById('inventoryList').children;
+    let itemButtons = inventoryList.children;
 
     for(let i = 0; i<itemButtons.length; i++){
         itemButtons[i].addEventListener("click",
-            () => useItem(itemButtons[i].getAttribute("id")));
+            () => useItem(itemButtons[i],itemButtons[i].getAttribute("id"),usedAlready));
     }
 
     /*
@@ -86,7 +90,10 @@ const displayScene = (scene) => {
 }
 
 //TODO write the code to actually do what the item does
-const useItem = (str) => {
+const useItem = (button,str,usedAlready) => {
+
+    //used already is only if we only want to use one item
+    //per turn, just sitting there for now
 
     let splitStr = str.split(":");
     let name = splitStr[1];
@@ -98,6 +105,21 @@ const useItem = (str) => {
     //actually do the effects down here
     //do we want to remove just potions and keys from inventory based on quantity
     //will weapons always stay and be usable each turn?
+    // us can set the boolean to used stat item for true
+
+
+
+    if(quantity == 1){
+
+        console.log(quantity);
+        inventoryList.removeChild(button);
+
+    }else{ //we've gotta reduce the quantity in the element
+        quantity--;
+        let newStr = quantity + ":" + name + ":" + effect;
+        button.setAttribute("id",newStr);
+    }
+
 
 
 }
@@ -120,6 +142,12 @@ const displayScenarioChoices = (display,choices,index) => {
 //btn is the continue button being passed in to accept the event listener fo the next turn
 const buttonEvent = (outcomes,index,btn) => {
 
+    //TODO check if a stat item was used and pass the appropriate increased value ito this role
+   // let statTested = outcomes.getStatTested();
+
+   // let playerStat = strengthStat.value; //something like that
+   //then if (statsIncreased['playerStat']){
+    // then we will add increase variable to that stat and then pass it into the decision}
 
 
     if(outcomes[index].rollVsPlayer(10)){// player is same stat strength in test case

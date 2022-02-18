@@ -5,14 +5,16 @@ export class Outcome {
     #goodOutcome; // what will be displayed in scenario text if the roll is successful
     #badOutcome; // what will be displayed in scenario text if the roll is unsuccessful
     #statsRole; // an int representing the stat being tested by this particular outcome
+    #statTested; // so we know which stat of the players to compare too
 
     //TODO add an award field to outcomes to allow for coin awards,keys,etc.
 
-    constructor(text, goodOutcome,badOutcome, statsRole) {
+    constructor(text, goodOutcome,badOutcome, statsRole, statTested) {
         this.#text = text;
         this.#goodOutcome = goodOutcome;
         this.#badOutcome = badOutcome;
         this.#statsRole = statsRole;
+        this.#statTested = statTested;
     }
 
 
@@ -26,6 +28,10 @@ export class Outcome {
 
     getBadOutcome() {
         return this.#badOutcome;
+    }
+
+    getStatTested() {
+        return this.#statTested;
     }
 
     rollVsPlayer(playerStat){ // this will decide a win lose role scenario, player stat is the stat
