@@ -28,14 +28,14 @@
 <include href="views/header.html"></include>
 
 <div class = "container">
-    <form action="#" method="post" id = "refresh">
+
     <div class = "row"><!-- main row -->
 
         <div id = "game-screen" class = "col col-12">
         </div>
         <div id = "scenario-text-div" class ="col col-12 col-lg-8">
             <p id = "scenario-text"> <!-- FILLED DYNAMICALLY WITH JAVASCRIPT --> </p>
-            <button form="refresh" id = "cont-btn" class="button choice-btn hidden" type="submit">Continue</button>
+            <a id = "cont-btn" class="button choice-btn hidden" type="button">Continue</a>
         </div>
         <div id = "inventory-div" class = "col col-12 col-lg-4">
             <a class="btn" type="button" data-toggle="modal" data-target="#invMod" id = "inventory-button"> Inventory</a>
@@ -49,17 +49,20 @@
                     <div class = "modal-content"> <!-- start of modal content -->
 
                         <div class = "modal-header">
-                            <h5 class = "modal-title" id = "invTitle"> Inventory: Click to Use! </h5>
+                            <h3 class = "modal-title" id = "invTitle"> Inventory </h3>
                             <button type="button" class = "close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class = "modal-body" id = "inv-body"> <!-- Body -->
-                            <ul class = "inventoryList text-center" id ="inventoryList">
-
-                                <li id ="1:sword:adds 10 strength"><a class="btn choice-btn my-2" type="button">Sword: adds X strength for this turn.   Quantity: 1</a></li>
-                                <li id = "2:potion:heals 10 health" ><a class="btn choice-btn my-2" type="button">Potion: adds 10 X effect for this turn.   Quantity: 2</a></li>
-                            <!--    <li id = "key:opens a new path" ><a class="btn choice-btn my-2"type="button">Key  : opens a new path </a></li> -->
+                            <ul class = "inventoryList">
+                                <repeat group="{{ @SESSION.items }}" value="{{ @item }}">
+                                    <li id = "{{ @item }}" ><a class="btn choice-btn my-2" type="button">{{ ucwords(@item) }}</a></li>
+                                </repeat>
+                                <!--<repeat group="{{ @SESSION.items }}" key="{{ @item }}" value="{{ @effect }}">
+                                    <li id = "{{ @item }}:{{ @effect }}" ><a class="btn choice-btn my-2"type="button">{{ @item }}  : {{ @effect }} </a></li>
+                                </repeat>-->
+                                <!--<li>{{ @SESSION.item }}</li>-->
                             </ul>
                         </div><!-- Body -->
                         <div class = "modal-footer">
@@ -93,9 +96,9 @@
 
                         <div class="modal-body" id = "stats-body"><!-- Body -->
                             <ul>
-                                <repeat group = "{{ @userStats }}" key = "{{ @key }}" value = " {{ @value }} ">
+                                <repeat group = "{{ @SESSION.stats }}" key = "{{ @key }}" value = " {{ @value }} ">
 
-                                    <li id = "{{ @key }}" value = " {{ @value }} " > {{ @key }} : {{ @value }} </li>
+                                    <li id = "{{ @key }}" value = " {{ @value }} " > {{ ucfirst(@key) }} : {{ @value }} </li>
 
                                 </repeat>
                             </ul>
@@ -122,7 +125,7 @@
         </div>
 
     </div><!-- main row -->
-    </form>
+
 </div>
 <script type="module" src="scripts/game/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

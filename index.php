@@ -66,7 +66,7 @@ $f3->route("GET|POST /character", function($f3){
 
         //Validate the character's starting item
         if(validItem($item)) {
-            $f3->set('SESSION.item', $item);
+            $f3->set('SESSION.items', array($item));
         } else {
             $f3->set('errors["item"]', 'Please choose an item');
         }
