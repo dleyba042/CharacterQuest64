@@ -67,6 +67,38 @@ const displayScene = (scene) => {
 
     }
 
+    //add event listeners to inventory list buttons
+    let itemButtons = document.getElementById('inventoryList').children;
+
+    for(let i = 0; i<itemButtons.length; i++){
+        itemButtons[i].addEventListener("click",
+            () => useItem(itemButtons[i].getAttribute("id")));
+    }
+
+    /*
+    itemButtons.forEach((button) => {
+        button.addEventListener("click", () => alert(" the value of this button is " + button.value));
+    })
+
+     */
+
+
+}
+
+//TODO write the code to actually do what the item does
+const useItem = (str) => {
+
+    let splitStr = str.split(":");
+    let name = splitStr[1];
+    let quantity = splitStr[0];
+    let effect = splitStr[2];
+
+
+    alert("this " + name + " " + effect);
+    //actually do the effects down here
+    //do we want to remove just potions and keys from inventory based on quantity
+    //will weapons always stay and be usable each turn?
+
 
 }
 
@@ -85,6 +117,7 @@ const displayScenarioChoices = (display,choices,index) => {
 //an event listener to be added to the choice buttons
 //it will add an event listener to the submit button depending on the choice made
 // might need to add decision logic for if game ends or something
+//btn is the continue button being passed in to accept the event listener fo the next turn
 const buttonEvent = (outcomes,index,btn) => {
 
 
@@ -113,7 +146,7 @@ const buttonEvent = (outcomes,index,btn) => {
 
 }
 
-//TODO !!!!!!!!!!!!!!!
+
 //TODO START MAKING MORE SCENES COULD ADD A NEXT SCENE FIELD TO THE BUTTON EVENT LISTENERS
 //TODO TO TAKE THEM ON A SPECIFIC PATH DEPENDING ON THE BUTTON
 

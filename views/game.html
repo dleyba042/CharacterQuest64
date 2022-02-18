@@ -49,16 +49,17 @@
                     <div class = "modal-content"> <!-- start of modal content -->
 
                         <div class = "modal-header">
-                            <h3 class = "modal-title" id = "invTitle"> Inventory </h3>
+                            <h5 class = "modal-title" id = "invTitle"> Inventory: Click to Use! </h5>
                             <button type="button" class = "close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class = "modal-body" id = "inv-body"> <!-- Body -->
-                            <ul class = "inventoryList">
-                                <li>Sword</li>
-                                <li>Potion</li>
-                                <li>Armor</li>
+                            <ul class = "inventoryList text-center" id ="inventoryList">
+
+                                <li id ="1:sword:adds 10 strength"><a class="btn choice-btn my-2" type="button">Sword: adds X strength for this turn.   Quantity: 1</a></li>
+                                <li id = "2:potion:heals 10 health" ><a class="btn choice-btn my-2" type="button">Potion: adds 10 X effect for this turn.   Quantity: 2</a></li>
+                            <!--    <li id = "key:opens a new path" ><a class="btn choice-btn my-2"type="button">Key  : opens a new path </a></li> -->
                             </ul>
                         </div><!-- Body -->
                         <div class = "modal-footer">
@@ -94,7 +95,7 @@
                             <ul>
                                 <repeat group = "{{ @userStats }}" key = "{{ @key }}" value = " {{ @value }} ">
 
-                                    <li id = "{{ ucfirst(@key) }}" value = " {{ @value }} " > {{ @key }} : {{ @value }} </li>
+                                    <li id = "{{ @key }}" value = " {{ @value }} " > {{ @key }} : {{ @value }} </li>
 
                                 </repeat>
                             </ul>
