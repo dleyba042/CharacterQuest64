@@ -26,7 +26,7 @@
 <main class="container-fluid">
     <div class="row justify-content-around">
 
-        <form class="col-12 col-md-10 p-4 align-self-center" action="#" method="post">
+        <form class="col-12 col-md-10 mt-3 p-4 align-self-center" action="#" method="post">
 
             <h1 class="text-center mb-4">Character Sheet</h1>
 
@@ -34,16 +34,15 @@
             <div class="form-group row">
                 <label class="col-2 col-form-label col-form-label-lg mr-0 pr-0 text-right" for="name"><strong>Name:</strong></label>
                 <div class="col-8">
-                    <input class="form-control text-center" type="text" name="name" id="name">
+                    <input class="form-control text-center" type="text" name="name" id="name" value="<check if='{{ isset(@name) }}'>{{ @name }}</check>">
                 </div>
 
                 <!-- Display an error if there is one -->
                 <check if="{{ isset(@errors['name']) }}">
-                    <span class="err mx-auto">{{ @errors["name"] }}</span>
+                    <span class="err mx-auto"><strong>{{ @errors["name"] }}</strong></span>
                 </check>
-            </div>
+            </div><!-- Name Form Group -->
 
-            <!-- Row -->
             <div class="row justify-content-center">
 
                 <!-- Left Column -->
@@ -53,70 +52,107 @@
 
                     <!-- Race -->
                     <div class="form-group row justify-content-between">
+
                         <label class="col-4 col-form-label col-form-label-lg text-center" for="race"><strong>Race:</strong></label>
+
                         <div class="col-8 my-auto">
+
                             <select class="form-control px-2 text-center" name="race" id="race">
                                 <option value="" selected="selected" disabled="disabled">Choose One</option>
                                 <repeat group="{{ @races }}" value="{{ @race }}">
-                                    <option value="{{ @race }}">{{ ucfirst(@race) }}</option>
+                                    <option value="{{ @race }}" <check if='{{ @race == @userRace }}'>selected</check>>{{ ucfirst(@race) }}</option>
                                 </repeat>
                             </select>
+
+                            <!-- Display an error if there is one -->
+                            <check if="{{ isset(@errors['race']) }}">
+                                <span class="err d-flex justify-content-center"><strong>{{ @errors["race"] }}</strong></span>
+                            </check>
                         </div>
-                    </div>
+                    </div><!-- Race Form Group -->
 
                     <!-- Stats -->
-                    <repeat group="{{ @stats }}" value="{{ @stat }}" counter="{{ @ctr }}">
+                    <repeat group="{{ @stats }}" key="{{ @statName }}" value="{{ @stat }}" counter="{{ @ctr }}">
                         <div class="form-group row justify-content-between">
-                            <label class="col-4 col-form-label col-form-label-lg text-center" for="{{ @stat }}"><strong>{{ ucfirst(@stat) }}:</strong></label>
+
+                            <label class="col-4 col-form-label col-form-label-lg text-center" for="{{ @statName }}"><strong>{{ ucfirst(@statName) }}:</strong></label>
+
                             <div class="col-6">
+
+                                <!-- TODO: Add readonly attribute at the end of the input after getting dice roll working -->
                                 <input class="form-control text-center" type="text"
-                                       name="{{ @stat }}" id="{{ @stat }}"
-                                       value="<check if='{{ isset(@userStats[@ctr]) }}'>{{ @userStats[@ctr] }}</check>" readonly>
+                                       name="{{ @statName }}" id="{{ @statName }}"
+                                       value="<check if='{{ isset(@stat) }}'>{{ @stat }}</check>">
                             </div>
                             <a class="col-2 my-auto text-center" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
 
                             <!-- Display error for stats if there is one -->
-                            <check if="{{ isset(@errors['stat']) }}">
-                                <span class="err text-center">{{ @errors["stat"] }}</span>
+                            <check if="{{ (@ctr == count(@stats)) && isset(@errors['stats']) }}">
+                                <span class="err col-6 offset-4 text-center mt-3"><strong>{{ @errors["stats"] }}</strong></span>
                             </check>
-                        </div>
+                        </div><!-- Stats Form Group -->
                     </repeat>
-
-                    <!-- Display an error if there is one -->
-                    <check if="{{ isset(@errors['race']) }}">
-                        <span class="err d-flex justify-content-center">{{ @errors["race"] }}</span>
-                    </check>
                 </div><!-- Left Column -->
 
                 <!-- Right Column -->
                 <div class="col-12 col-md-5 mt-3">
+
                     <!-- Starting Item -->
                     <div class="form-group">
+
                         <label class="control-label d-block text-center pb-2" id="item-header"><strong>Choose One Item To Take With You</strong></label>
 
                         <div class="pl-0 pl-md-5 text-center text-md-left">
                             <repeat group="{{ @items }}" value="{{ @item }}" counter="{{ @ctr }}">
-                                <label class="mt-2 mb-4 pb-2"><input type="radio" name="item" value="{{ @item }}"><strong>{{ ucwords(@item) }}</strong></label>
+                                <label class="mb-3 pb-2"><input type="radio" name="item" value="{{ @item }}" <check if='{{ @item == @userItem }}'>checked</check>><strong class="ml-3">{{ ucwords(@item) }}</strong></label>
                                 <check if="{{ @ctr != count(@items) }}"><br></check>
                             </repeat>
                         </div>
 
                         <!-- Display an error if there is one -->
                         <check if="{{ isset(@errors['item']) }}">
-                            <span class="err d-flex justify-content-center">{{ @errors["item"] }}</span>
+                            <span class="err d-flex justify-content-center"><strong>{{ @errors["item"] }}</strong></span>
                         </check>
-                    </div>
+                    </div><!-- Starting Item Form Group -->
                 </div><!-- Right Column -->
 
                 <!-- Submit Button -->
-                <div class="col-12 mt-md-5 text-center">
-                    <button class="btn" id="character-creator" type="submit">Create Character</button>
-                </div>
+                <div class="col-12 mt-md-4 text-center">
+                    <check if="{{ isset(@name) && empty(@errors) }}">
+                        <true><button class="btn" id="character-creator" type="button" data-toggle="modal" data-target="#charactermodal">Create Character</button></true>
+                        <false><button class="btn" id="character-creator" type="submit">Create Character</button></false>
+                    </check>
+                </div><!-- Submit Button -->
+
+                <div class="modal fade" id="charactermodal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content text-center">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{ ucwords(@name) }} | {{ ucfirst(@userRace) }}</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div><!-- Modal Header -->
+                            <div class="modal-body">
+                                <repeat group="{{ @stats }}" key="{{ @key }}" value="{{ @value }}">
+                                    <span><strong>{{ @key }}:</strong> {{ @value }}</span><br>
+                                </repeat>
+                                <br>
+                                <span class="text-decoration-underline"><strong>Starting Item</strong></span><br>
+                                <span>{{ @userItem }}</span>
+                            </div><!-- Modal Body -->
+                            <div class="modal-footer">
+                                <button class="btn" id="start-journey" type="submit" name="start">Start Journey</button>
+                            </div><!-- Modal Footer -->
+                        </div><!-- Modal Content -->
+                    </div><!-- Modal Dialog -->
+                </div><!-- Modal Fade -->
             </div><!-- Row -->
         </form>
-    </div>
+    </div><!-- Row -->
 </main>
 
+<!-- JQuery, Popper, & Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
