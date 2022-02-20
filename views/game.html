@@ -28,7 +28,7 @@
 <include href="views/header.html"></include>
 
 <div class = "container">
-
+    <form action="landing.html" method="post" id = "save-form">
     <div class = "row"><!-- main row -->
 
         <div id = "game-screen" class = "col col-12">
@@ -36,6 +36,7 @@
         <div id = "scenario-text-div" class ="col col-12 col-lg-8">
             <p id = "scenario-text"> <!-- FILLED DYNAMICALLY WITH JAVASCRIPT --> </p>
             <a id = "cont-btn" class="button choice-btn hidden" type="button">Continue</a>
+            <button id = "save-btn" class="mt-2 button choice-btn hidden" type="submit" form="save-form">Save and Quit?</button>
         </div>
         <div id = "inventory-div" class = "col col-12 col-lg-4">
             <a class="btn" type="button" data-toggle="modal" data-target="#invMod" id = "inventory-button"> Inventory</a>
@@ -125,7 +126,7 @@
         </div>
 
     </div><!-- main row -->
-
+    </form>
 </div>
 <script type="module" src="scripts/game/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

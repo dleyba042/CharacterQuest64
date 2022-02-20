@@ -6,9 +6,9 @@ import {swordPath as swordPath } from "./paths/swordPath.js";
 const gameScreen = document.getElementById('game-screen');
 const scenarioText = document.getElementById('scenario-text');
 const contBtn = document.getElementById("cont-btn");
+const saveBtn = document.getElementById("save-btn");
 const inventoryList = document.getElementById('inventoryList');
 //TODO add buttons to access the value in each stat once we fix php
-
 const coinDisplay = document.getElementById('coin');
 const btnA = document.getElementById('btn-a');
 const btnB = document.getElementById('btn-b');
@@ -46,6 +46,7 @@ const displayScene = (scene) => {
 
     if(contBtn.style.display === "block"){ //hide continue before displaying new scene
         contBtn.style.display = "none";
+        saveBtn.style.display = "none";
     }
 
     //displays background without using function
@@ -86,8 +87,6 @@ const displayScene = (scene) => {
     })
 
      */
-
-
 }
 
 //TODO write the code to actually do what the item does
@@ -173,6 +172,7 @@ const buttonEvent = (outcomes,index,btn) => {
     /*<a className="btn choice-btn" id="btn-c" type="button">C.</a>*/
     btn.addEventListener("click",() => displayScene(nextScene)) // pass in global variables
     btn.style.display = "block";
+    saveBtn.style.display = "block";
 
 }
 
