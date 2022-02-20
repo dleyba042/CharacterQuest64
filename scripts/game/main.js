@@ -72,14 +72,16 @@ const displayScene = (scene) => {
 
     }
 
+        console.log(inventoryList);
 
-    //add event listeners to inventory list buttons
-    let itemButtons = inventoryList.children;
+        //add event listeners to inventory list buttons
+        let itemButtons = inventoryList.children;
 
-    for(let i = 0; i<itemButtons.length; i++){
-        itemButtons[i].addEventListener("click",
-            () => useItem(itemButtons[i],itemButtons[i].getAttribute("id"),usedAlready));
-    }
+        for (let i = 0; i < itemButtons.length; i++) {
+            itemButtons[i].addEventListener("click",
+                () => useItem(itemButtons[i], itemButtons[i].getAttribute("id"), usedAlready));
+        }
+
 
     /*
     itemButtons.forEach((button) => {
@@ -95,13 +97,16 @@ const useItem = (button,str,usedAlready) => {
     //used already is only if we only want to use one item
     //per turn, just sitting there for now
 
-    let splitStr = str.split(":");
-    let name = splitStr[1];
-    let quantity = splitStr[0];
-    let effect = splitStr[2];
+   let arr = str.split(':');
+   let name = arr[0];
+   let quantity = arr[1];
+
+   switch (str){
+       default: console.log("You used a " + name);
+   }
 
 
-    alert("this " + name + " " + effect);
+    alert("You used a " + name );
     //actually do the effects down here
     //do we want to remove just potions and keys from inventory based on quantity
     //will weapons always stay and be usable each turn?
@@ -116,7 +121,7 @@ const useItem = (button,str,usedAlready) => {
 
     }else{ //we've gotta reduce the quantity in the element
         quantity--;
-        let newStr = quantity + ":" + name + ":" + effect;
+        let newStr = quantity + ":" + name ;
         button.setAttribute("id",newStr);
     }
 

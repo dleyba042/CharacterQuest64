@@ -11,6 +11,7 @@ session_start();
 require_once ('vendor/autoload.php');
 require_once ('model/data-layer.php');
 require_once ('model/validation.php');
+require_once ('model/classes/item.php');
 
 //create an instance of the Base class
 $f3 = Base::instance();
@@ -92,7 +93,13 @@ $f3->route("GET|POST /character", function($f3){
 //define game route
 $f3->route("GET|POST /game", function($f3){
 
+
+
+
+    $f3->set('name', $f3->get('SESSION.name'));
+    $f3->set('userRace',$f3->get('SESSION.race'));
     $f3->set('userStats',getStats());
+    $f3->set('testItem',getTestItems());
 
     $view = new Template();
     echo $view->render('views/game.html');

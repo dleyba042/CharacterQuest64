@@ -56,10 +56,13 @@
                             </button>
                         </div>
                         <div class = "modal-body" id = "inv-body"> <!-- Body -->
-                            <ul class = "inventoryList">
+                            <ul class = "inventoryList" id = "inventoryList">
                                 <repeat group="{{ @SESSION.items }}" value="{{ @item }}">
                                     <li id = "{{ @item }}" ><a class="btn choice-btn my-2" type="button">{{ ucwords(@item) }}</a></li>
                                 </repeat>
+
+                                <li id = "{{ get_class(@testItem) }}:{{ @testItem->getQuantity() }}" >
+                                    <a class="btn choice-btn my-2" type="button"> {{ @testItem->getName() }} : {{ @testItem->getEffect()  }}</a></li>
                                 <!--<repeat group="{{ @SESSION.items }}" key="{{ @item }}" value="{{ @effect }}">
                                     <li id = "{{ @item }}:{{ @effect }}" ><a class="btn choice-btn my-2"type="button">{{ @item }}  : {{ @effect }} </a></li>
                                 </repeat>-->
@@ -88,7 +91,7 @@
 
                     <div class="modal-content"><!-- start of modal content -->
                         <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLongTitle">Character Stats</h3>
+                            <h3 class="modal-title text-center" id="exampleModalLongTitle">{{ @name }} : {{ ucfirst(@userRace) }} </h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -96,6 +99,7 @@
 
 
                         <div class="modal-body" id = "stats-body"><!-- Body -->
+
                             <ul>
                                 <repeat group = "{{ @SESSION.stats }}" key = "{{ @key }}" value = " {{ @value }} ">
 

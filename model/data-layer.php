@@ -1,5 +1,8 @@
 <?php
 
+include_once('classes/item.php');
+include_once('classes/sword.php');
+
 /*function getRaces() {
     return array("beastman", "dwarf", "elf", "human", "orc", "vampire");
 }
@@ -34,4 +37,9 @@ function getStats(){
  */
 function getItems() {
     return array("sword", "shield", "book", "ring", "pendant", "potion", "skeleton key", "coin");
+}
+
+function getTestItems(){
+
+    return new Sword("Slicer Sword");
 }
