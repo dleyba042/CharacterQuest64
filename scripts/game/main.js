@@ -71,6 +71,7 @@ const displayScene = (scene) => {
 
     }
 
+
     //add event listeners to inventory list buttons
     let itemButtons = inventoryList.children;
 
@@ -148,6 +149,7 @@ const buttonEvent = (outcomes,index,btn) => {
    // let playerStat = strengthStat.value; //something like that
    //then if (statsIncreased['playerStat']){
     // then we will add increase variable to that stat and then pass it into the decision}
+    
 
 
     if(outcomes[index].rollVsPlayer(10)){// player is same stat strength in test case
