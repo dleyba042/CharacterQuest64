@@ -32,7 +32,7 @@ class Validation
      */
     static function validStats($userStats)
     {
-        $stats = array_keys(getStats());
+        $stats = array_keys(DataLayer::getStats());
 
         foreach ($userStats as $statName => $stat) {
             if (!in_array($statName, $stats) || !preg_match("/^[0-9]{1,2}$/", $stat)) {

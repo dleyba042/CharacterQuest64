@@ -29,6 +29,7 @@ class Controller
      */
     function character()
     {
+        Database::connect();
         //Initialize to get stat names for the form
         $stats = DataLayer::getStats();
 
@@ -46,28 +47,28 @@ class Controller
             }
 
             //Validate the character's name
-            if (validName($name)) {
+            if (Validation::validName($name)) {
                 $this->_f3->set('SESSION.name', $name);
             } else {
                 $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, or spaces (30 character limit)');
             }
 
             //Validate the character's race
-            if (validRace($race)) {
+            if (Validation::validRace($race)) {
                 $this->_f3->set('SESSION.race', $race);
             } else {
                 $this->_f3->set('errors["race"]', 'Please choose a race');
             }
 
             //Validate the character's stats
-            if (validStats($stats)) {
+            if (Validation::validStats($stats)) {
                 $this->_f3->set('SESSION.stats', $stats);
             } else {
                 $this->_f3->set('errors["stats"]', 'Please roll for each stat');
             }
 
             //Validate the character's starting item
-            if (validItem($item)) {
+            if (Validation::validItem($item)) {
                 $this->_f3->set('SESSION.items', array($item));
             } else {
                 $this->_f3->set('errors["item"]', 'Please choose an item');
