@@ -100,7 +100,7 @@
 
                         <div class="modal-body" id = "stats-body"><!-- Body -->
 
-                            <ul>
+                            <ul id = "char-stats">
                                 <repeat group = "{{ @SESSION.stats }}" key = "{{ @key }}" value = " {{ @value }} ">
 
                                     <li id = "{{ @key }}" value = " {{ @value }} " > {{ ucfirst(@key) }} : {{ @value }} </li>
