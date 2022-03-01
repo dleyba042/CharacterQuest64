@@ -10,7 +10,7 @@ const saveBtn = document.getElementById("save-btn");
 const inventoryList = document.getElementById('inventoryList');
 const statsList = document.getElementById('char-stats').children;
 //TODO add buttons to access the value in each stat once we fix php
-const coinDisplay = document.getElementById('coin');
+const coinDisplay = document.getElementById('coin-display');
 const btnA = document.getElementById('btn-a');
 const btnB = document.getElementById('btn-b');
 const btnC = document.getElementById('btn-c');
@@ -62,8 +62,8 @@ const addBoosts = () =>{
             case "pendant" : document.getElementById("luck").innerHTML += ("(+3)");
                            globalStatBoosts['luck'] = 3;
                             break;
-            case "coin": coinDisplay.innerHTML = "$50";
-                            break;
+             case "coin": coinDisplay.innerHTML = "$50";
+                             break;
                             //TODO CREATE ACTUAL COIN ITEM TO PASS TO HTML VALUE
         }
 
@@ -230,9 +230,11 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
 
     if(outcomes[index].rollVsPlayer(currentStatLevel)){// player is same stat strength in test case
-         displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome());//then player won the role
+         displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome() +
+         outcomes[index].getReward());//then player won the role
     } else{
-        displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome());
+        displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome() +
+        outcomes[index].getPenalty());
     }
 
     let nextScene;
