@@ -105,6 +105,10 @@ const displayScene = (scene) => {
     if(contBtn.style.display === "block"){ //hide continue before displaying new scene
         contBtn.style.display = "none";
         saveBtn.style.display = "none";
+
+        for(let i = 0; i<buttonArr.length; i++){ // re-enable anchor buttons
+            buttonArr[i].style.pointerEvents = "auto";
+        }
     }
 
     //displays background without using function
@@ -253,6 +257,11 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
     btn.addEventListener("click",() => displayScene(nextScene)) // pass in global variables
     btn.style.display = "block";
     saveBtn.style.display = "block";
+
+    for(let i = 0; i<buttonArr.length; i++){ // disable anchor buttons now that a selection is made
+        buttonArr[i].style.pointerEvents = "none";
+        console.log("FUCKS")
+    }
 
 }
 

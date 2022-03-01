@@ -43,7 +43,7 @@ export class Outcome {
     }
 
     getPenalty() {
-        return this.#reward;
+        return this.#penalty;
     }
 
 
