@@ -232,11 +232,18 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
             currentStatLevel++;
     }});
 
+    //TODO add code to give items or coins or take items or coins base on outcome!!!!
+
 
     if(outcomes[index].rollVsPlayer(currentStatLevel)){// player is same stat strength in test case
+
+
          displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome() +
          outcomes[index].getReward());//then player won the role
+
     } else{
+
+
         displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome() +
         outcomes[index].getPenalty());
     }
@@ -260,7 +267,6 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
     for(let i = 0; i<buttonArr.length; i++){ // disable anchor buttons now that a selection is made
         buttonArr[i].style.pointerEvents = "none";
-        console.log("FUCKS")
     }
 
 }
