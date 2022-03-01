@@ -62,6 +62,9 @@ const addBoosts = () =>{
             case "pendant" : document.getElementById("luck").innerHTML += ("(+3)");
                            globalStatBoosts['luck'] = 3;
                             break;
+            case "coin": coinDisplay.innerHTML = "$50";
+                            break;
+                            //TODO CREATE ACTUAL COIN ITEM TO PASS TO HTML VALUE
         }
 
 
