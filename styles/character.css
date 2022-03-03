@@ -49,6 +49,12 @@ select#race option:disabled {
     border: none;
 }
 
+.stat {
+    padding-bottom: 0;
+    font-size: 110%;
+    font-weight: 1000;
+}
+
 .fa-dice-d20 {
     color: #861657;
 }
