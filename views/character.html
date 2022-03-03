@@ -78,13 +78,11 @@
                             <label class="col-4 col-form-label col-form-label-lg text-center" for="{{ @statName }}"><strong>{{ ucfirst(@statName) }}:</strong></label>
 
                             <div class="col-6">
-
-                                <!-- TODO: Add readonly attribute at the end of the input after getting dice roll working -->
-                                <input class="form-control text-center" type="text"
+                                <input class="stat form-control text-center" type="text"
                                        name="{{ @statName }}" id="{{ @statName }}"
-                                       value="<check if='{{ isset(@stat) }}'>{{ @stat }}</check>">
+                                       value="<check if='{{ isset(@stat) }}'>{{ @stat }}</check>" readonly>
                             </div>
-                            <a class="col-2 my-auto text-center" href="#"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
+                            <a class="dice col-2 my-auto text-center" id="{{ @statName }}Dice" href="#/"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
 
                             <!-- Display error for stats if there is one -->
                             <check if="{{ (@ctr == count(@stats)) && isset(@errors['stats']) }}">
@@ -156,5 +154,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="scripts/character.js"></script>
 </body>
 </html>
