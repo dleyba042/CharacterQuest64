@@ -76,7 +76,9 @@ class Controller
             if (Validation::validItem($item)) {
                 foreach ($items as $value) {
                     if($value->__toString() == $item) {
-                        $_SESSION['character']->setInventory(array($value));
+
+                        $item = $value;
+                        $_SESSION['character']->setInventory(array($item));
                     }
                 }
             } else {
@@ -84,7 +86,8 @@ class Controller
             }
 
             if (isset($_POST['start']) && empty($this->_f3->get('errors'))) {
-                $database->setCharacter($_SESSION['character']);
+                $charID = $database->setCharacter($_SESSION['character']);
+                $database->setInventory($charID,$item);
                 $this->_f3->reroute('game');
             }
         }
