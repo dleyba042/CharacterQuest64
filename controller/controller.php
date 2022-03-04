@@ -29,12 +29,16 @@ class Controller
      */
     function character()
     {
-        Database::connect();
+         $database= new Database();
+
         //Initialize to get stat names for the form
         $stats = DataLayer::getStats();
 
         //If the form has been posted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+            $_SESSION['character'] = new Character();
 
             $name = $this->_f3->get('POST.name');
             $race = $this->_f3->get('POST.race');
@@ -48,33 +52,34 @@ class Controller
 
             //Validate the character's name
             if (Validation::validName($name)) {
-                $this->_f3->set('SESSION.name', $name);
+               $_SESSION['character']->setName($name);
             } else {
                 $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, or spaces (30 character limit)');
             }
 
             //Validate the character's race
             if (Validation::validRace($race)) {
-                $this->_f3->set('SESSION.race', $race);
+                $_SESSION['character']->setRace($race);
             } else {
                 $this->_f3->set('errors["race"]', 'Please choose a race');
             }
 
             //Validate the character's stats
             if (Validation::validStats($stats)) {
-                $this->_f3->set('SESSION.stats', $stats);
+                $_SESSION['character']->setStats($stats);
             } else {
                 $this->_f3->set('errors["stats"]', 'Please roll for each stat');
             }
 
             //Validate the character's starting item
             if (Validation::validItem($item)) {
-                $this->_f3->set('SESSION.items', array($item));
+                $_SESSION['character']->setInventory(array($item));
             } else {
                 $this->_f3->set('errors["item"]', 'Please choose an item');
             }
 
             if (isset($_POST['start']) && empty($this->_f3->get('errors'))) {
+                $database->setCharacter($_SESSION['character']);
                 $this->_f3->reroute('game');
             }
         }

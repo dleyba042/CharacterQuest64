@@ -16,7 +16,7 @@ class Character
      * @param $stats
      * @param $inventory
      */
-    function __construct($name, $race, $stats, $inventory)
+    function __construct($name = "", $race = "", $stats = "", $inventory = "")
     {
         $this->_name = $name;
         $this->_race = $race;
