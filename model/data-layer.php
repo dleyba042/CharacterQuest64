@@ -29,15 +29,10 @@ class DataLayer
      */
     static function getItems()
     {
-        return array("sword", "shield", "book", "ring", "pendant", "potion", "skeleton key", "coin");
+        return array(new Sword("Sword of a Thousand Deaths"), new Shield("Aeneas' Shield"),
+            new Book("Book of Omniscience"), new Ring("Ring of Finesse"),
+            new Pendant("Locket of Luck"), new Potion("Potion of Chances"),
+            new SkeletonKey("Key of Paths"), new Coin("Zarlock", 50));
     }
 
-    /**
-     * Gets an instance of a Sword item.
-     * @return Sword item
-     */
-    static function getTestItems()
-    {
-        return new Sword("Slicer Sword");
-    }
 }

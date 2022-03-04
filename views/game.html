@@ -58,7 +58,8 @@
                         <div class = "modal-body" id = "inv-body"> <!-- Body -->
                             <ul class = "inventoryList" id = "inventoryList">
                                 <repeat group="{{ @SESSION.character->getInventory() }}" value="{{ @item }}">
-                                    <li id = "{{ @item }}" ><a class="btn choice-btn my-2" type="button">{{ ucwords(@item) }}</a></li>
+                                    <li id = "{{ get_class(@item) }}" >{{ @item->getName() }}:
+                                        {{ @item->getEffect() }}</li>
                                 </repeat>
 
                                 <!--<repeat group="{{ @SESSION.items }}" key="{{ @item }}" value="{{ @effect }}">

@@ -71,6 +71,6 @@ class Item
     public function __toString()
     {
 
-        return $this->_name . " " . $this->_effect;
+        return $this->_effect;
    }
 }

@@ -10,7 +10,7 @@ class Potion extends Item
      */
     function __construct($name= "")
     {
-        parent::__construct($name,"Potion enables +1 to random stat (this is one time use)");
+        parent::__construct($name,"$name: enables +1 to random stat (this is one time use)");
     }
 
 }

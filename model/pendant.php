@@ -10,7 +10,7 @@ class Pendant extends Item
      */
     function __construct($name)
     {
-        parent::__construct($name,"$name enables +3 luck boost while equipped");
+        parent::__construct($name,"$name: enables +3 luck boost while equipped");
     }
 
 }

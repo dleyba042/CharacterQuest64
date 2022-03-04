@@ -105,7 +105,7 @@ class Controller
         $this->_f3->set('name', $this->_f3->get('SESSION.name'));
         $this->_f3->set('userRace', $this->_f3->get('SESSION.race'));
         $this->_f3->set('userStats', DataLayer::getStats());
-        $this->_f3->set('testItem',DataLayer::getTestItems());
+
 
         $view = new Template();
         echo $view->render('views/game.html');

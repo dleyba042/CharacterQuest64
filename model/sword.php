@@ -10,7 +10,7 @@ class Sword extends Item
      */
     function __construct($name)
     {
-        parent::__construct($name,"$name enables +3 strength boost while equipped");
+        parent::__construct($name,"$name: enables +3 strength boost while equipped");
     }
 
 }
