@@ -16,7 +16,7 @@ class Coin extends Item
 
     function getQuantity()
     {
-        return "\u{2124}" . parent::getQuantity();
+        return parent::getQuantity() . "\u{2124}";
     }
 
 

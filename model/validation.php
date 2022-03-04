@@ -44,7 +44,7 @@ class Validation
 
     /**
      * Validates user's choice of starting item, checks for form spoofing.
-     * @param string $item the name of the chosen item
+     * @param Object $item the name of the chosen item
      * @return bool true if user's item in valid items list, false otherwise
      */
     static function validItem($item)

@@ -33,6 +33,7 @@ class Controller
 
         //Initialize to get stat names for the form
         $stats = DataLayer::getStats();
+        $items = DataLayer::getItems();
 
         //If the form has been posted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -73,7 +74,11 @@ class Controller
 
             //Validate the character's starting item
             if (Validation::validItem($item)) {
-                $_SESSION['character']->setInventory(array($item));
+                foreach ($items as $value) {
+                    if($value->__toString() == $item) {
+                        $_SESSION['character']->setInventory(array($value));
+                    }
+                }
             } else {
                 $this->_f3->set('errors["item"]', 'Please choose an item');
             }
@@ -89,7 +94,7 @@ class Controller
         $this->_f3->set('races', DataLayer::getRaces());
         $this->_f3->set('userRace', $race);
         $this->_f3->set('stats', $stats);
-        $this->_f3->set('items', DataLayer::getItems());
+        $this->_f3->set('items', $items);
         $this->_f3->set('userItem', $item);
         $this->_f3->set('start', $start);
 

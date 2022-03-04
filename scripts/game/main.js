@@ -45,7 +45,7 @@ const addBoosts = () =>{
 
     for(let i = 0; i<items.length; i++){
 
-        switch(items[i].id){
+        switch(items[i].id.toLowerCase()){
 
             case "sword" : document.getElementById("strength").innerHTML += ("(+3)");
                            globalStatBoosts['strength'] = 3;
@@ -62,8 +62,8 @@ const addBoosts = () =>{
             case "pendant" : document.getElementById("luck").innerHTML += ("(+3)");
                            globalStatBoosts['luck'] = 3;
                             break;
-             case "coin": coinDisplay.innerHTML = "$50";
-                             break;
+             /*case "coin": coinDisplay.innerHTML = "\u{2124}50";
+                             break;*/
                             //TODO CREATE ACTUAL COIN ITEM TO PASS TO HTML VALUE
         }
 

@@ -56,9 +56,57 @@ class Database
 
         //5. Process the results (get the primary key)
         return $this->_dbh->lastInsertId();
-
-
-
     }
 
+    function setInventory($character_id, $item)
+    {
+        $name =  lcword(get_class($item);
+        $itemid = "SELECT item_id from items WHERE name = :name ";
+
+//2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+
+
+
+
+
+
+
+
+
+
+        $sql = "INSERT INTO `inventory`() 
+                VALUES ()";
+
+//2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $name = $character->getName();
+        $stats = $character->getStats();
+        $dexterity = $stats['dexterity'];
+        $intelligence = $stats['intelligence'];
+        $luck= $stats['luck'];
+        $stamina= $stats['stamina'];
+        $strength= $stats['strength'];
+        $race = $character->getRace();
+        $userid= 1; //TODO: FIX WHEN LOGIN WORKS
+
+
+        $statement->bindParam(':name', $name);
+        $statement->bindParam(':dexterity', $dexterity);
+        $statement->bindParam(':intelligence', $intelligence);
+        $statement->bindParam(':luck', $luck);
+        $statement->bindParam(':stamina', $stamina);
+        $statement->bindParam(':strength', $strength);
+        $statement->bindParam(':race', $race);
+        $statement->bindParam(':user_id', $userid);
+
+        //4. Execute the query
+        $statement->execute();
+
+        //5. Process the results (get the primary key)
+        return $this->_dbh->lastInsertId();
+    }
 }

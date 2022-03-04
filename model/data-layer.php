@@ -25,7 +25,7 @@ class DataLayer
 
     /**
      * Gets all items in Character Quest.
-     * @return string[] of items
+     * @return Object[] of items
      */
     static function getItems()
     {
@@ -34,5 +34,4 @@ class DataLayer
             new Pendant("Locket of Luck"), new Potion("Potion of Chances"),
             new SkeletonKey("Key of Paths"), new Coin("Zarlock", 50));
     }
-
 }

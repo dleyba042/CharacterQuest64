@@ -12,5 +12,4 @@ class Shield extends Item
     {
         parent::__construct($name,"$name: enables +3 stamina boost while equipped");
     }
-
 }
