@@ -85,6 +85,6 @@ class Character
      */
     public function setInventory($inventory)
     {
-        $this->_inventory = $inventory;
+        $this->_inventory += $inventory;
     }
 }

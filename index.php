@@ -22,7 +22,7 @@ $f3->route("GET /", function(){
 });
 
 //define character route
-$f3->route("GET|POST /character", function($f3){
+$f3->route("GET|POST /character", function(){
     $GLOBALS['controller']->character();
 
 
@@ -30,7 +30,8 @@ $f3->route("GET|POST /character", function($f3){
 });
 
 //define game route
-$f3->route("GET|POST /game", function($f3){
+$f3->route("GET|POST /game", function(){
+
     $GLOBALS['controller']->game();
 });
 

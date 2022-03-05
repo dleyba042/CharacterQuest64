@@ -110,6 +110,8 @@ class Controller
      */
     function game()
     {
+
+
         $this->_f3->set('name', $this->_f3->get('SESSION.name'));
         $this->_f3->set('userRace', $this->_f3->get('SESSION.race'));
         $this->_f3->set('userStats', DataLayer::getStats());

@@ -220,17 +220,24 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
             currentStatLevel++;
     }});
 
-    //TODO add code to give items or coins or take items or coins base on outcome!!!!
 
 
     if(outcomes[index].rollVsPlayer(currentStatLevel)){// player is same stat strength in test case
 
         let reward = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getReward() : "";
 
-         displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome()
+        //TODO AJAX REWARD
+        $('#scenario-text').load('reward.php',{item: reward});
+        //console.log("NEW item = " + newItem);
+        //$('#item-message').html(newItem);
+
+
+        displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome()
              + reward);//then player won the role
 
     } else{
+
+        //TODO AJAX PENALTY
 
         let penalty = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getPenalty() : "";
 
