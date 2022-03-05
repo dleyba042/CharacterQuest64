@@ -19,4 +19,3 @@ let outcomes1 = [new Outcome("Outcome 1.", "Good 1.", "Bad1.",10,"strength"),
 
 let sceneOne = new Scenario(text1, choices1, picture1,outcomes1);
 
-export let swordPath = [sceneOne]; // eventually a whole array of scenes

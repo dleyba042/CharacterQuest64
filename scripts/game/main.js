@@ -1,6 +1,8 @@
 
 import {sceneOne as sceneOne} from "./startScene.js";
 import {swordPath as swordPath } from "./paths/swordPath.js";
+import {SpecialOutcome} from "./classes/SpecialOutcome.js";
+import {dragon} from "./paths/specialScenes.js";
 
 
 const gameScreen = document.getElementById('game-screen');
@@ -16,6 +18,7 @@ const btnB = document.getElementById('btn-b');
 const btnC = document.getElementById('btn-c');
 const buttonArr = [btnA,btnB,btnC]; //array of buttons
 const globalStatBoosts = {"intelligence":0,"strength":0,"dexterity":0,"stamina":0,"luck":0}
+const itemMessage = document.getElementById('item-message');
 
 const armorPath = []; // just fake for testing purposes
 const coinPath = []; // just fake for testing purposes
@@ -62,9 +65,7 @@ const addBoosts = () =>{
             case "pendant" : document.getElementById("luck").innerHTML += ("(+3)");
                            globalStatBoosts['luck'] = 3;
                             break;
-             /*case "coin": coinDisplay.innerHTML = "\u{2124}50";
-                             break;*/
-                            //TODO CREATE ACTUAL COIN ITEM TO PASS TO HTML VALUE
+
         }
 
 
@@ -96,6 +97,7 @@ window.onload = () => {
 const displayScene = (scene) => {
 
 
+    itemMessage.innerHTML = ""; //clear out last item message
     addBoosts(); // add these based on whats in the character inventory at the beginning of the turn
 
     // use this boolean to determine stat role at the end
@@ -151,7 +153,6 @@ const displayScene = (scene) => {
 
 }
 
-//TODO write the code to actually do what the item does
 const useItem = (button,str,usedAlready,statsInc) => {
 
     //only use one item per turn
@@ -162,35 +163,21 @@ const useItem = (button,str,usedAlready,statsInc) => {
     let statsArr = ["intelligence","strength","dexterity","stamina","luck"];
 
 
-   let arr = str.split(':');
-   let name = arr[0].toLowerCase();
-   let quantity = arr[1];
-
    switch (str){
                     //annoying was to set one of the stats in the statsIncreased are randomly
-       case "potion": let stat = (Math.floor(Math.random() * 5));
+       case "Potion": let stat = (Math.floor(Math.random() * 5));
                       statsInc[statsArr[stat]]= true ;
-                      console.log(statsArr[stat] + " increased by one this turn!");
+                      itemMessage.innerHTML = statsArr[stat] + " increased by one this turn!";
                       usedAlready = true;
                       break;
 
-       case "skeletonKey": break; //Todo write branching path code
+       case "SkeletonKey": displayScene(dragon); // display special scene
+                            break;
 
-       default: console.log("You used a " + name);
-                break;
+       default: break;
    }
 
-
-    if(quantity === 1){
-
-        console.log(quantity);
-        inventoryList.removeChild(button);
-
-    }else{ //we've gotta reduce the quantity in the element
-        quantity--;
-        let newStr = quantity + ":" + name ;
-        button.setAttribute("id",newStr);
-    }
+   inventoryList.removeChild(button);
 
 
 
@@ -221,6 +208,7 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
     //add any stat-boosts that are in global array
     currentStatLevel+= globalStatBoosts[statTested];
+    console.log(playerStats);
 
     // console.log("statTested = " + statTested + "value = " + currentStatLevel);
 
@@ -237,15 +225,17 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
     if(outcomes[index].rollVsPlayer(currentStatLevel)){// player is same stat strength in test case
 
+        let reward = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getReward() : "";
 
-         displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome() +
-         outcomes[index].getReward());//then player won the role
+         displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome()
+             + reward);//then player won the role
 
     } else{
 
+        let penalty = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getPenalty() : "";
 
-        displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome() +
-        outcomes[index].getPenalty());
+        displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome()
+            + penalty);
     }
 
     let nextScene;

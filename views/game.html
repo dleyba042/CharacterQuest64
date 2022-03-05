@@ -58,8 +58,15 @@
                         <div class = "modal-body" id = "inv-body"> <!-- Body -->
                             <ul class = "inventoryList" id = "inventoryList">
                                 <repeat group="{{ @SESSION.character->getInventory() }}" value="{{ @item }}">
-                                    <li id = "{{ get_class(@item) }}" >{{ @item->getName() }}:
-                                        {{ @item->getEffect() }}</li>
+                                    <check if = " {{ get_class(@item) == 'Potion' }} || {{ get_class(@item) == 'SkeletonKey' }} ">
+
+                                        <true><a id = "{{ get_class(@item) }}" class="btn choice-btn my-2" type = "button">
+                                            <li>{{ @item->getName() }}:
+                                            {{ @item->getEffect() }}</li></a></true>
+
+                                        <false><li id = "{{ get_class(@item) }}" >{{ @item->getName() }}:
+                                        {{ @item->getEffect() }}</li></false>
+                                    </check>
                                 </repeat>
 
                                 <!--<repeat group="{{ @SESSION.items }}" key="{{ @item }}" value="{{ @effect }}">
@@ -67,6 +74,7 @@
                                 </repeat>-->
                                 <!--<li>{{ @SESSION.item }}</li>-->
                             </ul>
+                            <h5 id = "item-message"></h5>
                         </div><!-- Body -->
                         <div class = "modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

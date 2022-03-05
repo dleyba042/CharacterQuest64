@@ -16,23 +16,20 @@ let picture = "images/grotto.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes = [new Outcome("You stand your ground and fight. ",
-    "You fight with all you have and fell most of your attackers. You come away with some extra coin."
-             , " You are bested in the fight and barely escape with your life.",10,"strength",
-    " You get 50 coin", " You lose an item"),
+    "You fight with all you have and fell most of your attackers. " +
+    "You come away with some extra coin.",
+    " You are bested in the fight and barely escape with your life.",
+    10,"strength"),
                new Outcome("You run away and defend from attack.",
-                   " You escape successfully", " You are captured!!",10,"stamina",
-    " You get 50 coin", " You lose an item"),
+                   " You escape successfully",
+                   " You are captured!!",10,"stamina",
+               ),
                new Outcome("You try to haggle out of the situation. ",
                    "You haggle your way out of it and make new friends.",
-                   "Your words fall on deaf ears and you are robbed and beaten.",10,"luck",
-        " You get 50 coin", " You lose an item")]
+                   "Your words fall on deaf ears and you are robbed and beaten.",
+                   10,"luck")];
 
 
 export let sceneOne = new Scenario(text,choices,picture,outcomes);
 
 
-
-
-//realize for outcomes we will have to trigger a stats role depending on the choice and the that outcome has a positive
-// or negative depending on the role
-// outcomes might have to be their own object?????
