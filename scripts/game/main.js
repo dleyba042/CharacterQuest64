@@ -227,7 +227,7 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
         let reward = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getReward() : "";
 
         //TODO AJAX REWARD
-        $('#scenario-text').load('reward.php',{item: reward});
+      //  $('#scenario-text').load('reward.php',{item: reward});
         //console.log("NEW item = " + newItem);
         //$('#item-message').html(newItem);
 

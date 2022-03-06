@@ -78,7 +78,7 @@ class Controller
                     if($value->__toString() == $item) {
 
                         $item = $value;
-                        $_SESSION['character']->setInventory(array($item));
+                        $_SESSION['character']->setInventory($item);
                     }
                 }
             } else {

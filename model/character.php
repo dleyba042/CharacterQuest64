@@ -21,7 +21,7 @@ class Character
         $this->_name = $name;
         $this->_race = $race;
         $this->_stats = $stats;
-        $this->_inventory = $inventory;
+        $this->_inventory = array();
     }
 
     /**
@@ -85,6 +85,6 @@ class Character
      */
     public function setInventory($inventory)
     {
-        $this->_inventory += $inventory;
+        array_push($this->_inventory,$inventory);
     }
 }
