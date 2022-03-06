@@ -1,6 +1,7 @@
 
 import {sceneOne as sceneOne} from "./startScene.js";
 import {swordPath as swordPath } from "./paths/swordPath.js";
+import {coinPath as coinPath } from "./paths/coinPath.js";
 import {SpecialOutcome} from "./classes/SpecialOutcome.js";
 import {dragon} from "./paths/specialScenes.js";
 
@@ -21,10 +22,10 @@ const globalStatBoosts = {"intelligence":0,"strength":0,"dexterity":0,"stamina":
 const itemMessage = document.getElementById('item-message');
 
 const armorPath = []; // just fake for testing purposes
-const coinPath = []; // just fake for testing purposes
 
-let sceneIndex = 0; // make thus a global variable
-                    //could make a different index for each potential path
+let swordIndex = 0;
+let coinIndex = 0;     // make thus a global variable
+                       //could make a different index for each potential path
 
 const getStats = () =>{
 
@@ -204,21 +205,40 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
     //TODO check if a stat item was used and pass the appropriate increased value ito this role
 
     let statTested = outcomes[index].getStatTested(); // the stat being tested in this instance
-    let currentStatLevel = playerStats[statTested]; // get level stored in player stats
+    let currentStatLevel;
+    if(statTested === 'coin') {
 
-    //add any stat-boosts that are in global array
-    currentStatLevel+= globalStatBoosts[statTested];
-    console.log(playerStats);
+        let items = inventoryList.children;
 
-    // console.log("statTested = " + statTested + "value = " + currentStatLevel);
+        for(let i = 0; i<items.length; i++){
 
-    // loop thru quick stats array. add 1 if potion used on correct stat
+            let split = items[i].id.toLowerCase().split(":");
+            if(split[0] === "coin"){
 
-    Object.keys(quickInc).forEach( (key) => {
-    if(quickInc[key] === true && statTested === key){
-        console.log("stat " + key + " increased by " + 1);
-            currentStatLevel++;
-    }});
+                currentStatLevel = split[1];
+            }
+        }
+
+    }else{ //check if a potion is used and this is not a coin challenge
+
+        currentStatLevel = playerStats[statTested]; // get level stored in player stats
+
+        //add any stat-boosts that are in global array
+        currentStatLevel += globalStatBoosts[statTested];
+        console.log(playerStats);
+
+        // console.log("statTested = " + statTested + "value = " + currentStatLevel);
+
+        // loop thru quick stats array. add 1 if potion used on correct stat
+
+        Object.keys(quickInc).forEach((key) => {
+            if (quickInc[key] === true && statTested === key) {
+                console.log("stat " + key + " increased by " + 1);
+                currentStatLevel++;
+            }
+        });
+
+    }
 
 
 
@@ -226,33 +246,55 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
         let reward = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getReward() : "";
 
-        //TODO AJAX REWARD
+
+        if(statTested === "coin"){ //then set the new coin level
+
+            coinDisplay.innerHTML = (currentStatLevel - outcomes[index].getStatsRoll()) + "\u{2124}";
+        }
+
+
       //  $('#scenario-text').load('reward.php',{item: reward});
         //console.log("NEW item = " + newItem);
         //$('#item-message').html(newItem);
 
+      //  <false><li id = "{{ get_class(@item) }}:{{@item->getQuantity()}}" >{{ @item->getName() }}:
+       //     {{ @item->getEffect() }}</li></false>
 
-        displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome()
-             + reward);//then player won the role
+        if(reward !== ""){
+            let item = document.createElement('li');
+            item.id = reward.getType(); //the item type
+            item.innerHTML = reward.getName() + " : " + reward.getEffect();
+            inventoryList.appendChild(item);
+
+            //TODO CLear List of weaker items of same type and replace with this one
+
+
+        }
+
+
+
+        displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome());//then player won the role
 
     } else{
 
-        //TODO AJAX PENALTY
 
         let penalty = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getPenalty() : "";
 
-        displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome()
-            + penalty);
+        //TODO how about the penalties are just a choice bewtween "Death", "Coin"(LOSS),"Item"(LOSS)
+
+
+
+        displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome());
     }
 
     let nextScene;
 
     switch (index){
-        case 0 : nextScene = swordPath[sceneIndex++];
+        case 0 : nextScene = swordPath[swordIndex++];
                  break;
         case 1 : nextScene = armorPath[sceneIndex++];
                  break;
-        case 2 : nextScene = coinPath[sceneIndex++];
+        case 2 : nextScene = coinPath[coinIndex++];
                  break
     }
 

@@ -64,7 +64,7 @@
                                             <li>{{ @item->getName() }}:
                                             {{ @item->getEffect() }}</li></a></true>
 
-                                        <false><li id = "{{ get_class(@item) }}" >{{ @item->getName() }}:
+                                        <false><li id = "{{ get_class(@item) }}:{{@item->getQuantity()}}" >{{ @item->getName() }}:
                                         {{ @item->getEffect() }}</li></false>
                                     </check>
                                 </repeat>
@@ -131,7 +131,7 @@
             <h6> Coin: <span id = "coin-display">
                 <repeat group="{{ @SESSION.character->getInventory() }}" value="{{ @item }}">
                     <check if="{{ @item->getName() === 'Zarlock' }}">
-                        <true>{{ @item->getQuantity() }}</true>
+                        <true>{{ @item->getQuantityDisplay() }}</true>
                         <false>0ℤ</false>
                     </check>
                 </repeat>

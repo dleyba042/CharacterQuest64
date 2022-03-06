@@ -36,6 +36,10 @@ export class Outcome {
         return this.#statTested;
     }
 
+    getStatsRoll(){
+        return this.#statsRole;
+    }
+
     rollVsPlayer(playerStat){ // this will decide a win lose role scenario, player stat is the stat
                               //being tested by this scenario, stats role is the strength level of comp
                               //stat that the player is being tested against.

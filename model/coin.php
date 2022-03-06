@@ -14,7 +14,7 @@ class Coin extends Item
         parent::setQuantity($quantity);
     }
 
-    function getQuantity()
+    function getQuantityDisplay()
     {
         return parent::getQuantity() . "\u{2124}";
     }
