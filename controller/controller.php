@@ -81,6 +81,9 @@ class Controller
                         $_SESSION['character']->setInventory($item);
                     }
                 }
+
+                //  $_SESSION['character']->setInventory(new SkeletonKey("Cool KEy"));//FOR TESTING PURPOSES
+
             } else {
                 $this->_f3->set('errors["item"]', 'Please choose an item');
             }

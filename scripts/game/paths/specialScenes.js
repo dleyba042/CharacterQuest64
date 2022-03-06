@@ -14,15 +14,15 @@ let picture1 = "images/dragon.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT I
 let outcomes1 = [new SpecialOutcome("Outcome 1.",
     "You fell the beast and craft a sword made from its scales",
     "Bad1.",2,
-    "strength",new Item("sword","Dragon Sword","Adds 6 Strength"), "Death"),
+    "strength",new Item("msword","Dragon Sword","Adds 6 Strength"), "Death"),
     new SpecialOutcome("Outcome 2.",
         "You make your escape and stumble upon a treasure chest containing Mythril Armor",
         "Bad 2.",2,"stamina",
-        new Item("armor","Mythril Armor","Adds 6 Stamina"),"Death"),
+        new Item("mshield","Mythril Armor","Adds 6 Stamina"),"Death"),
     new SpecialOutcome("Outcome 3.",
         "The Dragon leaves you be and your luck continues when you find a Pendant left behind...",
         "Bad 3.",2,"luck",
-        new Item("pendant","Dragon Pendant","Adds 6 Luck"),"Death")]
+        new Item("mpendant","Dragon Pendant","Adds 6 Luck"),"Death")]
 
 export let dragon = new Scenario(text1, choices1, picture1,outcomes1);
 

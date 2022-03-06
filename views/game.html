@@ -132,7 +132,6 @@
                 <repeat group="{{ @SESSION.character->getInventory() }}" value="{{ @item }}">
                     <check if="{{ @item->getName() === 'Zarlock' }}">
                         <true>{{ @item->getQuantityDisplay() }}</true>
-                        <false>0ℤ</false>
                     </check>
                 </repeat>
             </span></h6>

@@ -4,15 +4,13 @@ import {swordPath as swordPath } from "./paths/swordPath.js";
 import {coinPath as coinPath } from "./paths/coinPath.js";
 import {SpecialOutcome} from "./classes/SpecialOutcome.js";
 import {dragon} from "./paths/specialScenes.js";
-
+import{getStats} from "./functions/functions.js";
 
 const gameScreen = document.getElementById('game-screen');
 const scenarioText = document.getElementById('scenario-text');
 const contBtn = document.getElementById("cont-btn");
 const saveBtn = document.getElementById("save-btn");
 const inventoryList = document.getElementById('inventoryList');
-const statsList = document.getElementById('char-stats').children;
-//TODO add buttons to access the value in each stat once we fix php
 const coinDisplay = document.getElementById('coin-display');
 const btnA = document.getElementById('btn-a');
 const btnB = document.getElementById('btn-b');
@@ -27,59 +25,49 @@ let swordIndex = 0;
 let coinIndex = 0;     // make thus a global variable
                        //could make a different index for each potential path
 
-const getStats = () =>{
-
-    let stats = {}; //empty arr to fill with character stats
-
-    for(let i =0; i<statsList.length; i++) {
-
-       stats[statsList[i].id] = statsList[i].value;
-
-    }
-
-    return stats;
-
-}
 
 
+const playerStats = getStats(); // get the player stats and store them in a constant global dict.
 
-const addBoosts = () =>{
+
+const addBoosts = () =>{ //add boosts based on weapons in inventory
 
     let items = inventoryList.children;
 
     for(let i = 0; i<items.length; i++){
 
-        switch(items[i].id.toLowerCase()){
+        let split = items[i].id.toLowerCase().split(":");
 
-            case "sword" : document.getElementById("strength").innerHTML += ("(+3)");
-                           globalStatBoosts['strength'] = 3;
-                           break;
-            case "shield" : document.getElementById("stamina").innerHTML += ("(+3)");
-                           globalStatBoosts['stamina'] = 3;
+        switch(split[0]){
+
+            case "sword" :  updateStatText("strength",3);
+                            globalStatBoosts['strength'] = 3;
                             break;
-            case "book" : document.getElementById("intelligence").innerHTML += ("(+3)");
-                           globalStatBoosts['intelligence'] = 3;
-                             break;
-            case "ring" : document.getElementById("dexterity").innerHTML += ("(+3)");
-                           globalStatBoosts['dexterity'] = 3;
+            case "shield" : updateStatText("stamina",3);
+                            globalStatBoosts['stamina'] = 3;
                             break;
-            case "pendant" : document.getElementById("luck").innerHTML += ("(+3)");
-                           globalStatBoosts['luck'] = 3;
+            case "book" :   updateStatText("intelligence",3);
+                            globalStatBoosts['intelligence'] = 3;
+                            break;
+            case "ring" : updateStatText("dexterity",3);
+                            globalStatBoosts['dexterity'] = 3;
+                            break;
+            case "pendant" : updateStatText("luck",3);
+                            globalStatBoosts['luck'] = 3;
+                            break;
+            case "msword" : updateStatText("strength",6);
+                            globalStatBoosts['strength'] = 6;
+                            break;
+            case "mshield" : updateStatText("stamina",6);
+                            globalStatBoosts['stamina'] = 6;
+                            break;
+            case "mpendant" : updateStatText("luck",6);
+                            globalStatBoosts['luck'] = 6;
                             break;
 
         }
-
-
-
-
-
     }
-
 }
-
-const playerStats = getStats(); // get the player stats and store them in a constant gloabal dict.
-
-
 
 
 //MAIN PROGRAM START POINT
@@ -154,35 +142,6 @@ const displayScene = (scene) => {
 
 }
 
-const useItem = (button,str,usedAlready,statsInc) => {
-
-    //only use one item per turn
-    if(usedAlready){
-        return;
-    }
-
-    let statsArr = ["intelligence","strength","dexterity","stamina","luck"];
-
-
-   switch (str){
-                    //annoying was to set one of the stats in the statsIncreased are randomly
-       case "Potion": let stat = (Math.floor(Math.random() * 5));
-                      statsInc[statsArr[stat]]= true ;
-                      itemMessage.innerHTML = statsArr[stat] + " increased by one this turn!";
-                      usedAlready = true;
-                      break;
-
-       case "SkeletonKey": displayScene(dragon); // display special scene
-                            break;
-
-       default: break;
-   }
-
-   inventoryList.removeChild(button);
-
-
-
-}
 
 
 //to display text underneath picture
@@ -202,11 +161,10 @@ const displayScenarioChoices = (display,choices,index) => {
 //btn is the continue button being passed in to accept the event listener fo the next turn
 const buttonEvent = (outcomes,index,btn,quickInc) => {
 
-    //TODO check if a stat item was used and pass the appropriate increased value ito this role
 
     let statTested = outcomes[index].getStatTested(); // the stat being tested in this instance
     let currentStatLevel;
-    if(statTested === 'coin') {
+    if(statTested === 'coin') { //then we are testing money and not a stat
 
         let items = inventoryList.children;
 
@@ -225,18 +183,17 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
         //add any stat-boosts that are in global array
         currentStatLevel += globalStatBoosts[statTested];
-        console.log(playerStats);
 
-        // console.log("statTested = " + statTested + "value = " + currentStatLevel);
 
         // loop thru quick stats array. add 1 if potion used on correct stat
-
         Object.keys(quickInc).forEach((key) => {
             if (quickInc[key] === true && statTested === key) {
                 console.log("stat " + key + " increased by " + 1);
                 currentStatLevel++;
             }
         });
+
+       // console.log("STat with BOOSTS=" + currentStatLevel);//to test that our boosts are actually working
 
     }
 
@@ -253,20 +210,27 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
         }
 
 
-      //  $('#scenario-text').load('reward.php',{item: reward});
-        //console.log("NEW item = " + newItem);
-        //$('#item-message').html(newItem);
+        if(reward !== ""){ //then we add the new item to the inventory
 
-      //  <false><li id = "{{ get_class(@item) }}:{{@item->getQuantity()}}" >{{ @item->getName() }}:
-       //     {{ @item->getEffect() }}</li></false>
-
-        if(reward !== ""){
             let item = document.createElement('li');
             item.id = reward.getType(); //the item type
             item.innerHTML = reward.getName() + " : " + reward.getEffect();
-            inventoryList.appendChild(item);
 
-            //TODO CLear List of weaker items of same type and replace with this one
+
+            //clear list of a weaker item if present
+            //TODO could pass type to function  so this is less cluttered
+            switch (reward.getType()) {
+
+                case "msword": removeItem("sword");
+                               break;
+                case "mshield": removeItem("shield");
+                                break;
+                case "mpendant": removeItem("pendant");
+                               break;
+
+            }
+
+            inventoryList.appendChild(item);
 
 
         }
@@ -312,13 +276,70 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
 
 
+const useItem = (button,str,usedAlready,statsInc) => {
+
+    //only use one item per turn
+    if(usedAlready){
+        return;
+    }
+
+    let statsArr = ["intelligence","strength","dexterity","stamina","luck"];
+
+
+    switch (str){
+        //annoying was to set one of the stats in the statsIncreased are randomly
+        case "Potion": let stat = (Math.floor(Math.random() * 5));
+            statsInc[statsArr[stat]]= true ;
+            itemMessage.innerHTML = statsArr[stat] + " increased by one this turn!";
+            usedAlready = true;
+            break;
+
+        case "SkeletonKey": displayScene(dragon); // display special scene
+            break;
+
+        default: break;
+    }
+
+    inventoryList.removeChild(button);
+
+
+
+}
+
+
+
+//for replacing an old item with a better one
+const removeItem = (itemType) => {
+
+    let items = inventoryList.children;
+
+    for(let i = 0; i<items.length; i++){
+
+        let split = items[i].id.toLowerCase().split(":");
+
+        if(split[0] === itemType){
+            inventoryList.removeChild(items[i]);
+        }
+
+
+    }
+}
+
+
+//this is neccesary to avoid appending a bunch of text to end of string
+const updateStatText = (stat,newAmount) => {
+
+    let currentLevel = playerStats[stat];
+
+    document.getElementById(stat).innerHTML =  stat[0].toUpperCase() + stat.substring(1) + " : " + currentLevel + "(+" + newAmount +")";
+
+
+}
+
+
 
 //TODO START MAKING MORE SCENES COULD ADD A NEXT SCENE FIELD TO THE BUTTON EVENT LISTENERS
 //TODO TO TAKE THEM ON A SPECIFIC PATH DEPENDING ON THE BUTTON
-
-
-
-
 
 
 //What we could do is load an array of scenario objects, and grab them at random as long as
