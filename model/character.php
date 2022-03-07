@@ -1,31 +1,30 @@
 <?php
 
 /**
- *
+ * Class Character represents the player's character and all of their attributes.
  */
 class Character
 {
-    private $_name;
-    private $_race;
-    private $_stats;
-    private $_inventory;
+    private $_name, $_race, $_stats, $_inventory;
 
     /**
-     * @param $name
-     * @param $race
-     * @param $stats
-     * @param $inventory
+     * Default/Parameterized constructor for the player's character.
+     * @param string $name the name of this character
+     * @param string $race the race of this character
+     * @param array $stats the stats of this character
+     * @param array $inventory the inventory of this character
      */
-    function __construct($name = "", $race = "", $stats = "", $inventory = "")
+    function __construct($name = "", $race = "", $stats = "", $inventory = array())
     {
         $this->_name = $name;
         $this->_race = $race;
         $this->_stats = $stats;
-        $this->_inventory = array();
+        $this->_inventory = $inventory;
     }
 
     /**
-     * @return mixed
+     * Gets the character's name.
+     * @return string the name
      */
     public function getName()
     {
@@ -33,7 +32,8 @@ class Character
     }
 
     /**
-     * @param mixed $name
+     * Sets the character's name.
+     * @param string $name
      */
     public function setName($name)
     {
@@ -41,7 +41,8 @@ class Character
     }
 
     /**
-     * @return mixed
+     * Gets the character's race.
+     * @return string the race
      */
     public function getRace()
     {
@@ -49,7 +50,8 @@ class Character
     }
 
     /**
-     * @param mixed $race
+     * Sets the character's race.
+     * @param string $race the race
      */
     public function setRace($race)
     {
@@ -57,7 +59,8 @@ class Character
     }
 
     /**
-     * @return mixed
+     * Gets the character's stats.
+     * @return array the stats
      */
     public function getStats()
     {
@@ -65,7 +68,8 @@ class Character
     }
 
     /**
-     * @param mixed $stats
+     * Sets the character's stats.
+     * @param array $stats the stats
      */
     public function setStats($stats)
     {
@@ -73,7 +77,8 @@ class Character
     }
 
     /**
-     * @return mixed
+     * Gets the character's inventory.
+     * @return array the inventory
      */
     public function getInventory()
     {
@@ -81,10 +86,11 @@ class Character
     }
 
     /**
-     * @param mixed $inventory
+     * Sets the character's inventory.
+     * @param array $inventory the inventory
      */
     public function setInventory($inventory)
     {
-        array_push($this->_inventory,$inventory);
+        $this->_inventory[] = $inventory;
     }
 }

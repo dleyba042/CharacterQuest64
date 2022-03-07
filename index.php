@@ -4,17 +4,15 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-
-
 //require autoload file
 require_once ('vendor/autoload.php');
 //start the session
 session_start();
 
-//create an instance of the Base class
+//create an instance of the base, controller, & datalayer class
 $f3 = Base::instance();
 $controller = new Controller($f3);
-
+$dataLayer = new DataLayer();
 
 //define a default root
 $f3->route("GET /", function(){
@@ -24,14 +22,10 @@ $f3->route("GET /", function(){
 //define character route
 $f3->route("GET|POST /character", function(){
     $GLOBALS['controller']->character();
-
-
-
 });
 
 //define game route
 $f3->route("GET|POST /game", function(){
-
     $GLOBALS['controller']->game();
 });
 

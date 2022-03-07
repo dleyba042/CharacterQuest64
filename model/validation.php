@@ -1,7 +1,7 @@
 <?php
 
 /**
- *
+ * Class Validation validates any user data.
  */
 class Validation
 {

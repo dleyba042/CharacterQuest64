@@ -1,16 +1,16 @@
 <?php
 
 /**
- *
+ * Class Ring represents a ring item that can be used by the player in-game.
  */
 class Ring extends Item
 {
     /**
-     * @param $name
+     * Default/Parameterized constructor for the ring item.
+     * @param string $name the name of this ring, defaults to "ring" if not set
      */
-    function __construct($name)
+    function __construct($name = "ring")
     {
-        parent::__construct($name,"$name: enables +3 dexterity boost while equipped");
+        parent::__construct($name,"+3 dexterity boost while equipped");
     }
-
 }

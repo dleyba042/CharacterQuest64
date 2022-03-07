@@ -1,7 +1,7 @@
 <?php
 
 /**
- *
+ * Class DataLayer accesses data needed for Character Quest 64.
  */
 class DataLayer
 {

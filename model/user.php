@@ -1,28 +1,26 @@
 <?php
 
 /**
- *
+ * Class User represents a user's account that ties to their character(s).
  */
 class User
 {
-    private $_email;
-    private $_password;
-    private $_character;
+    private $_email, $_password;
 
     /**
-     * @param $email
-     * @param $password
-     * @param $character
+     * Default/Parameterized constructor for the user's account.
+     * @param string $email the user's email
+     * @param string $password the user's password
      */
-    function __construct($email, $password, $character)
+    function __construct($email, $password)
     {
         $this->_email = $email;
         $this->_password = $password;
-        $this->_character = $character;
     }
 
     /**
-     * @return mixed
+     * Gets the user's email.
+     * @return string the user's email
      */
     public function getEmail()
     {
@@ -30,7 +28,8 @@ class User
     }
 
     /**
-     * @param mixed $email
+     * Sets the user's email.
+     * @param string $email the user's email
      */
     public function setEmail($email)
     {
@@ -38,7 +37,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the user's password.
+     * @return string the user's password
      */
     public function getPassword()
     {
@@ -46,26 +46,11 @@ class User
     }
 
     /**
-     * @param mixed $password
+     * Sets the user's password.
+     * @param string $password the user's password
      */
     public function setPassword($password)
     {
         $this->_password = $password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCharacter()
-    {
-        return $this->_character;
-    }
-
-    /**
-     * @param mixed $character
-     */
-    public function setCharacter($character)
-    {
-        $this->_character = $character;
     }
 }

@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="styles/shared.css">
 
     <title>Character Quest 64</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/jpg" href="images/potion.png"/>
 </head>
 <body>
 <include href="views/header.html"></include>
@@ -26,7 +29,7 @@
 <main class="container-fluid">
     <div class="row justify-content-around">
 
-        <form class="col-12 col-md-10 mt-3 p-4 align-self-center" action="#" method="post">
+        <form class="col-12 col-md-10 mt-3 p-4 align-self-center" action="#" method="post" id="character-form">
 
             <h1 class="text-center mb-4">Character Sheet</h1>
 
@@ -36,6 +39,7 @@
                 <div class="col-8">
                     <input class="form-control text-center" type="text" name="name" id="name" value="<check if='{{ isset(@name) }}'>{{ @name }}</check>">
                 </div>
+                <span class="error mx-auto" id="err-name"><strong>Please only use letters, hyphens, or spaces (30 character limit)</strong></span>
 
                 <!-- Display an error if there is one -->
                 <check if="{{ isset(@errors['name']) }}">
@@ -63,6 +67,7 @@
                                     <option value="{{ @race }}" <check if='{{ @race == @userRace }}'>selected</check>>{{ ucfirst(@race) }}</option>
                                 </repeat>
                             </select>
+                            <span class="error text-center" id="err-race"><strong>Please choose a race</strong></span>
 
                             <!-- Display an error if there is one -->
                             <check if="{{ isset(@errors['race']) }}">
@@ -90,6 +95,7 @@
                             </check>
                         </div><!-- Stats Form Group -->
                     </repeat>
+                    <span class="error col-6 offset-4 text-center mt-3" id="err-stats"><strong>Please roll for each stat</strong></span>
                 </div><!-- Left Column -->
 
                 <!-- Right Column -->
@@ -102,11 +108,19 @@
 
                         <div class="pl-0 pl-md-5 text-center text-md-left">
                             <repeat group="{{ @items }}" value="{{ @item }}" counter="{{ @ctr }}">
-                                <label class="mb-3 pb-2"><input type="radio" name="item" value="{{ @item }}"
-                                    <check if='{{ @item == @userItem }}'>checked</check>><strong class="ml-3">{{ ucwords(@item) }}</strong></label>
+                                <label class="mb-3 pb-2"><input class="item" type="radio" name="item" value="{{ @item }}"
+                                    <check if='{{ @item == @userItem }}'>checked</check>>
+                                    <strong class="ml-3">
+                                        <check if="get_class(@item) == 'Coin'">
+                                            <true>{{ ucwords(@item->__toString()) }}</true>
+                                            <false>{{ substr(ucwords(@item->__toString()), 0, -15) }}</false>
+                                        </check>
+                                    </strong>
+                                </label>
                                 <check if="{{ @ctr != count(@items) }}"><br></check>
                             </repeat>
                         </div>
+                        <span class="error text-center" id="err-item"><strong>Please choose an item</strong></span>
 
                         <!-- Display an error if there is one -->
                         <check if="{{ isset(@errors['item']) }}">
@@ -118,22 +132,22 @@
                 <!-- Submit Button -->
                 <div class="col-12 mt-md-4 text-center">
                     <check if="{{ isset(@name) && empty(@errors) }}">
-                        <true><button class="btn" id="character-creator" type="button" data-toggle="modal" data-target="#charactermodal">Create Character</button></true>
+                        <true><button class="btn" id="modal-button" type="button" data-toggle="modal" data-target="#character-modal" hidden>Create Character</button></true>
                         <false><button class="btn" id="character-creator" type="submit">Create Character</button></false>
                     </check>
                 </div><!-- Submit Button -->
 
-                <div class="modal fade" id="charactermodal">
+                <div class="modal fade" id="character-modal">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content text-center">
                             <div class="modal-header">
-                                <h5 class="modal-title">{{ ucwords(@name) }} | {{ ucfirst(@userRace) }}</h5>
+                                <h5 class="modal-title">{{ ucwords(@character->getName()) }} | {{ ucfirst(@character->getRace()) }}</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div><!-- Modal Header -->
                             <div class="modal-body">
-                                <repeat group="{{ @stats }}" key="{{ @key }}" value="{{ @value }}">
+                                <repeat group="{{ @character->getStats() }}" key="{{ @key }}" value="{{ @value }}">
                                     <span><strong>{{ @key }}:</strong> {{ @value }}</span><br>
                                 </repeat>
                                 <br>
@@ -155,6 +169,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="scripts/character.js"></script>
+<script src="//code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="scripts/character.js"></script>
 </body>
 </html>

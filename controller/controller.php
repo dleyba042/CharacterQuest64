@@ -1,13 +1,14 @@
 <?php
 
 /**
- *
+ * Class Controller controls user requests, gets data from the model, and returns views.
  */
 class Controller
 {
     private $_f3;
 
     /**
+     * Parameterized constructor for the controller object.
      * @param $f3
      */
     function __construct($f3)
@@ -16,6 +17,7 @@ class Controller
     }
 
     /**
+     * Homepage logic and routing.
      * @return void
      */
     function home()
@@ -25,11 +27,12 @@ class Controller
     }
 
     /**
+     * Character page logic and routing.
      * @return void
      */
     function character()
     {
-         $database= new Database();
+        $database= new Database();
 
         //Initialize to get stat names for the form
         $stats = DataLayer::getStats();
@@ -37,7 +40,6 @@ class Controller
 
         //If the form has been posted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
 
             $_SESSION['character'] = new Character();
 
@@ -76,13 +78,12 @@ class Controller
             if (Validation::validItem($item)) {
                 foreach ($items as $value) {
                     if($value->__toString() == $item) {
-
                         $item = $value;
-                        $_SESSION['character']->setInventory($item);
+                        $_SESSION['character']->setInventory(array($item));
                     }
                 }
 
-                //  $_SESSION['character']->setInventory(new SkeletonKey("Cool KEy"));//FOR TESTING PURPOSES
+                // $_SESSION['character']->setInventory(new SkeletonKey("Cool KEy"));//FOR TESTING PURPOSES
 
             } else {
                 $this->_f3->set('errors["item"]', 'Please choose an item');
@@ -90,7 +91,7 @@ class Controller
 
             if (isset($_POST['start']) && empty($this->_f3->get('errors'))) {
                 $charID = $database->setCharacter($_SESSION['character']);
-                $database->setInventory($charID,$item);
+                $database->setInventory($charID, $item);
                 $this->_f3->reroute('game');
             }
         }
@@ -109,16 +110,14 @@ class Controller
     }
 
     /**
+     * Game page logic and routing.
      * @return void
      */
     function game()
     {
-
-
         $this->_f3->set('name', $this->_f3->get('SESSION.name'));
         $this->_f3->set('userRace', $this->_f3->get('SESSION.race'));
         $this->_f3->set('userStats', DataLayer::getStats());
-
 
         $view = new Template();
         echo $view->render('views/game.html');

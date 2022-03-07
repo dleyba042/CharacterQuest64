@@ -49,7 +49,7 @@ select#race option:disabled {
     border: none;
 }
 
-.stat {
+.stat, #name, #traits-header, #item-header {
     padding-bottom: 0;
     font-size: 110%;
     font-weight: 1000;
@@ -59,8 +59,12 @@ select#race option:disabled {
     color: #861657;
 }
 
-.err {
+.err, .error {
     color: #9d0208;
+}
+
+.error {
+    display: none;
 }
 
 #item-header {
