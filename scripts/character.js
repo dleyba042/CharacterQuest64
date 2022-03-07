@@ -1,3 +1,6 @@
+// Validates that information entered is in correct format when submitted
+document.getElementById("character-form").onsubmit = validate;
+
 let dice = document.getElementsByClassName('dice');
 let raceStats = [
     {
@@ -87,4 +90,59 @@ function roll(dice) {
 
     // assigns the dices value (1-10) + race modifiers to the stat
     document.getElementById(statName).value = Math.floor(Math.random() * 10) + parseInt(modifier) + 1;
+}
+
+function validate() {
+    let isValid = true;
+
+    clearErrors();
+
+    // Validate name
+    let name = document.getElementById("name").value;
+    let namePattern = /^[a-zA-Z- ]{2,30}$/;
+    if(name === "" || !namePattern.test(name)) {
+        document.getElementById("err-name").style.display = "block";
+        isValid = false;
+    }
+
+    // Validate race
+    let races = ["beastman", "dwarf", "elf", "human", "orc", "vampire"];
+    let race = document.getElementById("race").value;
+    if(!races.includes(race)) {
+        document.getElementById("err-race").style.display = "block";
+        isValid = false;
+    }
+
+    // Validate stats
+    let stats = document.getElementsByClassName("stat");
+    let statPattern = /^[0-9]{1,2}$/;
+    for (let i = 0; i < stats.length; i++) {
+        if(!statPattern.test(stats[i].value) || stats[i].value === "") {
+            document.getElementById("err-stats").style.display = "block";
+            isValid = false;
+        }
+    }
+
+    // Validate item
+    let items = document.getElementsByClassName("item");
+    let counter = 0;
+    for (let i = 0; i < items.length; i++) {
+        if(items[i].checked) {
+            counter ++;
+        }
+    }
+    if(counter === 0) {
+        document.getElementById("err-item").style.display = "block";
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function clearErrors() {
+    // Clear all error messages
+    let errors = document.getElementsByClassName("error");
+    for (let i = 0; i < errors.length; i++) {
+        errors[i].style.display = "none";
+    }
 }
