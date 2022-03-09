@@ -12,14 +12,13 @@ class Character
      * @param string $name the name of this character
      * @param string $race the race of this character
      * @param array $stats the stats of this character
-     * @param array $inventory the inventory of this character
      */
-    function __construct($name = "", $race = "", $stats = "", $inventory = array())
+    function __construct($name = "", $race = "", $stats = "")
     {
         $this->_name = $name;
         $this->_race = $race;
         $this->_stats = $stats;
-        $this->_inventory = $inventory;
+        $this->_inventory = array();
     }
 
     /**
@@ -87,7 +86,7 @@ class Character
 
     /**
      * Sets the character's inventory.
-     * @param array $inventory the inventory
+     * @param Item $inventory the inventory
      */
     public function setInventory($inventory)
     {

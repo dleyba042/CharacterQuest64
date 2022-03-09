@@ -79,7 +79,7 @@ class Controller
                 foreach ($items as $value) {
                     if($value->__toString() == $item) {
                         $item = $value;
-                        $_SESSION['character']->setInventory(array($item));
+                        $_SESSION['character']->setInventory($item);
                     }
                 }
 
@@ -89,10 +89,12 @@ class Controller
                 $this->_f3->set('errors["item"]', 'Please choose an item');
             }
 
-            if (isset($_POST['start']) && empty($this->_f3->get('errors'))) {
+            if (empty($this->_f3->get('errors'))) {
                 $charID = $database->setCharacter($_SESSION['character']);
                 $database->setInventory($charID, $item);
-                $this->_f3->reroute('game');
+                if (isset($_POST['start'])) {
+                    $this->_f3->reroute('game');
+                }
             }
         }
 

@@ -131,23 +131,21 @@
 
                 <!-- Submit Button -->
                 <div class="col-12 mt-md-4 text-center">
-                    <check if="{{ isset(@name) && empty(@errors) }}">
-                        <true><button class="btn" id="modal-button" type="button" data-toggle="modal" data-target="#character-modal" hidden>Create Character</button></true>
-                        <false><button class="btn" id="character-creator" type="submit">Create Character</button></false>
-                    </check>
+                    <button class="btn" id="modal-button" type="button" data-toggle="modal" data-target="#character-modal" hidden>Create Character</button>
+                    <button class="btn" id="character-creator" type="submit">Create Character</button>
                 </div><!-- Submit Button -->
 
                 <div class="modal fade" id="character-modal">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content text-center">
                             <div class="modal-header">
-                                <h5 class="modal-title">{{ ucwords(@character->getName()) }} | {{ ucfirst(@character->getRace()) }}</h5>
+                                <h5 class="modal-title">{{ ucwords(@name) }} | {{ ucfirst(@userRace) }}</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div><!-- Modal Header -->
                             <div class="modal-body">
-                                <repeat group="{{ @character->getStats() }}" key="{{ @key }}" value="{{ @value }}">
+                                <repeat group="{{ @stats }}" key="{{ @key }}" value="{{ @value }}">
                                     <span><strong>{{ @key }}:</strong> {{ @value }}</span><br>
                                 </repeat>
                                 <br>
@@ -170,6 +168,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="//code.jquery.com/jquery.js"></script>
-<script src="scripts/character.js"></script>
+<script src="scripts/character/character.js"></script>
+<check if="{{ isset(@name) && empty(@errors) }}"><script src="scripts/character/ajax.js"></script></check>
 </body>
 </html>
