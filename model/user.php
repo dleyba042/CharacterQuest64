@@ -5,35 +5,35 @@
  */
 class User
 {
-    private $_email, $_password;
+    private $_username, $_password;
 
     /**
      * Default/Parameterized constructor for the user's account.
-     * @param string $email the user's email
+     * @param string $username the user's username
      * @param string $password the user's password
      */
-    function __construct($email, $password)
+    function __construct($username = "", $password = "")
     {
-        $this->_email = $email;
+        $this->_username = $username;
         $this->_password = $password;
     }
 
     /**
-     * Gets the user's email.
-     * @return string the user's email
+     * Gets the user's username.
+     * @return string the user's username
      */
-    public function getEmail()
+    public function getUsername()
     {
-        return $this->_email;
+        return $this->_username;
     }
 
     /**
-     * Sets the user's email.
-     * @param string $email the user's email
+     * Sets the user's username.
+     * @param string $username the user's username
      */
-    public function setEmail($email)
+    public function setUsername($username)
     {
-        $this->_email = $email;
+        $this->_username = $username;
     }
 
     /**

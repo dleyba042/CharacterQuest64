@@ -15,7 +15,7 @@ $controller = new Controller($f3);
 $dataLayer = new DataLayer();
 
 //define a default root
-$f3->route("GET /", function(){
+$f3->route("GET|POST /", function(){
     $GLOBALS['controller']->home();
 });
 
@@ -27,6 +27,11 @@ $f3->route("GET|POST /character", function(){
 //define game route
 $f3->route("GET|POST /game", function(){
     $GLOBALS['controller']->game();
+});
+
+//define logout route
+$f3->route("GET|POST /logout", function(){
+    $GLOBALS['controller']->logout();
 });
 
 //run fat free

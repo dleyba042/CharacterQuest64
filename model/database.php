@@ -23,6 +23,50 @@ class Database
         }
     }
 
+    function addUser($user)
+    {
+        //1. Define the query
+        $sql = "INSERT INTO `users`(username, password) VALUES (:username, :password)";
+
+        //2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $username = $user->getUsername();
+        $password = $user->getPassword();
+
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':password', $password);
+
+        //4. Execute the query
+        $statement->execute();
+
+        //5. Process the results (get the primary key)
+        return $this->_dbh->lastInsertId();
+    }
+
+    function getUser($username)
+    {
+        //1. Define the query
+        $sql = "SELECT * from `users` WHERE username = :username ";
+
+        //2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $statement->bindParam(":username",$username);
+
+        //4. Execute the query
+        $statement->execute();
+
+        //5. Process the results
+        if($statement->rowCount() == 1) {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Sets the character and it's attributes in the character table in the database.
      * @param Object $character the character being added

@@ -138,23 +138,24 @@
                 <div class="modal fade" id="character-modal">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content text-center">
+
                             <div class="modal-header">
-                                <h5 class="modal-title">{{ ucwords(@name) }} | {{ ucfirst(@userRace) }}</h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <h4 class="modal-title mx-auto my-auto pl-4">{{ ucwords(@name) }} | {{ ucfirst(@userRace) }}</h4>
+                                <button class="modal-button close-button" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div><!-- Modal Header -->
+
                             <div class="modal-body">
                                 <repeat group="{{ @stats }}" key="{{ @key }}" value="{{ @value }}">
                                     <span><strong>{{ @key }}:</strong> {{ @value }}</span><br>
                                 </repeat>
                                 <br>
-                                <span class="text-decoration-underline"><strong>Starting Item</strong></span><br>
-                                <span>{{ @userItem }}</span>
+                                <span><u><strong>Starting Item</strong></u></span><br>
+                                <span>{{ @userItem }}</span><br>
+
+                                <button class="btn modal-button mt-3" id="start-journey" type="submit" name="start">Start Journey</button>
                             </div><!-- Modal Body -->
-                            <div class="modal-footer">
-                                <button class="btn" id="start-journey" type="submit" name="start">Start Journey</button>
-                            </div><!-- Modal Footer -->
                         </div><!-- Modal Content -->
                     </div><!-- Modal Dialog -->
                 </div><!-- Modal Fade -->

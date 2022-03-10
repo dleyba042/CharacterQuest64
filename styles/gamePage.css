@@ -28,7 +28,7 @@ h6,span{
 
 
 .btn{
-    color:black !important;
+    color:black;
     background-color:teal;
     border:2px solid black;
     font-weight: bold;

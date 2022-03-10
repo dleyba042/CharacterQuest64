@@ -5,6 +5,20 @@
  */
 class Validation
 {
+
+    static function validUsername($username)
+    {
+        //TODO: make regex for username, return true if match else false
+        return true;
+    }
+
+
+    static function validPassword($password)
+    {
+        //TODO: make regex for password, return true if match else false
+        return true;
+    }
+
     /**
      * Validates user's input for name, checks that the string is all alphabetic.
      * @param string $name the character's name

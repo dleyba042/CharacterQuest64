@@ -11,24 +11,141 @@
         <!-- Collapse Content -->
         <div class="collapse navbar-collapse justify-content-end" id="togglerNav">
             <ul class="navbar-nav text-center">
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="character"><i class="fa-solid fa-user-plus"></i> Create A Profile</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="game"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</a>
-                </li>
-                <li class="nav-item dropdown mx-2">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right mt-3 text-center" aria-labelledby="navbarDropdownMenuLink">
-                        <!-- Add these via repeat tag with sign in/out being dynamic -->
-                        <a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
-                        <a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a>
-                        <a class="dropdown-item" href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a>
-                    </div>
-                </li>
+                <check if="{{ empty(@loggedIn) }}">
+                    <li class="nav-item px-2">
+                        <button class="btn nav-link" type="button" data-toggle="modal" data-target="#create-a-profile"><i class="fa-solid fa-user-plus"></i> Create A Profile</button>
+                    </li>
+                    <li class="nav-item px-2">
+                        <button class="btn nav-link" type="button" data-toggle="modal" data-target="#login-modal"><i class="fa-solid fa-arrow-right-to-bracket"></i> Log In</button>
+                    </li>
+                </check>
+                <check if="{{ @loggedIn }}">
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-regular fa-circle-user"></i>
+                        </a>
+                        <!-- TODO: Set profile & settings eventually -->
+                        <div class="dropdown-menu dropdown-menu-right mt-3 text-center" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <a class="dropdown-item" href="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a>
+                        </div>
+                    </li>
+                </check>
             </ul>
         </div>
     </nav>
+
+    <!-- Create A Profile -->
+    <!-- TODO: Make repeat for modals -->
+    <div class="modal fade"  role="dialog" id="create-a-profile">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <h4 class="modal-title mx-auto my-auto pl-4">Create A Profile</h4>
+                    <button class="close-button modal-button" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div><!-- Modal Header -->
+                <div class="modal-body">
+                    <form action="#" method="post" id="signup-form">
+                        <fieldset class="form-group border mx-auto mb-0">
+                            <div class="mx-auto px-3 form-entry-fields">
+
+                                <div class="form-group text-left">
+                                    <label for="create-username">Username</label>
+                                    <input type="text" class="form-control" id="create-username" name="create-username">
+                                </div>
+
+                                <!-- Display an error if there is one -->
+                                <check if="{{ isset(@errors['create-username']) }}">
+                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["create-username"] }}</strong></span>
+                                </check>
+
+                                <div class="form-group text-left">
+                                    <label for="create-password">Password</label>
+                                    <input type="password" class="form-control" id="create-password" name="create-password">
+                                </div>
+
+                                <!-- Display an error if there is one -->
+                                <check if="{{ isset(@errors['create-password']) }}">
+                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["create-password"] }}</strong></span>
+                                </check>
+
+                                <div class="form-group text-left">
+                                    <label for="confirm-password">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password">
+                                </div>
+
+                                <!-- Display an error if there is one -->
+                                <check if="{{ isset(@errors['confirm-password']) }}">
+                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["confirm-password"] }}</strong></span>
+                                </check>
+                            </div>
+
+                            <button class="btn modal-button" name="signup" type="submit">Sign Up</button>
+                        </fieldset>
+
+                        <!-- Display an error if there is one -->
+                        <check if="{{ isset(@errors['user-exists']) }}">
+                            <span class="err d-flex justify-content-center"><strong>{{ @errors["user-exists"] }}</strong></span>
+                        </check>
+                    </form>
+                </div><!-- Modal Body -->
+            </div><!-- Modal Content -->
+        </div><!-- Modal Dialog -->
+    </div><!-- Modal Fade -->
+
+    <!-- Log In Modal -->
+    <div class="modal fade" id="login-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title mx-auto my-auto pl-4">Log in to Character Quest 64</h4>
+                    <button class="close-button modal-button" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div><!-- Modal Header -->
+                <div class="modal-body">
+                    <form action="#" method="post">
+                        <fieldset class="form-group border mx-auto mb-0">
+                            <div class="mx-auto px-3 form-entry-fields">
+
+                                <div class="form-group text-left">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username">
+                                </div>
+
+                                <!-- Display an error if there is one -->
+                                <check if="{{ isset(@errors['username']) }}">
+                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["username"] }}</strong></span>
+                                </check>
+
+                                <div class="form-group text-left mb-0">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password">
+                                </div>
+                                <!-- Display an error if there is one -->
+                                <check if="{{ isset(@errors['password']) }}">
+                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["password"] }}</strong></span>
+                                </check>
+
+                                <!-- TODO: Get this working eventually -->
+                                <a class="mr-auto" id="login-trouble" href="#">Trouble logging in?</a>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn modal-button" name="login" type="submit">Log In</button>
+                            </div>
+                        </fieldset>
+
+                        <!-- Display an error if there is one -->
+                        <check if="{{ isset(@errors['user']) }}">
+                            <span class="err d-flex justify-content-center"><strong>{{ @errors["user"] }}</strong></span>
+                        </check>
+                    </form>
+                </div><!-- Modal Body -->
+            </div><!-- Modal Content -->
+        </div><!-- Modal Dialog -->
+    </div><!-- Modal Fade -->
 </header>

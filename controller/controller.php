@@ -22,6 +22,83 @@ class Controller
      */
     function home()
     {
+        //If the form has been posted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $database = new Database();
+
+            //If sign-up form submitted
+            if (isset($_POST["signup"])) {
+
+                $_SESSION["user"] = new User();
+
+                $username = $_POST["create-username"];
+                $password = $_POST["create-password"];
+                $confirm = $_POST["confirm-password"];
+
+                // No prior user with the same username in the database
+                if ($database->getUser($username) == null) {
+
+                    //Validate the user's username
+                    if (Validation::validUsername($username)) {
+                        $_SESSION["user"]->setUsername($username);
+                    } else {
+                        $this->_f3->set('errors["create-username"]', 'Please only use letters, numbers, or hyphens (30 character limit)');
+                    }
+
+                    //Validate the user's password
+                    if (Validation::validPassword($password)) {
+                        $_SESSION["user"]->setPassword(password_hash($password, PASSWORD_DEFAULT));
+                    } else {
+                        $this->_f3->set('errors["create-password"]', 'Please only use letters, numbers, 
+                    or a following special character (!, @, #, ?) (must be over 8 characters)');
+                    }
+
+                    //Validate the user's password & it's confirmation match
+                    if (strcmp($password, $confirm) != 0) {
+                        $this->_f3->set('errors["confirm-password"]', 'Please match the password you used above.');
+                    }
+                } else {
+                    $this->_f3->set('errors["user-exists"]', 'User already exists, please choose another username.');
+                }
+
+                if (empty($this->_f3->get("errors"))) {
+                    $_SESSION["userid"] = $database->addUser($_SESSION['user']);
+                    $_SESSION["loggedIn"] = true;
+                    $this->_f3->reroute("character");
+                }
+            }
+
+            //If log-in form submitted
+            if (isset($_POST["login"])) {
+                $username = $_POST["username"];
+                $password = $_POST["password"];
+                $user = $database->getUser($username);
+
+                //If user found
+                if ($user != null) {
+                    if (strcmp($username, $user["username"]) != 0) {
+                        $this->_f3->set('errors["username"]', 'Invalid username, please try again.');
+                    }
+
+                    if (!password_verify($password, $user["password"])) {
+                        $this->_f3->set('errors["password"]', 'Invalid password, please try again.');
+                    }
+                } else {
+                    $this->_f3->set('errors["user"]', 'User does not exist.');
+                }
+
+                if (empty($this->_f3->get("errors"))) {
+                    $_SESSION["userid"] = $user["user_id"];
+                    $_SESSION["loggedIn"] = true;
+                    $this->_f3->reroute("character");
+                }
+            }
+        }
+
+        //Adds data to F3 hive
+        $this->_f3->set('loggedIn', $_SESSION["loggedIn"]);
+
         $view = new Template();
         echo $view->render('views/landing.html');
     }
@@ -32,7 +109,12 @@ class Controller
      */
     function character()
     {
-        $database= new Database();
+        //If not logged in, return to landing page
+        if(empty($_SESSION["loggedIn"])) {
+            $this->_f3->reroute('/');
+        }
+
+        $database = new Database();
 
         //Initialize to get stat names for the form
         $stats = DataLayer::getStats();
@@ -55,7 +137,7 @@ class Controller
 
             //Validate the character's name
             if (Validation::validName($name)) {
-               $_SESSION['character']->setName($name);
+                $_SESSION['character']->setName($name);
             } else {
                 $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, or spaces (30 character limit)');
             }
@@ -77,7 +159,7 @@ class Controller
             //Validate the character's starting item
             if (Validation::validItem($item)) {
                 foreach ($items as $value) {
-                    if($value->__toString() == $item) {
+                    if ($value->__toString() == $item) {
                         $item = $value;
                         $_SESSION['character']->setInventory($item);
                     }
@@ -106,6 +188,7 @@ class Controller
         $this->_f3->set('items', $items);
         $this->_f3->set('userItem', $item);
         $this->_f3->set('start', $start);
+        $this->_f3->set('loggedIn', $_SESSION["loggedIn"]);
 
         $view = new Template();
         echo $view->render('views/character.html');
@@ -117,11 +200,30 @@ class Controller
      */
     function game()
     {
+        //If not logged in, return to landing page
+        if(empty($_SESSION["loggedIn"])) {
+            $this->_f3->reroute('/');
+        }
+
+        //Adds data to F3 hive
         $this->_f3->set('name', $this->_f3->get('SESSION.name'));
         $this->_f3->set('userRace', $this->_f3->get('SESSION.race'));
         $this->_f3->set('userStats', DataLayer::getStats());
+        $this->_f3->set('loggedIn', $_SESSION["loggedIn"]);
 
         $view = new Template();
         echo $view->render('views/game.html');
+    }
+
+    /**
+     *
+     * @return void
+     */
+    function logout()
+    {
+        session_start();
+        session_destroy();
+        $_SESSION = array();
+        $this->_f3->reroute('/');
     }
 }
