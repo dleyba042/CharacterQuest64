@@ -159,4 +159,25 @@ class Database
         //5. Process the results
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    function setProgress($id,$path)
+    {
+
+
+        $sql = "UPDATE `character` SET progress = :path WHERE character_id = :id";
+
+        //2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+
+        //3. Bind the parameters
+        $statement->bindParam(':path',$path);
+        $statement->bindParam(':id',$id);
+
+        //4. Execute the query
+        $statement->execute();
+
+    }
+
+
 }

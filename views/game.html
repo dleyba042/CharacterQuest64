@@ -30,7 +30,7 @@
 <include href="views/header.html"></include>
 
 <div class = "container">
-    <form action="landing.html" method="post" id = "save-form">
+    <form action="save" method="post" id = "save-form">
     <div class = "row"><!-- main row -->
 
         <div id = "game-screen" class = "col col-12">
@@ -145,6 +145,10 @@
         </div>
 
     </div><!-- main row -->
+    <div hidden>
+        <label><input name = "progress" id = "progress" type="text" value= " {{ @progress }} " ></label>
+    </div>
+
     </form>
 </div>
 <script src = "//code.jquery.com/jquery.js"></script>

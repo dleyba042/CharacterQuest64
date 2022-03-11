@@ -172,9 +172,14 @@ class Controller
             }
 
             if (empty($this->_f3->get('errors'))) {
-                $charID = $database->setCharacter($_SESSION['character']);
-                $database->setInventory($charID, $item);
+
+
                 if (isset($_POST['start'])) {
+
+                    $charID = $database->setCharacter($_SESSION['character']);
+                    $_SESSION['char_id'] = $charID;
+                    $database->setInventory($charID, $item);
+
                     $this->_f3->reroute('game');
                 }
             }
@@ -200,6 +205,10 @@ class Controller
      */
     function game()
     {
+
+        //TODO make hive variable to pass in progress if save data
+
+
         //If not logged in, return to landing page
         if(empty($_SESSION["loggedIn"])) {
             $this->_f3->reroute('/');
@@ -213,6 +222,22 @@ class Controller
 
         $view = new Template();
         echo $view->render('views/game.html');
+    }
+
+    function save()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $prog = $_POST['progress'];
+
+            $dbh = new Database();
+            $dbh->setProgress($_SESSION['char_id'],$prog);
+
+            $this->_f3->reroute('/');
+
+        }
+
     }
 
     /**

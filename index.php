@@ -29,6 +29,12 @@ $f3->route("GET|POST /game", function(){
     $GLOBALS['controller']->game();
 });
 
+//define save route
+$f3->route("GET|POST /save", function(){
+
+    $GLOBALS['controller']->save();
+});
+
 //define logout route
 $f3->route("GET|POST /logout", function(){
     $GLOBALS['controller']->logout();

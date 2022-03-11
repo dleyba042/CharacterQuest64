@@ -21,8 +21,16 @@ const itemMessage = document.getElementById('item-message');
 
 const armorPath = []; // just fake for testing purposes
 
-let swordIndex = 0;
-let coinIndex = 0;     // make thus a global variable
+
+//TODO work on path indexing
+//let swordIndex = 0;
+//let armorIndex = 0;
+//let coinIndex = 0;
+
+let currentPath = swordPath;
+let currentIndex = -1;
+
+                        // make thus a global variable
                        //could make a different index for each potential path
 
 
@@ -74,8 +82,19 @@ const addBoosts = () =>{ //add boosts based on weapons in inventory
 
 window.onload = () => {
 
+
+    let progress = document.getElementById('progress').value;
+
    //playerStats = getStats();
-   displayScene(sceneOne);
+   if (progress === "")
+   {
+       displayScene(sceneOne,currentPath,currentIndex);
+   }
+   else //if they have saved progress
+   {
+       //scene is equal to swordPath[index]
+       displayScene(progress,currentPath,currentIndex);
+   }
 
 }
 
@@ -83,8 +102,23 @@ window.onload = () => {
 //LETS TRY AND DISPLAY THE SCENARIO I CREATED
 
 
-const displayScene = (scene) => {
+const displayScene = (scene,path,index) => {
 
+    let sceneString = "";
+
+    if(path === swordPath){
+
+        sceneString = "swordPath["+ index + "]";
+
+    }else if(path === armorPath ){
+
+        sceneString = "armorPath["+ index + "]";
+
+    }else if(path === coinPath){
+        sceneString = "coinPath["+ index + "]";
+    }
+
+    saveData(sceneString);
 
     itemMessage.innerHTML = ""; //clear out last item message
     addBoosts(); // add these based on whats in the character inventory at the beginning of the turn
@@ -116,6 +150,8 @@ const displayScene = (scene) => {
 
     let outcomeArr = scene.getOutcomes(); // store array for choices
 
+
+    currentIndex++;// update BEFORE EVENT LISTENER
 
     //add event listeners to the buttons depending on their choices
     for(let i = 0; i< outcomeArr.length; i++){ // display the choices
@@ -254,19 +290,31 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
     let nextScene;
 
     switch (index){
-        case 0 : nextScene = swordPath[swordIndex++];
+        case 0 : nextScene = swordPath[currentIndex];
+                 currentPath = swordPath;
                  break;
-        case 1 : nextScene = armorPath[sceneIndex++];
+        case 1 : nextScene = armorPath[currentIndex]; //TODO MAKE ARMOR PATH
+                 currentPath = armorPath;
                  break;
-        case 2 : nextScene = coinPath[coinIndex++];
-                 break
+        case 2 : nextScene = coinPath[currentIndex];
+                 currentPath = coinPath;
+                 break;
     }
 
     //add a continue button to keep going, with its own eventListener
     /*<a className="btn choice-btn" id="btn-c" type="button">C.</a>*/
-    btn.addEventListener("click",() => displayScene(nextScene)) // pass in global variables
+
+    btn.addEventListener("click",() => displayScene(nextScene,currentPath,currentIndex)) // pass in global variables
     btn.style.display = "block";
     saveBtn.style.display = "block";
+
+    /*
+    saveBtn.addEventListener( "click", () => {
+
+    });
+
+     */
+
 
     for(let i = 0; i<buttonArr.length; i++){ // disable anchor buttons now that a selection is made
         buttonArr[i].style.pointerEvents = "none";
@@ -333,6 +381,15 @@ const updateStatText = (stat,newAmount) => {
 
     document.getElementById(stat).innerHTML =  stat[0].toUpperCase() + stat.substring(1) + " : " + currentLevel + "(+" + newAmount +")";
 
+
+}
+
+
+
+
+const saveData = (scene) =>{
+
+    document.getElementById('progress').setAttribute("value",scene);
 
 }
 
