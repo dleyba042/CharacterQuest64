@@ -2,6 +2,7 @@
 import {sceneOne as sceneOne} from "./startScene.js";
 import {swordPath as swordPath } from "./paths/swordPath.js";
 import {coinPath as coinPath } from "./paths/coinPath.js";
+import {armorPath as armorPath } from "./paths/armorPath.js";
 import {SpecialOutcome} from "./classes/SpecialOutcome.js";
 import {dragon} from "./paths/specialScenes.js";
 import{getStats} from "./functions/functions.js";
@@ -19,13 +20,15 @@ const buttonArr = [btnA,btnB,btnC]; //array of buttons
 const globalStatBoosts = {"intelligence":0,"strength":0,"dexterity":0,"stamina":0,"luck":0}
 const itemMessage = document.getElementById('item-message');
 
-const armorPath = []; // just fake for testing purposes
+//const armorPath = []; // just fake for testing purposes
 
 
 //TODO work on path indexing
 //let swordIndex = 0;
 //let armorIndex = 0;
 //let coinIndex = 0;
+
+let progress = "";
 
 let currentPath = swordPath;
 let currentIndex = -1;
@@ -83,7 +86,7 @@ const addBoosts = () =>{ //add boosts based on weapons in inventory
 window.onload = () => {
 
 
-    let progress = document.getElementById('progress').value;
+  //  let progress = document.getElementById('progress').value;
 
    //playerStats = getStats();
    if (progress === "")

@@ -4,13 +4,13 @@ import {Scenario as Scenario} from './classes/Scenario.js';
 // we can further modulate this by creating all our scenarios and holding them in one array
 
 
-let text = "You awaken in a daze, with a sword, some cash, and armor at your side. " +
-    "You realize that you are in unsafe territory, when you hear what sounds like bandits quick approaching. " +
-    "You only have time to grab one of the items next to you. What do you choose?";
+let text = "You are risen from your slumber when you hear what sounds like bandits quick approaching. " +
+    "The lands that you have been traveling are unkind to strangers."+
+    "You have to act quickly, how do you respond?";
 
-let choices = ["Grab the sword, better to be on the offensive...",
-    "Grab your armor, better to be protected from attack...",
-    "Grab the coin, better to haggle out of a sticky situation..."];
+let choices = ["Fight them head on...",
+    "Do your best to retreat...",
+    "Try to reason out of the situation..."];
 
 let picture = "images/grotto.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
@@ -19,15 +19,15 @@ let outcomes = [new Outcome("You stand your ground and fight. ",
     "You fight with all you have and fell most of your attackers. " +
     "You come away with some extra coin.",
     " You are bested in the fight and barely escape with your life.",
-    10,"strength"),
+    4,"strength"),
                new Outcome("You run away and defend from attack.",
                    " You escape successfully",
-                   " You are captured!!",10,"stamina",
+                   " You are captured!!",4,"stamina",
                ),
-               new Outcome("You try to haggle out of the situation. ",
+               new Outcome("You try to reason out of the situation. ",
                    "You haggle your way out of it and make new friends.",
                    "Your words fall on deaf ears and you are robbed and beaten.",
-                   10,"luck")];
+                   4,"luck")];
 
 
 export let sceneOne = new Scenario(text,choices,picture,outcomes);

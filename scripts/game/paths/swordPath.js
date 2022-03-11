@@ -38,7 +38,7 @@ let choices2 = ["an inverse square root",
     "yo mamma",
     "a hole"];
 
-let picture2 = "cat/wizard.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture2 = "images/cat.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes2 = [new SpecialOutcome("",
