@@ -248,6 +248,11 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
         if(reward !== ""){ //then we add the new item to the inventory
 
+            if(reward === "coin"){
+
+                coinDisplay.innerHTML = (currentStatLevel + Math.floor(Math.random() * 100)) + "\u{2124}";
+            }
+
             let item = document.createElement('li');
             item.id = reward.getType(); //the item type
             item.innerHTML = reward.getName() + " : " + reward.getEffect();
