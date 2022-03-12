@@ -80,4 +80,4 @@ let outcomes3 = [new SpecialOutcome("You eat some of the white berries in hopes 
 
 let sceneThree = new Scenario(text3, choices3, picture3,outcomes3);
 
-export let armorPath = [sceneOne,sceneTwo,sceneThree];
+export let armorPath = [sceneOne,sceneOne,sceneTwo,sceneThree];

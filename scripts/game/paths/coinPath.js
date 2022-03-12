@@ -18,4 +18,4 @@ let outcomes1 = [new Outcome("Outcome 1.", "Good 1.", "Bad1.",5,"strength"),
 
 let sceneOne = new Scenario(text1, choices1, picture1,outcomes1);
 
-export let coinPath = [sceneOne]; // eventually a whole array of scenes
+export let coinPath = [sceneOne,sceneOne]; // eventually a whole array of scenes

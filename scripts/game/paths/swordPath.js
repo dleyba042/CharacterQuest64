@@ -60,4 +60,4 @@ let sceneTwo = new Scenario(text2, choices2, picture2,outcomes2);
 
 
 
-export let swordPath = [sceneOne,sceneTwo]; // eventually a whole array of scenes
+export let swordPath = [sceneOne,sceneOne,sceneTwo]; // eventually a whole array of scenes
