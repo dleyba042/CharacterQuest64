@@ -19,22 +19,19 @@ const btnC = document.getElementById('btn-c');
 const buttonArr = [btnA,btnB,btnC]; //array of buttons
 const globalStatBoosts = {"intelligence":0,"strength":0,"dexterity":0,"stamina":0,"luck":0}
 const itemMessage = document.getElementById('item-message');
+let nextScene;
 
-//const armorPath = []; // just fake for testing purposes
 
 
-//TODO work on path indexing
-//let swordIndex = 0;
-//let armorIndex = 0;
-//let coinIndex = 0;
+let currentPath;
+let currentIndex;
 
-let progress = "";
+//let progress = document.getElementById('progress').getAttribute('value');
 
-let currentPath = swordPath;
-let currentIndex = -1;
+//let scene = progress;
 
-                        // make thus a global variable
-                       //could make a different index for each potential path
+// make thus a global variable
+//could make a different index for each potential path
 
 
 
@@ -81,23 +78,45 @@ const addBoosts = () =>{ //add boosts based on weapons in inventory
 }
 
 
+
 //MAIN PROGRAM START POINT
 
 window.onload = () => {
 
+    let scene = getProgress();
 
-  //  let progress = document.getElementById('progress').value;
+    let split = scene.split("[");
 
-   //playerStats = getStats();
-   if (progress === "")
-   {
-       displayScene(sceneOne,currentPath,currentIndex);
-   }
-   else //if they have saved progress
-   {
-       //scene is equal to swordPath[index]
-       displayScene(progress,currentPath,currentIndex);
-   }
+    currentPath = split[0];
+
+    currentIndex =  split[1].substring(0,1);
+
+
+   // console.log(currentPath);
+   // console.log(currentIndex);
+   // console.log(scene);
+
+
+
+    if(scene === 'swordPath[0]'){
+
+        scene = sceneOne;
+    }else{
+
+        switch(currentPath){
+
+            case "swordPath": scene = swordPath[currentIndex];
+                          break;
+            case "armorPath": scene = armorPath[currentIndex];
+                          break;
+            case "coinPath":  scene = coinPath[currentIndex];
+                          break;
+
+        }
+
+    }
+
+    displayScene(scene, currentPath, currentIndex);
 
 }
 
@@ -108,6 +127,9 @@ window.onload = () => {
 const displayScene = (scene,path,index) => {
 
     let sceneString = "";
+
+
+   // console.log(scene.getText());
 
     if(path === swordPath){
 
@@ -122,6 +144,10 @@ const displayScene = (scene,path,index) => {
     }
 
     saveData(sceneString);
+
+
+   // console.log("scene string = " + sceneString);
+
 
     itemMessage.innerHTML = ""; //clear out last item message
     addBoosts(); // add these based on whats in the character inventory at the beginning of the turn
@@ -154,8 +180,6 @@ const displayScene = (scene,path,index) => {
     let outcomeArr = scene.getOutcomes(); // store array for choices
 
 
-    currentIndex++;// update BEFORE EVENT LISTENER
-
     //add event listeners to the buttons depending on their choices
     for(let i = 0; i< outcomeArr.length; i++){ // display the choices
 
@@ -164,7 +188,7 @@ const displayScene = (scene,path,index) => {
         //addEventListener to each button pass in global var contButton
         //i is used to index the outcome array, quick stat increase is passed in to
         //increase a stat if a potion was used
-         buttonArr[i].addEventListener("click",  () => buttonEvent(outcomeArr,i,contBtn,quickStatIncrease));
+         buttonArr[i].addEventListener("click",  () => buttonEvent(outcomeArr,i,quickStatIncrease));
 
     }
 
@@ -178,6 +202,32 @@ const displayScene = (scene,path,index) => {
                 () => useItem(itemButtons[i], itemButtons[i].getAttribute("id"), usedAlready,quickStatIncrease));
         }
 
+
+
+        let rand = Math.floor(Math.random() * 2);
+
+
+        console.log("UPDATING INDEX" + currentIndex++);
+
+
+        if(rand === 0){
+
+            nextScene = swordPath[currentIndex];
+            currentPath = swordPath;
+
+        }else if(rand === 1){
+
+            nextScene = armorPath[currentIndex];
+            currentPath = armorPath;
+
+        }else{
+
+            nextScene = coinPath[currentIndex];
+            currentPath = coinPath;
+        }
+
+    //console.log("nextScene ====== " + nextScene);
+    contBtn.addEventListener("click",() => displayScene(nextScene,currentPath,currentIndex));
 
 }
 
@@ -198,7 +248,7 @@ const displayScenarioChoices = (display,choices,index) => {
 //it will add an event listener to the submit button depending on the choice made
 // might need to add decision logic for if game ends or something
 //btn is the continue button being passed in to accept the event listener fo the next turn
-const buttonEvent = (outcomes,index,btn,quickInc) => {
+const buttonEvent = (outcomes,index,quickInc) => {
 
 
     let statTested = outcomes[index].getStatTested(); // the stat being tested in this instance
@@ -245,6 +295,7 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
         if(statTested === "coin"){ //then set the new coin level
 
+            console.log("COIN TEST");
             coinDisplay.innerHTML = (currentStatLevel - outcomes[index].getStatsRoll()) + "\u{2124}";
         }
 
@@ -253,6 +304,7 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
 
             if(reward === "coin"){
 
+                console.log("GIVING COIN");
                 coinDisplay.innerHTML = (currentStatLevel + Math.floor(Math.random() * 100)) + "\u{2124}";
             }
 
@@ -280,7 +332,6 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
         }
 
 
-
         displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome());//then player won the role
 
     } else{
@@ -295,33 +346,9 @@ const buttonEvent = (outcomes,index,btn,quickInc) => {
         displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome());
     }
 
-    let nextScene;
-
-    switch (index){
-        case 0 : nextScene = swordPath[currentIndex];
-                 currentPath = swordPath;
-                 break;
-        case 1 : nextScene = armorPath[currentIndex]; //TODO MAKE ARMOR PATH
-                 currentPath = armorPath;
-                 break;
-        case 2 : nextScene = coinPath[currentIndex];
-                 currentPath = coinPath;
-                 break;
-    }
-
-    //add a continue button to keep going, with its own eventListener
-    /*<a className="btn choice-btn" id="btn-c" type="button">C.</a>*/
-
-    btn.addEventListener("click",() => displayScene(nextScene,currentPath,currentIndex)) // pass in global variables
-    btn.style.display = "block";
+     // pass in global variables
+    contBtn.style.display = "block";
     saveBtn.style.display = "block";
-
-    /*
-    saveBtn.addEventListener( "click", () => {
-
-    });
-
-     */
 
 
     for(let i = 0; i<buttonArr.length; i++){ // disable anchor buttons now that a selection is made
@@ -401,17 +428,9 @@ const saveData = (scene) =>{
 
 }
 
-
-
-//TODO START MAKING MORE SCENES COULD ADD A NEXT SCENE FIELD TO THE BUTTON EVENT LISTENERS
-//TODO TO TAKE THEM ON A SPECIFIC PATH DEPENDING ON THE BUTTON
-
-
-//What we could do is load an array of scenario objects, and grab them at random as long as
-//the character is still alive. Each scenario will have an intro, stats role and ,conclusion and then move
-//onto the next randomly generated scenario. We can track the ones we have already visited
-//to prevent coming back onto the same one.
-
+const getProgress = () => {
+    return document.getElementById('progress').value;
+}
 
 
 

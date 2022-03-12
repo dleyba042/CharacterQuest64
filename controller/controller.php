@@ -89,9 +89,49 @@ class Controller
                 }
 
                 if (empty($this->_f3->get("errors"))) {
+
                     $_SESSION["userid"] = $user["user_id"];
                     $_SESSION["loggedIn"] = true;
-                    $this->_f3->reroute("character");
+                    $character = $database->getCharacter($_SESSION["userid"]);
+
+                    if($character == null) {
+                        $this->_f3->reroute("character");
+                    }
+                    else {
+
+                        $_SESSION["character"] = new Character($character["name"], $character["race"]);
+
+                        //Gets inventory from database
+                        $inventory = $database->getInventory($character["character_id"]);
+
+                        $items = DataLayer::getItems();
+
+                        foreach($items as $item) {
+
+                            foreach ($inventory as $inv) {
+
+                                if (strtolower(get_class($item)) === $inv["name"]) {
+                                    $_SESSION["character"]->setInventory($item);
+                                }
+                            }
+                        }
+
+                        //Gets stats from database
+                        $charStats = array($character["dexterity"],$character["intelligence"],$character["luck"],$character["stamina"],$character["strength"]);
+
+                        $stats = DataLayer::getStats();
+                        $counter = 0;
+
+                        foreach ($stats as $key => $value) {
+                            $stats[$key] = $charStats[$counter];
+                            $counter++;
+                        }
+                        $_SESSION["character"]->setStats($stats);
+
+                        $_SESSION["progress"] = $character["progress"];
+
+                        $this->_f3->reroute("game");
+                    }
                 }
             }
         }
@@ -173,11 +213,11 @@ class Controller
 
             if (empty($this->_f3->get('errors'))) {
 
-
                 if (isset($_POST['start'])) {
 
-                    $charID = $database->setCharacter($_SESSION['character']);
+                    $charID = $database->setCharacter($_SESSION['character'], $_SESSION["userid"]);
                     $_SESSION['char_id'] = $charID;
+                    $_SESSION["progress"] = "swordPath[0]";
                     $database->setInventory($charID, $item);
 
                     $this->_f3->reroute('game');
@@ -205,19 +245,14 @@ class Controller
      */
     function game()
     {
-
-        //TODO make hive variable to pass in progress if save data
-
-
         //If not logged in, return to landing page
         if(empty($_SESSION["loggedIn"])) {
             $this->_f3->reroute('/');
         }
 
         //Adds data to F3 hive
-        $this->_f3->set('name', $this->_f3->get('SESSION.name'));
-        $this->_f3->set('userRace', $this->_f3->get('SESSION.race'));
         $this->_f3->set('userStats', DataLayer::getStats());
+        $this->_f3->set('progress', $_SESSION["progress"]);
         $this->_f3->set('loggedIn', $_SESSION["loggedIn"]);
 
         $view = new Template();
@@ -226,18 +261,16 @@ class Controller
 
     function save()
     {
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $prog = $_POST['progress'];
 
             $dbh = new Database();
             $dbh->setProgress($_SESSION['char_id'],$prog);
+            //TODO: Set inventory in database
 
             $this->_f3->reroute('/');
-
         }
-
     }
 
     /**

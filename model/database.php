@@ -68,11 +68,11 @@ class Database
     }
 
     /**
-     * Sets the character and it's attributes in the character table in the database.
+     * Sets the character and its attributes in the character table in the database.
      * @param Object $character the character being added
      * @return false|string the ID assigned to this character
      */
-    function setCharacter($character)
+    function setCharacter($character, $id)
     {
         //1. Define the query
         $sql = "INSERT INTO `character`(name, dexterity, intelligence, luck, stamina, strength, race, user_id) 
@@ -90,7 +90,7 @@ class Database
         $stamina= $stats['stamina'];
         $strength= $stats['strength'];
         $race = $character->getRace();
-        $userid= 1; //TODO: FIX WHEN LOGIN WORKS
+        $userid= $id; //TODO: FIX WHEN LOGIN WORKS
 
         $statement->bindParam(':name', $name);
         $statement->bindParam(':dexterity', $dexterity);
@@ -108,6 +108,29 @@ class Database
         return $this->_dbh->lastInsertId();
     }
 
+
+    function getCharacter($userid)
+    {
+        //1. Define the query
+        $sql = "SELECT * FROM `character` WHERE user_id = :user_id";
+
+        //2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $statement->bindParam(':user_id', $userid);
+
+        //4. Execute the query
+        $statement->execute();
+
+        //5. Process the results
+        if($statement->rowCount() == 1) {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Sets the character's inventory in the inventory table in the database, adding an item & it's quantity.
      * @param int $character_id the character's assigned ID
@@ -116,6 +139,7 @@ class Database
      */
     function setInventory($character_id, $item)
     {
+        //TODO: Make into a loop in case of multiple items foreach($items as $item)
         //1. Define the query
         $sql = "INSERT INTO `inventory` (character_id, quantity, item_id)
                  values (:character_id, :quantity, :item_id)";
@@ -133,6 +157,25 @@ class Database
 
         //4. Execute the query
         $statement->execute();
+    }
+
+
+    function getInventory($character_id)
+    {
+        //1. Define the query
+        $sql = "SELECT `name`, `quantity` FROM `inventory`, `items` WHERE inventory.item_id = items.item_id AND character_id = :character_id";
+
+        //2. Prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $statement->bindParam(':character_id', $character_id);
+
+        //4. Execute the query
+        $statement->execute();
+
+        //5. Process the result (if there is one)
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

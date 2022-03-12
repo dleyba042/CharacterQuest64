@@ -66,7 +66,7 @@
                                             <li>{{ @item->getName() }}:
                                             {{ @item->getEffect() }}</li></a></true>
 
-                                        <false><li id = "{{ get_class(@item) }}:{{@item->getQuantity()}}" >{{ @item->getName() }}:
+                                        <false><li id = "{{ get_class(@item) }}:{{ @item->getQuantity() }}" >{{ @item->getName() }}:
                                         {{ @item->getEffect() }}</li></false>
                                     </check>
                                 </repeat>
@@ -146,7 +146,7 @@
 
     </div><!-- main row -->
     <div hidden>
-        <label><input name = "progress" id = "progress" type="text" value= " {{ @progress }} " ></label>
+        <label><input name = "progress" id = "progress" type="text" value= "{{ @progress }}"></label>
     </div>
 
     </form>
