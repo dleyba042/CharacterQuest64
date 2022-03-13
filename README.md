@@ -30,5 +30,6 @@ Scenarios will morph depending on the users reactions.
 
     
 
-#UML Class Diagram
+##UML Class Diagram
+
 ![Class uml diagram](https://i.ibb.co/Sc1ZTzm/Character-Quest64-UML.jpg)
