@@ -119,13 +119,15 @@ const displayScene = (scene,path,index) => {
     let sceneString = "";
 
 
-   // console.log(scene.getText());
+    console.log(path);
 
-    if(path === swordPath){
+    if(path === 'swordPath'){
 
         sceneString = "swordPath["+ index + "]";
 
     }
+
+    console.log("SCENESTR=" +sceneString);
 
     saveData(sceneString);
 
