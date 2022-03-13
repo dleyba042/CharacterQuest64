@@ -383,7 +383,10 @@ const useItem = (button,str,usedAlready,statsInc) => {
         default: break;
     }
 
-    inventoryList.removeChild(button);
+    if(str === "Potion" || str === "SkeletonKey") {
+
+        inventoryList.removeChild(button);
+    }
 
 
 
