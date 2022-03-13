@@ -2,6 +2,7 @@ import {Outcome} from "../classes/Outcome.js";
 import {SpecialOutcome} from "../classes/SpecialOutcome.js";
 import {Scenario} from "../classes/Scenario.js";
 import {maurader} from "./specialScenes.js";
+import {sceneOne as start} from "../startScene.js";
 
 let text1 = " You journey into a nearby town and enter the local tavern. You are greeted by the" +
              " sweet smell of fresh ale. As you sit at a table you are approached by a group of " +
@@ -42,15 +43,15 @@ let choices2 = ["An inverse square root",
 let picture2 = "images/cat.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
-let outcomes2 = [new SpecialOutcome("",
+let outcomes2 = [new SpecialOutcome("You guess and your friend responds...",
     "",
     "You never were a person of much intellect friend."
     ,100,"intelligence","coin","none"),
-    new Outcome("You guess incorrect."
+    new SpecialOutcome("You guess incorrect."
         , "",
         " You never were a person of much intellect friend."
         ,100,"strength","coin","none"),
-    new Outcome("You guessed correctly, friend.",
+    new SpecialOutcome("You guessed correctly, friend.",
         "I will give you some fresh Zarlocks",
         "",
         -1,"coin","coin","none")]
@@ -234,8 +235,10 @@ let outcomes9 = [new Outcome("You boulder up the scramble.",
 
 let sceneNine = new Scenario(text9, choices9, picture9,outcomes9);
 
+export let swordPath = [start,sceneOne,sceneTwo,sceneThree,sceneFour,sceneFive,sceneSix,sceneSeven,sceneEight,sceneNine,maurader];
 
-export let swordPath = [sceneOne,sceneOne,sceneOne,sceneTwo,sceneTwo,sceneTwo,
+/*
+export let swordPath = [start,sceneOne,sceneOne,sceneOne,sceneTwo,sceneTwo,sceneTwo,
     sceneThree,sceneThree,sceneThree,sceneThree,sceneThree,sceneThree,
     sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,
     sceneFive,sceneFive,sceneFive,sceneFive,sceneFive,sceneFive, sceneFive,sceneFive,sceneFive,
@@ -243,3 +246,5 @@ export let swordPath = [sceneOne,sceneOne,sceneOne,sceneTwo,sceneTwo,sceneTwo,
     sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,
     sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,
     sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,maurader,maurader,maurader];// eventually a whole array of scenes
+
+ */

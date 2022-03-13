@@ -1,5 +1,5 @@
 
-import {sceneOne as sceneOne} from "./startScene.js";
+//import {sceneOne as sceneOne} from "./startScene.js";
 import {swordPath as swordPath } from "./paths/swordPath.js";
 import {SpecialOutcome} from "./classes/SpecialOutcome.js";
 import {dragon} from "./paths/specialScenes.js";
@@ -17,7 +17,7 @@ const btnC = document.getElementById('btn-c');
 const buttonArr = [btnA,btnB,btnC]; //array of buttons
 const globalStatBoosts = {"intelligence":0,"strength":0,"dexterity":0,"stamina":0,"luck":0}
 const itemMessage = document.getElementById('item-message');
-let nextScene;
+
 
 
 
@@ -96,17 +96,20 @@ window.onload = () => {
 
 
 
-    if(scene === 'swordPath[0]'){
+  //  if(scene === 'swordPath[0]'){
 
-        scene = sceneOne;
-    }else{
+ //       scene = sceneOne;
+ //   }else{
 
-        scene = swordPath[currentIndex];
+ //       scene = swordPath[currentIndex];
 
-    }
+ //   }
 
-
-        displayScene(scene, currentPath, currentIndex);
+        //TODO REMEMBER SImPLy THIS APPROACH SOLVED MY RECURSIVE NIGHTMARE
+        // I altered display scene to just accept a path and index and then determine the scene once insde the method
+        //this allows for the event listener to only need to be added once because the index is updated once within display scene
+        displayScene(currentPath, currentIndex);
+        contBtn.addEventListener("click", () => displayScene(currentPath, currentIndex));
 
 }
 
@@ -114,8 +117,10 @@ window.onload = () => {
 //LETS TRY AND DISPLAY THE SCENARIO I CREATED
 
 
-const displayScene = (scene,path,index) => {
+const displayScene = (path,index) => {
 
+
+    let scene = swordPath[index];
     let sceneString = "";
 
 
@@ -193,8 +198,8 @@ const displayScene = (scene,path,index) => {
 
             console.log("UPDATING INDEX" + currentIndex++);
 
-            nextScene = swordPath[currentIndex];
-            contBtn.addEventListener("click", () => displayScene(nextScene, currentPath, currentIndex));
+        //    nextScene = swordPath[currentIndex];
+        //    contBtn.addEventListener("click", () => displayScene(nextScene, currentPath, currentIndex));
 
 }
 
@@ -219,7 +224,11 @@ const buttonEvent = (outcomes,index,quickInc) => {
 
 
     let statTested = outcomes[index].getStatTested(); // the stat being tested in this instance
-    let currentStatLevel;
+    let currentStatLevel = 0;
+
+    console.log("stat tested is = " + statTested);
+
+
     if(statTested === 'coin') { //then we are testing money and not a stat
 
         let items = inventoryList.children;
@@ -257,23 +266,30 @@ const buttonEvent = (outcomes,index,quickInc) => {
 
     if(outcomes[index].rollVsPlayer(currentStatLevel)){// player is same stat strength in test case
 
-        let reward = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getReward() : "";
-
-
-        if(statTested === "coin"){ //then set the new coin level
-
-            console.log("COIN TEST");
-            coinDisplay.innerHTML = (currentStatLevel - outcomes[index].getStatsRoll()) + "\u{2124}";
+        let reward = "";
+        try {
+            reward = outcomes[index].getReward();
+        }catch (error){
+            console.log(error);
         }
 
+        //console.log("reward=" +   reward);
 
-        if(reward !== ""){ //then we add the new item to the inventory
 
-            if(reward === "coin"){
+        if(statTested === "coin" && reward === "coin") {
 
-                console.log("GIVING COIN");
-                coinDisplay.innerHTML = (currentStatLevel + Math.floor(Math.random() * 1000)) + "\u{2124}";
-            }
+            console.log("GIVING COIN TRUE");
+            let zarlock = document.createElement("li");
+            let newCoin = currentStatLevel + Math.floor(Math.random() * 100);
+            zarlock.id = "Coin:" +newCoin;
+            zarlock.innerHTML = "Zarlock: can be used to purchase or persuade";
+            inventoryList.appendChild(zarlock);
+            coinDisplay.innerHTML = newCoin +" "+ "\u{2124}";
+
+
+        }else if(reward !== ""){ //then we add the new item to the inventory
+
+            console.log("REWARDDDD");
 
             let item = document.createElement('li');
             item.id = reward.getType(); //the item type
@@ -299,10 +315,18 @@ const buttonEvent = (outcomes,index,quickInc) => {
         }
 
 
+        if(statTested === "coin" ){ //then set the new coin level
+
+            console.log("COIN TEST");
+            coinDisplay.innerHTML = (currentStatLevel - outcomes[index].getStatsRoll()) + "\u{2124}";
+        }
+
+
         displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome());//then player won the role
 
-    } else{
+    }else{
 
+        console.log("ELESE");
 
         let penalty = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getPenalty() : "";
 
@@ -401,6 +425,7 @@ const saveData = (scene) =>{
 const getProgress = () => {
     return document.getElementById('progress').value;
 }
+
 
 
 
