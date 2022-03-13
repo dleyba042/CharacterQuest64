@@ -1,17 +1,20 @@
-#Character Quest 64
-*A team project that highlights the skills we gained this quarter while working with full stack technology.
+# Character Quest 64
+
+*A team project that highlights the skills we gained this quarter while working with full stack technology.*
+
 *This project allows users to create a character with randomized stats (based on race) to go through scenarios. 
 Scenarios will morph depending on the users reactions.
 
-#Authors
-Colton Marty
+## Authors
 
-Devin Leyba-Brown
+* Colton Marty
 
-Lyra Darling
+* Devin Leyba-Brown
 
-#Features
-*(Project Requirements)
+* Lyra Darling
+
+## Features
+*(Project Requirements)*
 1. Separates all database/business logic using the MVC pattern.
 2. Routes all URLs and leverages a templating language using the Fat-Free framework.
 3. Has a clearly defined database layer using PDO and prepared statements.
@@ -25,5 +28,7 @@ Lyra Darling
 11. BONUS:  Incorporates Ajax that access data from a JSON file, PHP script, or API.
     (If you implement Ajax, be sure to include how you did so in your readme file.)
 
+    
+
 #UML Class Diagram
-<img alt="UML Diagram" height="584" src="D:\SDEV305\GreenRiverDev\328\CharacterQuest64\images\CQ64-uml.jpg" width="1000"/>
+![Class uml diagram](https://i.ibb.co/Sc1ZTzm/Character-Quest64-UML.jpg)
