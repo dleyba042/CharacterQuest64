@@ -1,8 +1,6 @@
 import {Outcome} from "../classes/Outcome.js";
 import {SpecialOutcome} from "../classes/SpecialOutcome.js";
 import {Scenario} from "../classes/Scenario.js";
-import {armorScenes, armorScens} from "./armorPath";
-import {coinScenes} from "./coinPath.js";
 import {maurader} from "./specialScenes.js";
 
 let text1 = " You journey into a nearby town and enter the local tavern. You are greeted by the" +
@@ -61,7 +59,7 @@ let sceneTwo = new Scenario(text2, choices2, picture2,outcomes2);
 
 
 let text3 = "You have been tasked with tracking a dangerous fugitive. Your search has led you " +
-    "to the pine barrens near Dragon Rock. Signs of an encamp nearby have become apparent. " +
+    "to the pine barrens near Dragon Rock. Signs of an encampment nearby have become apparent. " +
     " How do you proceed?" ;
 
 let choices3 = ["You wait for nightfall and sneak in to apprehend the fugitive using stealth.",
@@ -87,8 +85,161 @@ let outcomes3 = [new Outcome("You choose to go in by nightfall.",
 
 let sceneThree = new Scenario(text3, choices3, picture3,outcomes3);
 
-export let swordScenes = [sceneOne,sceneTwo,sceneThree];
+
+let text4 = " You are exiting the local pup when you bump shoulders with one of the townsfolk." +
+    " This one has a reputation for mischief. Soon you are facing an ultimatum." +
+    " Apologize for your transgression, pay for your error in Zarlocks, or in blood.. ";
+
+let choices4 = ["Let the best man win, face this bully in combat.",
+    "Apologize for the inconvenience you have caused.",
+    "Pay for your error with Zarlocks(15)."];
+
+let picture4 = "images/beast.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
-export let swordPath = [coinScenes[0],coinScenes[1],coinScenes[2],maurader,sceneOne,sceneTwo,sceneThree,
-    armorScenes[0],armorScenes[1],armorScenes[2]]; // eventually a whole array of scenes
+let outcomes4 = [new Outcome("You engage the bully in combat! ",
+    "You vanquish this foe like an afterthought.",
+    "You are beaten and left to sleep in the cold."
+    ,4,"strength"),
+    new Outcome("You apologize and seek peace."
+        , " The bully accepts your apology with a smug grin.",
+        " You are laughed at and made to look weak. This is bad for your reputation."
+        ,4,"luck"),
+    new Outcome("You offer to pay them with your Zarlocks.",
+        " You have enough and thus avoid any more conflict.",
+        " You don't have enough coin so the bully forces you to do dishes for everyone in the pub.",
+        15,"coin")]
+
+let sceneFour = new Scenario(text4, choices4, picture4,outcomes4);
+
+let text5 = " One day when setting camp you are approached by an odd man with a proposition." +
+    " He shares stories of his faith and a concept called 'Karma'." +
+    " Let him share your fire and food for the evening and you will be rewarded 10 times over in the future...";
+
+let choices5 = ["Accept, but only if he is willing to do work around camp.",
+    "Turn him away.",
+    "Agree to his request."];
+
+let picture5 = "images/prophet.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+
+
+let outcomes5 = [new Outcome("You drive a hard bargain and ask for work in return. ",
+    "He happily accepts and appreciates your honesty.",
+    "He declines and you have an ominous feeling as he departs."
+    ,4,"strength"),
+    new Outcome("You wave him off, you don't deal with beggars..."
+        , " He smiles and says thanks anyway.",
+        " He departs and you have an ominous feeling as he is walking away."
+        ,4,"intelligence"),
+    new Outcome("You agree happy to share with the less fortunate.",
+        " You feel a great sense of connection with this stranger, and hope to meet again",
+        " ",
+        -1,"luck")]
+
+let sceneFive = new Scenario(text5, choices5, picture5,outcomes5);
+
+let text6 = " During your travels the gap between towns turns up to be longer than anticipated." +
+    " At this point starvation is beginning to cloud your thinking." +
+    " In desperation you choose to forage for some random berries, which do you choose to eat?";
+
+let choices6 = ["The white colored berries.",
+    "The yellow colored berries",
+    "The blue colored berries"];
+
+let picture6 = "images/berries.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+
+
+let outcomes6 = [new SpecialOutcome("You eat some of the white berries in hopes for relief. ",
+    "You feel ill but your luck carries you thru and you make it to town.",
+    "The berries set fire to your stomach and you writhe in pain.."
+    ,8,"luck","","death"),
+    new Outcome("You eat some of the red berries in hopes for relief."
+        , " You feel nauseous but your body has handled this type of food before, you will be fine. ",
+        " You are bedridden in camp for days, and eventually.."
+        ,4,"dexterity","","death"),
+    new Outcome("You eat some of the blue berries and pray they are safe.",
+        " The berries taste great and carry you thru to the next town.",
+        " You get a mild stomach ache.",
+        3,"intelligence","","")]
+
+let sceneSix = new Scenario(text6, choices6, picture6,outcomes6);
+
+
+let text7 = " You approach a bridge on your way to the path to the next town." +
+    "Your nose is assaulted by a horrific stench. A deep growl greets you and "+
+    "you are soon being threatened with violence unless you pay a toll to cross." ;
+
+let choices7 = ["Fake reach for your satchel, but instead grab your sword and hope for a critical hit.",
+    "Find another way around, maybe you can swim across??.",
+    "Pay the fee demanded by the Troll. (25 Zarlock)"];
+
+let picture7 = "images/troll.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+
+//SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
+let outcomes7 = [new Outcome("You deceive the Troll and engage in combat.",
+    " You are victorious and leave with the trolls head as a trophy.",
+    " The troll beats you senseless, leaving you with a nasty scar. ",4,"strength"),
+    new Outcome(" You choose to take the scenic route.",
+        " Your athleticism carries you across to the other side.",
+        " You get caught in the rapids and are washed downriver.",4,"dexterity"),
+    new Outcome(" You choose to pay the toll. You respect the business savvy of this Troll.",
+        " You are free to pass. ",
+        " You come up short and have to find another way around",25,"coin")]
+
+let sceneSeven = new Scenario(text7, choices7, picture7,outcomes7);
+
+let text8 = " You are about to attend the local mead hall for the annual harvest festival." +
+    " Town custom requires you be dressed in the formal garb prescribed for such an event."+
+    " What do you do?" ;
+
+let choices8 = ["You buy the necessary garb.(50 Zarlock)",
+    "You go as you are,customs be damned.",
+    "You go as you are, but make it a point to explain to locals the limitation of their customs."];
+
+let picture8 = "images/ball.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+
+
+let outcomes8 = [new Outcome("You decide to buy the traditional garb.",
+    " You turn more than a few heads and end up meeting some new friends.",
+    " You cannot afford the garb and choose to stay home and sulk.",50,"coin"),
+    new Outcome("You go as you are, you are not from these lands originally, after all.",
+        " The locals respect your decision because you carry yourself with integrity.",
+        " The locals mock you and you lose respect in their eyes.",4,"strength"),
+    new Outcome("You go as you are hoping to enlighten the locals of differences in customs.",
+        " The locals are impressed with your intellect and reconsider their way  of thinking.",
+        " You express your opinions with the eloquence of an ox, alienating the locals. ",4,"intelligence")]
+
+let sceneEight = new Scenario(text8, choices8, picture8,outcomes8);
+
+let text9 = " You must make it up and over a mountain scramble to get to your destination before nightfall." +
+    " You have most of the day left but your decision here is crucial. How do you approach?";
+
+let choices9 = ["You go directly up and over the scramble, the shortest possible path.",
+    "You hike around it, it will take longer, but you have the endurance.",
+    "You find a cave for shelter and make a camp for the night. " +
+    "choosing to go around the long way with a full day at your back."];
+
+let picture9 = "images/cliff.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+
+
+let outcomes9 = [new Outcome("You boulder up the scramble.",
+    " Your fitness powers you thru and you make it to town by nightfall",
+    " You cannot power your way up and are forced to spend your night in the cold.",4,"dexterity"),
+    new Outcome("You choose the scenic route.",
+        " Your endurance proves excellent as you make it to town before cold sets in.",
+        " You are exhausted by the journey and end forced to shelter in the cold.",4,"stamina"),
+    new Outcome("You choose to wait for morning.",
+        " You find a sufficient camping site and make the rest of the journey the next day.",
+        " The cave you select turns out to be inhabited by a bear. You escape and are forced to sleep in the cold.",4,"intelligence")]
+
+let sceneNine = new Scenario(text9, choices9, picture9,outcomes9);
+
+
+export let swordPath = [sceneOne,sceneOne,sceneOne,sceneTwo,sceneTwo,sceneTwo,
+    sceneThree,sceneThree,sceneThree,sceneThree,sceneThree,sceneThree,
+    sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,
+    sceneFive,sceneFive,sceneFive,sceneFive,sceneFive,sceneFive, sceneFive,sceneFive,sceneFive,
+    sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,
+    sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,
+    sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,
+    sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,maurader,maurader,maurader];// eventually a whole array of scenes

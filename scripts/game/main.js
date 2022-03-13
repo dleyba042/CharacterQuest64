@@ -1,8 +1,6 @@
 
 import {sceneOne as sceneOne} from "./startScene.js";
 import {swordPath as swordPath } from "./paths/swordPath.js";
-import {coinPath as coinPath } from "./paths/coinPath.js";
-import {armorPath as armorPath } from "./paths/armorPath.js";
 import {SpecialOutcome} from "./classes/SpecialOutcome.js";
 import {dragon} from "./paths/specialScenes.js";
 import{getStats} from "./functions/functions.js";
@@ -103,20 +101,12 @@ window.onload = () => {
         scene = sceneOne;
     }else{
 
-        switch(currentPath){
-
-            case "swordPath": scene = swordPath[currentIndex];
-                          break;
-            case "armorPath": scene = armorPath[currentIndex];
-                          break;
-            case "coinPath":  scene = coinPath[currentIndex];
-                          break;
-
-        }
+        scene = swordPath[currentIndex];
 
     }
 
-    displayScene(scene, currentPath, currentIndex);
+
+        displayScene(scene, currentPath, currentIndex);
 
 }
 
@@ -135,12 +125,6 @@ const displayScene = (scene,path,index) => {
 
         sceneString = "swordPath["+ index + "]";
 
-    }else if(path === armorPath ){
-
-        sceneString = "armorPath["+ index + "]";
-
-    }else if(path === coinPath){
-        sceneString = "coinPath["+ index + "]";
     }
 
     saveData(sceneString);
@@ -204,30 +188,11 @@ const displayScene = (scene,path,index) => {
 
 
 
-        let rand = Math.floor(Math.random() * 2);
 
-
-        console.log("UPDATING INDEX" + currentIndex++);
-
-
-        if(rand === 0){
+            console.log("UPDATING INDEX" + currentIndex++);
 
             nextScene = swordPath[currentIndex];
-            currentPath = swordPath;
-
-        }else if(rand === 1){
-
-            nextScene = armorPath[currentIndex];
-            currentPath = armorPath;
-
-        }else{
-
-            nextScene = coinPath[currentIndex];
-            currentPath = coinPath;
-        }
-
-    //console.log("nextScene ====== " + nextScene);
-    contBtn.addEventListener("click",() => displayScene(nextScene,currentPath,currentIndex));
+            contBtn.addEventListener("click", () => displayScene(nextScene, currentPath, currentIndex));
 
 }
 
@@ -305,7 +270,7 @@ const buttonEvent = (outcomes,index,quickInc) => {
             if(reward === "coin"){
 
                 console.log("GIVING COIN");
-                coinDisplay.innerHTML = (currentStatLevel + Math.floor(Math.random() * 100)) + "\u{2124}";
+                coinDisplay.innerHTML = (currentStatLevel + Math.floor(Math.random() * 1000)) + "\u{2124}";
             }
 
             let item = document.createElement('li');
