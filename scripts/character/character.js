@@ -89,7 +89,7 @@ function roll(dice) {
     if(modifier === "") modifier = 0;
 
     // assigns the dices value (1-10) + race modifiers to the stat
-    document.getElementById(statName).value = Math.floor(Math.random() * 10) + parseInt(modifier) + 1;
+    document.getElementById(statName).value = Math.floor(Math.random() * 7) + parseInt(modifier) + 1;
 }
 
 function validate() {

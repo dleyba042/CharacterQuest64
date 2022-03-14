@@ -16,12 +16,4 @@ class Coin extends Item
         parent::setQuantity($quantity);
     }
 
-    /**
-     * Gets the quantity of the coins with the currency's symbol.
-     * @return string
-     */
-    function getQuantityDisplay()
-    {
-        return parent::getQuantity() . "\u{2124}";
-    }
 }

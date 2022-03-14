@@ -133,10 +133,10 @@
             <h6> Coin: <span id = "coin-display">
                 <repeat group="{{ @SESSION.character->getInventory() }}" value="{{ @item }}">
                     <check if="{{ @item->getName() === 'Zarlock' }}">
-                        <true>{{ @item->getQuantityDisplay() }}</true>
+                        <true>{{ @item->getQuantity() }}</true>
                     </check>
                 </repeat>
-            </span></h6>
+            </span><span id = "zar">&#8484;</span></h6>
         </div>
         <div id = "choice-div" class = "col col-12" >
             <a class="btn choice-btn my-2" id = "btn-a" type="button"><!-- filled dynamically --></a><br>

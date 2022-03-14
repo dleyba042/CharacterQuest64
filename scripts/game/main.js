@@ -17,12 +17,15 @@ const btnC = document.getElementById('btn-c');
 const buttonArr = [btnA,btnB,btnC]; //array of buttons
 const globalStatBoosts = {"intelligence":0,"strength":0,"dexterity":0,"stamina":0,"luck":0}
 const itemMessage = document.getElementById('item-message');
+const globalOutcomes = [];
+let quickStatIncrease = {"intelligence":false,"strength":false,"dexterity":false,"stamina":false,"luck":false};
 
 
 
 
 let currentPath;
 let currentIndex;
+let scene;
 
 //let progress = document.getElementById('progress').getAttribute('value');
 
@@ -81,7 +84,7 @@ const addBoosts = () =>{ //add boosts based on weapons in inventory
 
 window.onload = () => {
 
-    let scene = getProgress();
+    scene = getProgress();
 
     let split = scene.split("[");
 
@@ -105,11 +108,27 @@ window.onload = () => {
 
  //   }
 
+
+
         //TODO REMEMBER SImPLy THIS APPROACH SOLVED MY RECURSIVE NIGHTMARE
         // I altered display scene to just accept a path and index and then determine the scene once insde the method
         //this allows for the event listener to only need to be added once because the index is updated once within display scene
         displayScene(currentPath, currentIndex);
         contBtn.addEventListener("click", () => displayScene(currentPath, currentIndex));
+        let outcomeArr = scene.getOutcomes();
+
+    for(let i = 0; i< outcomeArr.length; i++){ // display the choices
+
+        //the listener expects a callback function so I had to pass an anonymous
+        //that would call the function that I wrote at the appropriate time
+        //addEventListener to each button pass in global var contButton
+        //i is used to index the outcome array, quick stat increase is passed in to
+        //increase a stat if a potion was used
+        buttonArr[i].addEventListener("click",  () => buttonEvent(i,quickStatIncrease));
+        //
+      //  globalOutcomes[i] = outcomeArr[i];//update global outcomes
+
+    }
 
 }
 
@@ -120,7 +139,7 @@ window.onload = () => {
 const displayScene = (path,index) => {
 
 
-    let scene = swordPath[index];
+    scene = swordPath[index];
     let sceneString = "";
 
 
@@ -144,7 +163,6 @@ const displayScene = (path,index) => {
     addBoosts(); // add these based on whats in the character inventory at the beginning of the turn
 
     // use this boolean to determine stat role at the end
-    let quickStatIncrease = {"intelligence":false,"strength":false,"dexterity":false,"stamina":false,"luck":false};
     let usedAlready = false;
 
     if(contBtn.style.display === "block"){ //hide continue before displaying new scene
@@ -174,12 +192,7 @@ const displayScene = (path,index) => {
     //add event listeners to the buttons depending on their choices
     for(let i = 0; i< outcomeArr.length; i++){ // display the choices
 
-        //the listener expects a callback function so I had to pass an anonymous
-        //that would call the function that I wrote at the appropriate time
-        //addEventListener to each button pass in global var contButton
-        //i is used to index the outcome array, quick stat increase is passed in to
-        //increase a stat if a potion was used
-         buttonArr[i].addEventListener("click",  () => buttonEvent(outcomeArr,i,quickStatIncrease));
+         globalOutcomes[i] = outcomeArr[i];//update global outcomes
 
     }
 
@@ -194,13 +207,14 @@ const displayScene = (path,index) => {
         }
 
 
-
-
             console.log("UPDATING INDEX" + currentIndex++);
 
         //    nextScene = swordPath[currentIndex];
         //    contBtn.addEventListener("click", () => displayScene(nextScene, currentPath, currentIndex));
 
+        for(let i=0 ; i<quickStatIncrease.length; i++){
+            quickStatIncrease[i] = false;
+        }
 }
 
 
@@ -220,27 +234,41 @@ const displayScenarioChoices = (display,choices,index) => {
 //it will add an event listener to the submit button depending on the choice made
 // might need to add decision logic for if game ends or something
 //btn is the continue button being passed in to accept the event listener fo the next turn
-const buttonEvent = (outcomes,index,quickInc) => {
+const buttonEvent = (index,quickInc) => {
 
 
-    let statTested = outcomes[index].getStatTested(); // the stat being tested in this instance
+    let statTested = globalOutcomes[index].getStatTested(); // the stat being tested in this instance
     let currentStatLevel = 0;
 
     console.log("stat tested is = " + statTested);
 
 
-    if(statTested === 'coin') { //then we are testing money and not a stat
+    if(statTested === 'coin'){ //then we are testing money and not a stat
 
-        let items = inventoryList.children;
+        currentStatLevel = getCoin();
 
-        for(let i = 0; i<items.length; i++){
+        let reward = getReward(globalOutcomes[index]);
 
-            let split = items[i].id.toLowerCase().split(":");
-            if(split[0] === "coin"){
+        let cost = globalOutcomes[index].getStatsRoll();
 
-                currentStatLevel = split[1];
+        if( reward === ""){ //then this is a purchase
+
+            if(currentStatLevel >= cost){
+
+                payCoin(currentStatLevel-cost);
+                displayScenarioText(globalOutcomes[index].getText() + globalOutcomes[index].getGoodOutcome());//then player won the role
+                //set coin to the new amount
+            }else{
+                displayScenarioText(globalOutcomes[index].getText() + globalOutcomes[index].getBadOutcome());
             }
+
+        }else if(reward === "coin"){//then this is a gift
+
+            giveCoin(currentStatLevel);
+           // coinDisplay.innerHTML = currentStatLevel + Math.floor(Math.random() * 500);
+
         }
+
 
     }else{ //check if a potion is used and this is not a coin challenge
 
@@ -258,83 +286,60 @@ const buttonEvent = (outcomes,index,quickInc) => {
             }
         });
 
-       // console.log("STat with BOOSTS=" + currentStatLevel);//to test that our boosts are actually working
-
-    }
+        // console.log("STat with BOOSTS=" + currentStatLevel);//to test that our boosts are actually working
 
 
+        if (globalOutcomes[index].rollVsPlayer(currentStatLevel)){// player is same stat strength in test case
 
-    if(outcomes[index].rollVsPlayer(currentStatLevel)){// player is same stat strength in test case
+            let reward = getReward(globalOutcomes[index]);
 
-        let reward = "";
-        try {
-            reward = outcomes[index].getReward();
-        }catch (error){
-            console.log(error);
-        }
+            if (reward === "coin") {
 
-        //console.log("reward=" +   reward);
+                giveCoin(currentStatLevel);
 
+            } else if (reward !== "") { //then we add the new item to the inventory
 
-        if(statTested === "coin" && reward === "coin") {
+                console.log("REWARDDDD");
 
-            console.log("GIVING COIN TRUE");
-            let zarlock = document.createElement("li");
-            let newCoin = currentStatLevel + Math.floor(Math.random() * 100);
-            zarlock.id = "Coin:" +newCoin;
-            zarlock.innerHTML = "Zarlock: can be used to purchase or persuade";
-            inventoryList.appendChild(zarlock);
-            coinDisplay.innerHTML = newCoin +" "+ "\u{2124}";
+                let item = document.createElement('li');
+                item.id = reward.getType(); //the item type
+                item.innerHTML = reward.getName() + " : " + reward.getEffect();
 
 
-        }else if(reward !== ""){ //then we add the new item to the inventory
+                //clear list of a weaker item if present
+                //TODO could pass type to function  so this is less cluttered
+                switch (reward.getType()) {
 
-            console.log("REWARDDDD");
+                    case "msword":
+                        removeItem("sword");
+                        break;
+                    case "mshield":
+                        removeItem("shield");
+                        break;
+                    case "mpendant":
+                        removeItem("pendant");
+                        break;
 
-            let item = document.createElement('li');
-            item.id = reward.getType(); //the item type
-            item.innerHTML = reward.getName() + " : " + reward.getEffect();
+                }
 
+                inventoryList.appendChild(item);
 
-            //clear list of a weaker item if present
-            //TODO could pass type to function  so this is less cluttered
-            switch (reward.getType()) {
-
-                case "msword": removeItem("sword");
-                               break;
-                case "mshield": removeItem("shield");
-                                break;
-                case "mpendant": removeItem("pendant");
-                               break;
 
             }
 
-            inventoryList.appendChild(item);
+            displayScenarioText(globalOutcomes[index].getText() + globalOutcomes[index].getGoodOutcome());//then player won the role
 
+        } else {
 
+            console.log("ELESE");
+
+            let penalty = (globalOutcomes[index] instanceof SpecialOutcome) ? globalOutcomes[index].getPenalty() : "";
+
+            //TODO how about the penalties are just a choice bewtween "Death", "Coin"(LOSS),"Item"(LOSS)
+
+            displayScenarioText(globalOutcomes[index].getText() + globalOutcomes[index].getBadOutcome());
         }
 
-
-        if(statTested === "coin" ){ //then set the new coin level
-
-            console.log("COIN TEST");
-            coinDisplay.innerHTML = (currentStatLevel - outcomes[index].getStatsRoll()) + "\u{2124}";
-        }
-
-
-        displayScenarioText(outcomes[index].getText() + outcomes[index].getGoodOutcome());//then player won the role
-
-    }else{
-
-        console.log("ELESE");
-
-        let penalty = (outcomes[index] instanceof SpecialOutcome) ? outcomes[index].getPenalty() : "";
-
-        //TODO how about the penalties are just a choice bewtween "Death", "Coin"(LOSS),"Item"(LOSS)
-
-
-
-        displayScenarioText(outcomes[index].getText() + outcomes[index].getBadOutcome());
     }
 
      // pass in global variables
@@ -345,6 +350,8 @@ const buttonEvent = (outcomes,index,quickInc) => {
     for(let i = 0; i<buttonArr.length; i++){ // disable anchor buttons now that a selection is made
         buttonArr[i].style.pointerEvents = "none";
     }
+
+
 
 }
 
@@ -424,6 +431,67 @@ const saveData = (scene) =>{
 
 const getProgress = () => {
     return document.getElementById('progress').value;
+}
+
+const getCoin = () => {
+
+    //get coin amount
+    let items = inventoryList.children;
+    let coin = 0;
+
+    for(let i = 0; i<items.length; i++){
+
+        let split = items[i].id.toLowerCase().split(":");
+        if(split[0] === "coin"){
+
+            coin = parseInt(split[1]);
+        }
+    }
+
+    return coin;
+
+}
+
+const getReward = (outcome) => {
+    let reward = "";
+    try {
+        reward = outcome.getReward();
+    } catch (error) {
+        console.log(error);
+    }
+
+    return reward;
+}
+
+const giveCoin = (currentCoin) => {
+
+    console.log("GIVING COIN TRUE");
+    let zarlock = document.createElement("li");
+    let newCoin = currentCoin + Math.floor(Math.random() * 100);
+    zarlock.id = "Coin:" + newCoin;
+    zarlock.innerHTML = "Zarlock: can be used to purchase or persuade";
+    inventoryList.appendChild(zarlock);
+    coinDisplay.innerHTML = newCoin;
+}
+
+
+const payCoin = (newCoin) => {
+
+    //get coin amount
+    let items = inventoryList.children;
+
+    for(let i = 0; i<items.length; i++){
+
+        let split = items[i].id.toLowerCase().split(":");
+        if(split[0] === "coin"){
+
+            items[i].id = "Coin:" + newCoin;
+        }
+    }
+    coinDisplay.innerHTML = newCoin.toString();
+
+
+
 }
 
 
