@@ -44,13 +44,13 @@ let picture2 = "images/cat.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS I
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes2 = [new SpecialOutcome("You guess and your friend responds...",
-    "",
+    "Somehow that is correct...",
     "You never were a person of much intellect friend."
-    ,100,"intelligence","coin","none"),
+    ,1000,"intelligence","coin","none"),
     new SpecialOutcome("You guess incorrect."
-        , "",
+        , "Somehow that is correct...",
         " You never were a person of much intellect friend."
-        ,100,"strength","coin","none"),
+        ,1000,"strength","coin","none"),
     new SpecialOutcome("You guessed correctly, friend.",
         "I will give you some fresh Zarlocks",
         "",
@@ -144,7 +144,7 @@ let text6 = " During your travels the gap between towns turns up to be longer th
     " In desperation you choose to forage for some random berries, which do you choose to eat?";
 
 let choices6 = ["The white colored berries.",
-    "The yellow colored berries",
+    "The red colored berries",
     "The blue colored berries"];
 
 let picture6 = "images/berries.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
@@ -153,15 +153,15 @@ let picture6 = "images/berries.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT 
 let outcomes6 = [new SpecialOutcome("You eat some of the white berries in hopes for relief. ",
     "You feel ill but your luck carries you thru and you make it to town.",
     "The berries set fire to your stomach and you writhe in pain.."
-    ,8,"luck","","death"),
-    new Outcome("You eat some of the red berries in hopes for relief."
+    ,8,"luck","","Death"),
+    new SpecialOutcome("You eat some of the red berries in hopes for relief."
         , " You feel nauseous but your body has handled this type of food before, you will be fine. ",
         " You are bedridden in camp for days, and eventually.."
-        ,4,"dexterity","","death"),
-    new Outcome("You eat some of the blue berries and pray they are safe.",
+        ,4,"dexterity","","Death"),
+    new SpecialOutcome("You eat some of the blue berries and pray they are safe.",
         " The berries taste great and carry you thru to the next town.",
         " You get a mild stomach ache.",
-        3,"intelligence","","")]
+        2,"intelligence","","")]
 
 let sceneSix = new Scenario(text6, choices6, picture6,outcomes6);
 
@@ -235,16 +235,4 @@ let outcomes9 = [new Outcome("You boulder up the scramble.",
 
 let sceneNine = new Scenario(text9, choices9, picture9,outcomes9);
 
-export let swordPath = [start,sceneOne,sceneTwo,sceneThree,sceneFour,sceneFive,sceneSix,sceneSeven,sceneEight,sceneNine,maurader];
-
-/*
-export let swordPath = [start,sceneOne,sceneOne,sceneOne,sceneTwo,sceneTwo,sceneTwo,
-    sceneThree,sceneThree,sceneThree,sceneThree,sceneThree,sceneThree,
-    sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,sceneFour,
-    sceneFive,sceneFive,sceneFive,sceneFive,sceneFive,sceneFive, sceneFive,sceneFive,sceneFive,
-    sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,sceneSix,
-    sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,sceneSeven,
-    sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,sceneEight,
-    sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,sceneNine,maurader,maurader,maurader];// eventually a whole array of scenes
-
- */
+export let swordPath = [start,sceneOne,sceneTwo,sceneThree,sceneFour,maurader,sceneFive,sceneSix,sceneSeven,sceneEight,sceneNine];

@@ -4,6 +4,7 @@ import {swordPath as swordPath } from "./paths/swordPath.js";
 import {SpecialOutcome} from "./classes/SpecialOutcome.js";
 import {dragon} from "./paths/specialScenes.js";
 import{getStats} from "./functions/functions.js";
+import {death} from "./paths/specialScenes.js";
 
 const gameScreen = document.getElementById('game-screen');
 const scenarioText = document.getElementById('scenario-text');
@@ -139,17 +140,22 @@ window.onload = () => {
 
 const displayScene = (path,index) => {
 
+  //  if(contBtn.innerHTML === "restart?"){
+  //      contBtn.innerHTML = "continue";
+  //  }
 
     if(path === 'dragon'){
         scene = dragon;
         path = 'swordPath';
+    }else if(path === "death"){
+        scene = death;
     }else{
         scene = swordPath[index];
     }
     let sceneString = "";
 
 
-    console.log(path);
+    console.log(path + "= path ");
 
     if(path === 'swordPath'){
 
@@ -161,46 +167,47 @@ const displayScene = (path,index) => {
 
     saveData(sceneString);
 
-
-   // console.log("scene string = " + sceneString);
-
-
-    itemMessage.innerHTML = ""; //clear out last item message
-    addBoosts(); // add these based on whats in the character inventory at the beginning of the turn
-
-    // use this boolean to determine stat role at the end
-    let usedAlready = false;
-
-    if(contBtn.style.display === "block"){ //hide continue before displaying new scene
-        contBtn.style.display = "none";
-        saveBtn.style.display = "none";
-
-        for(let i = 0; i<buttonArr.length; i++){ // re-enable anchor buttons
-            buttonArr[i].style.pointerEvents = "auto";
-        }
-    }
-
     //displays background without using function
     gameScreen.style.backgroundImage = "url(" + scene.getPicture() + ")";
+    //display the scenario text
+    displayScenarioText(scene.getText());
 
-    displayScenarioText(scene.getText()); //display the scenario text
+    if(path !== "death") {
 
-    let sceneChoices = scene.getChoices(); // store array for choices
-
-    for(let i = 0; i< buttonArr.length; i++){ // display the choices
-        displayScenarioChoices(buttonArr,sceneChoices,i);
-    }
+        // console.log("scene string = " + sceneString);
 
 
-    let outcomeArr = scene.getOutcomes(); // store array for choices
+        itemMessage.innerHTML = ""; //clear out last item message
+        addBoosts(); // add these based on whats in the character inventory at the beginning of the turn
+
+        // use this boolean to determine stat role at the end
+        let usedAlready = false;
+
+        if (contBtn.style.display === "block") { //hide continue before displaying new scene
+            contBtn.style.display = "none";
+            saveBtn.style.display = "none";
+
+            for (let i = 0; i < buttonArr.length; i++) { // re-enable anchor buttons
+                buttonArr[i].style.pointerEvents = "auto";
+            }
+        }
+
+        let sceneChoices = scene.getChoices(); // store array for choices
+
+        for (let i = 0; i < buttonArr.length; i++) { // display the choices
+            displayScenarioChoices(buttonArr, sceneChoices, i);
+        }
 
 
-    //add event listeners to the buttons depending on their choices
-    for(let i = 0; i< outcomeArr.length; i++){ // display the choices
+        let outcomeArr = scene.getOutcomes(); // store array for choices
 
-         globalOutcomes[i] = outcomeArr[i];//update global outcomes
 
-    }
+        //add event listeners to the buttons depending on their choices
+        for (let i = 0; i < outcomeArr.length; i++) { // display the choices
+
+            globalOutcomes[i] = outcomeArr[i];//update global outcomes
+
+        }
 
         //add event listeners to inventory list buttons
         //used already is to keep track of using only one item per turn
@@ -209,18 +216,29 @@ const displayScene = (path,index) => {
 
         for (let i = 0; i < itemButtons.length; i++) {
             itemButtons[i].addEventListener("click",
-                () => useItem(itemButtons[i], itemButtons[i].getAttribute("id"), usedAlready,quickStatIncrease));
+                () => useItem(itemButtons[i], itemButtons[i].getAttribute("id"), usedAlready, quickStatIncrease));
         }
 
 
-            console.log("UPDATING INDEX" + currentIndex++);
+        console.log("UPDATING INDEX" + currentIndex++);
 
         //    nextScene = swordPath[currentIndex];
         //    contBtn.addEventListener("click", () => displayScene(nextScene, currentPath, currentIndex));
 
-        for(let i=0 ; i<quickStatIncrease.length; i++){
+        for (let i = 0; i < quickStatIncrease.length; i++) {
             quickStatIncrease[i] = false;
         }
+    }else{
+
+    //    saveBtn.style.display = "none"; //get rid of save
+        contBtn.style.display = "block"; //display restart
+        contBtn.innerHTML = "Restart?"; //change contButton to restart
+        contBtn.addEventListener("click", () => {
+
+            window.location.reload();
+        })
+
+    }
 }
 
 
@@ -244,7 +262,8 @@ const buttonEvent = (index,quickInc) => {
 
 
     let statTested = globalOutcomes[index].getStatTested(); // the stat being tested in this instance
-    let currentStatLevel = 0;
+    let currentStatLevel;
+
 
     console.log("stat tested is = " + statTested);
 
@@ -303,7 +322,7 @@ const buttonEvent = (index,quickInc) => {
 
             } else if (reward !== "") { //then we add the new item to the inventory
 
-                console.log("REWARDDDD");
+                //console.log("REWARDDDD");
 
                 let item = document.createElement('li');
                 item.id = reward.getType(); //the item type
@@ -326,16 +345,25 @@ const buttonEvent = (index,quickInc) => {
 
             let penalty = (globalOutcomes[index] instanceof SpecialOutcome) ? globalOutcomes[index].getPenalty() : "";
 
-            //TODO how about the penalties are just a choice bewtween "Death", "Coin"(LOSS),"Item"(LOSS)
+            //then display death scene
+            if(penalty === "Death") {
 
-            displayScenarioText(globalOutcomes[index].getText() + globalOutcomes[index].getBadOutcome());
+                currentPath = "death";
+                displayScene(currentPath,currentIndex);
+
+            }else{
+
+                displayScenarioText(globalOutcomes[index].getText() + globalOutcomes[index].getBadOutcome());
+            }
         }
 
     }
 
-     // pass in global variables
+    if(currentPath !== "death") {
+        // pass in global variables
+        saveBtn.style.display = "block";
+    }
     contBtn.style.display = "block";
-    saveBtn.style.display = "block";
 
 
     for(let i = 0; i<buttonArr.length; i++){ // disable anchor buttons now that a selection is made
