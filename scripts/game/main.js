@@ -18,7 +18,8 @@ const buttonArr = [btnA,btnB,btnC]; //array of buttons
 const globalStatBoosts = {"intelligence":0,"strength":0,"dexterity":0,"stamina":0,"luck":0}
 const itemMessage = document.getElementById('item-message');
 const globalOutcomes = [];
-let quickStatIncrease = {"intelligence":false,"strength":false,"dexterity":false,"stamina":false,"luck":false};
+let quickStatIncrease = {"intelligence":false,"strength":false,"dexterity":false,"stamina":false,"luck":false}
+let dragonDisp = false;
 
 
 
@@ -139,7 +140,12 @@ window.onload = () => {
 const displayScene = (path,index) => {
 
 
-    scene = swordPath[index];
+    if(path === 'dragon'){
+        scene = dragon;
+        path = 'swordPath';
+    }else{
+        scene = swordPath[index];
+    }
     let sceneString = "";
 
 
@@ -264,8 +270,10 @@ const buttonEvent = (index,quickInc) => {
 
         }else if(reward === "coin"){//then this is a gift
 
+
             giveCoin(currentStatLevel);
-           // coinDisplay.innerHTML = currentStatLevel + Math.floor(Math.random() * 500);
+            displayScenarioText(globalOutcomes[index].getText() + globalOutcomes[index].getGoodOutcome());//then player won the role
+           // Display the good result text
 
         }
 
@@ -279,12 +287,8 @@ const buttonEvent = (index,quickInc) => {
 
 
         // loop thru quick stats array. add 1 if potion used on correct stat
-        Object.keys(quickInc).forEach((key) => {
-            if (quickInc[key] === true && statTested === key) {
-                console.log("stat " + key + " increased by " + 1);
-                currentStatLevel++;
-            }
-        });
+        currentStatLevel+ checkIncrease(statTested);
+
 
         // console.log("STat with BOOSTS=" + currentStatLevel);//to test that our boosts are actually working
 
@@ -307,21 +311,8 @@ const buttonEvent = (index,quickInc) => {
 
 
                 //clear list of a weaker item if present
-                //TODO could pass type to function  so this is less cluttered
-                switch (reward.getType()) {
-
-                    case "msword":
-                        removeItem("sword");
-                        break;
-                    case "mshield":
-                        removeItem("shield");
-                        break;
-                    case "mpendant":
-                        removeItem("pendant");
-                        break;
-
-                }
-
+                removeItem(reward.getType());
+                //add new item
                 inventoryList.appendChild(item);
 
 
@@ -331,7 +322,7 @@ const buttonEvent = (index,quickInc) => {
 
         } else {
 
-            console.log("ELESE");
+           // console.log("ELESE");
 
             let penalty = (globalOutcomes[index] instanceof SpecialOutcome) ? globalOutcomes[index].getPenalty() : "";
 
@@ -375,7 +366,7 @@ const useItem = (button,str,usedAlready,statsInc) => {
             usedAlready = true;
             break;
 
-        case "SkeletonKey": displayScene(dragon); // display special scene
+        case "SkeletonKey": displayScene("dragon",currentIndex--); // display special scene
             break;
 
         default: break;
@@ -391,11 +382,27 @@ const useItem = (button,str,usedAlready,statsInc) => {
 }
 
 
-
 //for replacing an old item with a better one
-const removeItem = (itemType) => {
+const removeItem = (item) => {
+
+    let itemType;
+
+    switch (item) {
+
+        case "msword":
+            itemType = "sword" ;
+            break;
+        case "mshield":
+            itemType = "shield"
+            break;
+        case "mpendant":
+            itemType = "pendant"
+            break;
+
+    }
 
     let items = inventoryList.children;
+
 
     for(let i = 0; i<items.length; i++){
 
@@ -491,6 +498,18 @@ const payCoin = (newCoin) => {
     coinDisplay.innerHTML = newCoin.toString();
 
 
+
+}
+
+const checkIncrease = (stat) => {
+
+    Object.keys(quickStatIncrease).forEach((key) => {
+        if (quickStatIncrease[key] === true && stat === key) {
+            console.log("stat " + key + " increased by " + 1);
+            return 1;
+        }
+    });
+    return 0;
 
 }
 
