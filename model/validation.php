@@ -8,15 +8,13 @@ class Validation
 
     static function validUsername($username)
     {
-        //TODO: make regex for username, return true if match else false
-        return true;
+        return preg_match("/^[a-zA-Z0-9\-_]{2,30}$/", $username);
     }
 
 
     static function validPassword($password)
     {
-        //TODO: make regex for password, return true if match else false
-        return true;
+        return preg_match("/^[a-zA-Z0-9!@#?]{8,30}$/", $password);
     }
 
     /**
@@ -26,7 +24,7 @@ class Validation
      */
     static function validName($name)
     {
-        return preg_match("/^[a-zA-Z\- ]{2,30}$/", $name);
+        return preg_match("/^[a-zA-Z\-' ]{2,30}$/", $name);
     }
 
     /**

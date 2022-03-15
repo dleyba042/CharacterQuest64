@@ -32,30 +32,31 @@ class Controller
 
                 $_SESSION["user"] = new User();
 
-                $username = $_POST["create-username"];
-                $password = $_POST["create-password"];
+                $createUsername = $_POST["create-username"];
+                $createPassword = $_POST["create-password"];
                 $confirm = $_POST["confirm-password"];
 
                 // No prior user with the same username in the database
-                if ($database->getUser($username) == null) {
+                if ($database->getUser($createUsername) == null) {
 
                     //Validate the user's username
-                    if (Validation::validUsername($username)) {
-                        $_SESSION["user"]->setUsername($username);
+                    if (Validation::validUsername($createUsername)) {
+                        $_SESSION["user"]->setUsername($createUsername);
                     } else {
-                        $this->_f3->set('errors["create-username"]', 'Please only use letters, numbers, or hyphens (30 character limit)');
+                        $this->_f3->set('errors["create-username"]', 'Please only use letters, numbers, hyphens, 
+                        or underscores (5 character min - 30 character max)');
                     }
 
                     //Validate the user's password
-                    if (Validation::validPassword($password)) {
-                        $_SESSION["user"]->setPassword(password_hash($password, PASSWORD_DEFAULT));
+                    if (Validation::validPassword($createPassword)) {
+                        $_SESSION["user"]->setPassword(password_hash($createPassword, PASSWORD_DEFAULT));
                     } else {
                         $this->_f3->set('errors["create-password"]', 'Please only use letters, numbers, 
-                    or a following special character (!, @, #, ?) (must be over 8 characters)');
+                    or a following special character (!, @, #, ?) (5 character min - 30 character max)');
                     }
 
                     //Validate the user's password & it's confirmation match
-                    if (strcmp($password, $confirm) != 0) {
+                    if (strcmp($createPassword, $confirm) != 0) {
                         $this->_f3->set('errors["confirm-password"]', 'Please match the password you used above.');
                     }
                 } else {
@@ -63,7 +64,7 @@ class Controller
                 }
 
                 if (empty($this->_f3->get("errors"))) {
-                    $_SESSION["userid"] = $database->addUser($_SESSION['user']);
+                    $_SESSION["userid"] = $database->addUser($_SESSION["user"]);
                     $_SESSION["loggedIn"] = true;
                     $this->_f3->reroute("character");
                 }
@@ -73,15 +74,15 @@ class Controller
             if (isset($_POST["login"])) {
                 $username = $_POST["username"];
                 $password = $_POST["password"];
-                $user = $database->getUser($username);
+                $_SESSION["user"] = $database->getUser($username);
 
                 //If user found
-                if ($user != null) {
-                    if (strcmp($username, $user["username"]) != 0) {
+                if ($_SESSION["user"] != null) {
+                    if (strcmp($username, $_SESSION["user"]["username"]) != 0) {
                         $this->_f3->set('errors["username"]', 'Invalid username, please try again.');
                     }
 
-                    if (!password_verify($password, $user["password"])) {
+                    if (!password_verify($password, $_SESSION["user"]["password"])) {
                         $this->_f3->set('errors["password"]', 'Invalid password, please try again.');
                     }
                 } else {
@@ -90,7 +91,7 @@ class Controller
 
                 if (empty($this->_f3->get("errors"))) {
 
-                    $_SESSION["userid"] = $user["user_id"];
+                    $_SESSION["userid"] = $_SESSION["user"]["user_id"];
                     $_SESSION["loggedIn"] = true;
                     $character = $database->getCharacter($_SESSION["userid"]);
 
@@ -117,7 +118,13 @@ class Controller
                         }
 
                         //Gets stats from database
-                        $charStats = array($character["dexterity"],$character["intelligence"],$character["luck"],$character["stamina"],$character["strength"]);
+                        $charStats = array(
+                            $character["dexterity"],
+                            $character["intelligence"],
+                            $character["luck"],
+                            $character["stamina"],
+                            $character["strength"]
+                        );
 
                         $stats = DataLayer::getStats();
                         $counter = 0;
@@ -128,6 +135,7 @@ class Controller
                         }
                         $_SESSION["character"]->setStats($stats);
 
+                        // Loads progress to continue where you left off
                         $_SESSION["progress"] = $character["progress"];
 
                         $this->_f3->reroute("game");
@@ -137,6 +145,13 @@ class Controller
         }
 
         //Adds data to F3 hive
+        $this->_f3->set('createUsername', $createUsername);
+        $this->_f3->set('createPassword', $createPassword);
+        $this->_f3->set('confirm', $confirm);
+        $this->_f3->set('signup', $_POST["signup"]);
+        $this->_f3->set('username', $username);
+        $this->_f3->set('password', $password);
+        $this->_f3->set('login', $_POST["login"]);
         $this->_f3->set('loggedIn', $_SESSION["loggedIn"]);
 
         $view = new Template();
@@ -179,7 +194,7 @@ class Controller
             if (Validation::validName($name)) {
                 $_SESSION['character']->setName($name);
             } else {
-                $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, or spaces (30 character limit)');
+                $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, apostrophes or spaces (30 character limit)');
             }
 
             //Validate the character's race
@@ -204,9 +219,6 @@ class Controller
                         $_SESSION['character']->setInventory($item);
                     }
                 }
-
-                // $_SESSION['character']->setInventory(new SkeletonKey("Cool KEy"));//FOR TESTING PURPOSES
-
             } else {
                 $this->_f3->set('errors["item"]', 'Please choose an item');
             }
