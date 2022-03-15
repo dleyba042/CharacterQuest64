@@ -1,3 +1,7 @@
+$(function() {
+   $('[data-toggle="tooltip"]').tooltip();
+});
+
 // Validates that information entered is in correct format when submitted
 document.getElementById("character-form").onsubmit = validate;
 

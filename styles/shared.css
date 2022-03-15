@@ -6,7 +6,7 @@ body {
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Header & Nav Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-header {
+header, .modal-content {
     border-bottom: 2px solid #48291e;
     background: url("../images/paper.webp") no-repeat center;
 }
@@ -16,7 +16,7 @@ header {
     font-weight: bold;
 }
 
-.navbar-brand, .navbar-brand i, .nav-item h4 {
+.navbar-brand, .navbar-brand i, .modal h2, .modal label{
     color: #48291e;
 }
 
@@ -38,7 +38,7 @@ header {
     color: #b39e8b;
 }
 
-.dropdown-menu, .nav-link, .navbar-toggler, .modal-button {
+.dropdown-menu, .nav-link, .navbar-toggler, .modal-button, .modal-content, .modal input {
     border: 2px solid #48291e;
     border-radius: 8px;
 }
@@ -59,6 +59,11 @@ header {
 
 .close-button {
     padding: 0.5% 2% 1%;
+}
+
+.modal-header, .modal-footer {
+    border-top: none;
+    border-bottom: none;
 }
 
 .err, .error {

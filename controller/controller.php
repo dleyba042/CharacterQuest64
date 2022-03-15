@@ -52,7 +52,7 @@ class Controller
                         $_SESSION["user"]->setPassword(password_hash($createPassword, PASSWORD_DEFAULT));
                     } else {
                         $this->_f3->set('errors["create-password"]', 'Please only use letters, numbers, 
-                    or a following special character (!, @, #, ?) (5 character min - 30 character max)');
+                    or the following special characters (!, @, #, ?) (5 character min - 30 character max)');
                     }
 
                     //Validate the user's password & it's confirmation match
@@ -203,7 +203,7 @@ class Controller
             if (Validation::validName($name)) {
                 $_SESSION['character']->setName($name);
             } else {
-                $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, apostrophes or spaces (30 character limit)');
+                $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, apostrophes or spaces (30-character limit)');
             }
 
             //Validate the character's race

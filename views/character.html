@@ -39,7 +39,7 @@
                 <div class="col-8">
                     <input class="form-control text-center" type="text" name="name" id="name" value="<check if='{{ isset(@name) }}'>{{ @name }}</check>">
                 </div>
-                <span class="error mx-auto" id="err-name"><strong>Please only use letters, hyphens, or spaces (30 character limit)</strong></span>
+                <span class="error mx-auto" id="err-name"><strong>Please only use letters, hyphens, apostrophes or spaces (30-character limit)</strong></span>
 
                 <!-- Display an error if there is one -->
                 <check if="{{ isset(@errors['name']) }}">
@@ -61,8 +61,9 @@
 
                         <div class="col-8 my-auto">
 
-                            <select class="form-control px-2 text-center" name="race" id="race">
-                                <option value="" selected="selected" disabled="disabled">Choose One</option>
+                            <select class="form-control px-2 text-center" name="race" id="race"
+                                data-toggle="tooltip" data-placement="top" title="Each Race Starts With Two Boosted Stats">
+                                <option value="" selected="selected" disabled="disabled">Choose Before Rolling</option>
                                 <repeat group="{{ @races }}" value="{{ @race }}">
                                     <option value="{{ @race }}" <check if='{{ @race == @userRace }}'>selected</check>>{{ ucfirst(@race) }}</option>
                                 </repeat>
@@ -87,7 +88,10 @@
                                        name="{{ @statName }}" id="{{ @statName }}"
                                        value="<check if='{{ isset(@stat) }}'>{{ @stat }}</check>" readonly>
                             </div>
-                            <a class="dice col-2 my-auto text-center" id="{{ @statName }}Dice" href="#/"><i class="fa-solid fa-dice-d20 fa-2xl"></i></a>
+                            <a class="dice col-2 my-auto text-center" id="{{ @statName }}Dice" href="#/"
+                                data-toggle="tooltip" data-placement="right" title="Click To Roll {{ ucfirst(@statName) }}">
+                                <i class="fa-solid fa-dice-d20 fa-2xl"></i>
+                            </a>
 
                             <!-- Display error for stats if there is one -->
                             <check if="{{ (@ctr == count(@stats)) && isset(@errors['stats']) }}">
@@ -110,7 +114,7 @@
                             <repeat group="{{ @items }}" value="{{ @item }}" counter="{{ @ctr }}">
                                 <label class="mb-3 pb-2"><input class="item" type="radio" name="item" value="{{ @item }}"
                                     <check if='{{ @item == @userItem }}'>checked</check>>
-                                    <strong class="ml-3">
+                                    <strong class="ml-2">
                                         <check if="get_class(@item) == 'Coin'">
                                             <true>{{ ucwords(@item->__toString()) }}</true>
                                             <false>{{ substr(ucwords(@item->__toString()), 0, -15) }}</false>
@@ -166,9 +170,9 @@
 
 <!-- JQuery, Popper, & Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="//code.jquery.com/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="//code.jquery.com/jquery.js"></script>
 <script src="scripts/character/character.js"></script>
 <check if="{{ isset(@name) && empty(@errors) }}"><script src="scripts/character/ajax.js"></script></check>
 </body>

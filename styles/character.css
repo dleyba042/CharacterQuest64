@@ -39,6 +39,16 @@ select#race option:disabled {
     color: #f2e3cc;
 }
 
+.tooltip.show {
+    opacity: 1 !important;
+}
+
+.tooltip > .tooltip-inner {
+    color: #f2e3cc;
+    background-color: #5e4134;
+    border: 2px solid #48291e;
+}
+
 .input-group {
     border: none;
 }
