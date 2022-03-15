@@ -31,7 +31,6 @@ $f3->route("GET|POST /game", function(){
 
 //define save route
 $f3->route("GET|POST /save", function(){
-
     $GLOBALS['controller']->save();
 });
 

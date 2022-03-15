@@ -15,5 +15,4 @@ class Coin extends Item
         parent::__construct($name,"used to purchase or persuade");
         parent::setQuantity($quantity);
     }
-
 }

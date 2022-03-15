@@ -6,12 +6,21 @@
 class Validation
 {
 
+    /**
+     * Validates a new user's username.
+     * @param String $username the user's username
+     * @return bool true for valid, false for invalid
+     */
     static function validUsername($username)
     {
         return preg_match("/^[a-zA-Z0-9\-_]{2,30}$/", $username);
     }
 
-
+    /**
+     * Validate's a new user's password.
+     * @param String $password the user's password
+     * @return bool true for valid, false for invalid
+     */
     static function validPassword($password)
     {
         return preg_match("/^[a-zA-Z0-9!@#?]{8,30}$/", $password);

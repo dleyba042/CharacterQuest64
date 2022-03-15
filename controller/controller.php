@@ -36,7 +36,7 @@ class Controller
                 $createPassword = $_POST["create-password"];
                 $confirm = $_POST["confirm-password"];
 
-                // No prior user with the same username in the database
+                //No prior user with the same username in the database
                 if ($database->getUser($createUsername) == null) {
 
                     //Validate the user's username
@@ -63,6 +63,7 @@ class Controller
                     $this->_f3->set('errors["user-exists"]', 'User already exists, please choose another username.');
                 }
 
+                //If no errors, add user to database, log-in, & reroute
                 if (empty($this->_f3->get("errors"))) {
                     $_SESSION["userid"] = $database->addUser($_SESSION["user"]);
                     $_SESSION["loggedIn"] = true;
@@ -78,46 +79,53 @@ class Controller
 
                 //If user found
                 if ($_SESSION["user"] != null) {
+
+                    //If username entered into login modal isn't found in database
                     if (strcmp($username, $_SESSION["user"]["username"]) != 0) {
                         $this->_f3->set('errors["username"]', 'Invalid username, please try again.');
                     }
 
+                    //If password entered into login modal doesn't match user's password in database
                     if (!password_verify($password, $_SESSION["user"]["password"])) {
                         $this->_f3->set('errors["password"]', 'Invalid password, please try again.');
                     }
                 } else {
+                    //If user not found
                     $this->_f3->set('errors["user"]', 'User does not exist.');
                 }
 
+                //If no errors, log-in, get user's character(name/race/stats/inventory/progress), & reroute
                 if (empty($this->_f3->get("errors"))) {
 
                     $_SESSION["userid"] = $_SESSION["user"]["user_id"];
                     $_SESSION["loggedIn"] = true;
                     $character = $database->getCharacter($_SESSION["userid"]);
 
+                    //If user never created a character
                     if($character == null) {
                         $this->_f3->reroute("character");
-                    }
-                    else {
+                    } else {
 
+                        //If user has a character, initialize a new character object using the user's saved data
                         $_SESSION["character"] = new Character($character["name"], $character["race"]);
 
                         //Gets inventory from database
                         $inventory = $database->getInventory($character["character_id"]);
 
+                        //Gets available items
                         $items = DataLayer::getItems();
 
+                        //If the items in the character's inventory match available items,
+                        // add them to character objects inventory
                         foreach($items as $item) {
-
                             foreach ($inventory as $inv) {
-
                                 if (strtolower(get_class($item)) === $inv["name"]) {
                                     $_SESSION["character"]->setInventory($item);
                                 }
                             }
                         }
 
-                        //Gets stats from database
+                        //Gets character's stats from database
                         $charStats = array(
                             $character["dexterity"],
                             $character["intelligence"],
@@ -126,18 +134,19 @@ class Controller
                             $character["strength"]
                         );
 
+                        //Gets available stats
                         $stats = DataLayer::getStats();
                         $counter = 0;
 
+                        //Sets character's stats to the available stats in the character object
                         foreach ($stats as $key => $value) {
                             $stats[$key] = $charStats[$counter];
                             $counter++;
                         }
                         $_SESSION["character"]->setStats($stats);
 
-                        // Loads progress to continue where you left off
+                        //Loads progress to continue where the user left off & reroutes to the game
                         $_SESSION["progress"] = $character["progress"];
-
                         $this->_f3->reroute("game");
                     }
                 }
@@ -171,7 +180,7 @@ class Controller
 
         $database = new Database();
 
-        //Initialize to get stat names for the form
+        //Initialize to get stat names & items for the form
         $stats = DataLayer::getStats();
         $items = DataLayer::getItems();
 
@@ -223,17 +232,15 @@ class Controller
                 $this->_f3->set('errors["item"]', 'Please choose an item');
             }
 
-            if (empty($this->_f3->get('errors'))) {
+            //If no errors, add user's character/chosen item to the database, & reroutes to the game
+            if (empty($this->_f3->get('errors')) && isset($_POST['start'])) {
 
-                if (isset($_POST['start'])) {
+                $charID = $database->setCharacter($_SESSION['character'], $_SESSION["userid"]);
+                $_SESSION['char_id'] = $charID;
+                $_SESSION["progress"] = "swordPath[0]";
+                $database->setInventory($charID, $item);
 
-                    $charID = $database->setCharacter($_SESSION['character'], $_SESSION["userid"]);
-                    $_SESSION['char_id'] = $charID;
-                    $_SESSION["progress"] = "swordPath[0]";
-                    $database->setInventory($charID, $item);
-
-                    $this->_f3->reroute('game');
-                }
+                $this->_f3->reroute('game');
             }
         }
 
@@ -271,14 +278,16 @@ class Controller
         echo $view->render('views/game.html');
     }
 
+    /**
+     * Save game logic and routing.
+     * @return void
+     */
     function save()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $prog = $_POST['progress'];
-
             $dbh = new Database();
-            $dbh->setProgress($_SESSION['char_id'],$prog);
+            $dbh->setProgress($_SESSION['char_id'],$_POST['progress']);
             //TODO: Set inventory in database
 
             $this->_f3->reroute('/');
@@ -286,7 +295,7 @@ class Controller
     }
 
     /**
-     *
+     * Logout logic and routing.
      * @return void
      */
     function logout()

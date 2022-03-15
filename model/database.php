@@ -23,6 +23,11 @@ class Database
         }
     }
 
+    /**
+     * Adds user info to the database.
+     * @param User $user who is being added
+     * @return false|string
+     */
     function addUser($user)
     {
         //1. Define the query
@@ -45,6 +50,11 @@ class Database
         return $this->_dbh->lastInsertId();
     }
 
+    /**
+     * Gets a user from the database.
+     * @param String $username the username of the user
+     * @return mixed|null
+     */
     function getUser($username)
     {
         //1. Define the query
@@ -108,7 +118,11 @@ class Database
         return $this->_dbh->lastInsertId();
     }
 
-
+    /**
+     * Gets a character from the database.
+     * @param int $userid the userid linked to the character
+     * @return mixed|null
+     */
     function getCharacter($userid)
     {
         //1. Define the query
@@ -159,7 +173,11 @@ class Database
         $statement->execute();
     }
 
-
+    /**
+     * Gets a character's inventory from the database.
+     * @param int $character_id the character id linked to the inventory
+     * @return array|false
+     */
     function getInventory($character_id)
     {
         //1. Define the query
@@ -203,15 +221,19 @@ class Database
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Sets a user's progress in the game to be used for loading later.
+     * @param int $id the ID of the user's character
+     * @param String $path the location the user is in the game
+     * @return void
+     */
     function setProgress($id,$path)
     {
-
-
+        //1. Define the query
         $sql = "UPDATE `character` SET progress = :path WHERE character_id = :id";
 
         //2. Prepare the statement
         $statement = $this->_dbh->prepare($sql);
-
 
         //3. Bind the parameters
         $statement->bindParam(':path',$path);
@@ -219,8 +241,5 @@ class Database
 
         //4. Execute the query
         $statement->execute();
-
     }
-
-
 }
