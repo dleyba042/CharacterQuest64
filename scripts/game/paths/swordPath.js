@@ -12,7 +12,7 @@ let choices1 = ["Flip the table and prepare for a brawl, you refuse to be disres
     "Turn your back on them dismissively.",
     "Invite them to sit down for a drink, and put aside their differences."];
 
-let picture1 = "images/wizard.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture1 = "images/wizard.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
 let outcomes1 = [new Outcome("You flip the table and raise your fists. ",
@@ -40,7 +40,7 @@ let choices2 = ["An inverse square root",
     "Yo Mamma",
     "a Hole"];
 
-let picture2 = "images/cat.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture2 = "images/cat.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes2 = [new SpecialOutcome("You guess and your friend responds...",
@@ -67,7 +67,7 @@ let choices3 = ["You wait for nightfall and sneak in to apprehend the fugitive u
     " You barge in and demand the fugitive comes with you or else.",
     " You enter the camp posing as a fellow con artist,hoping to lure the fugitive back with a clever job proposal."];
 
-let picture3 = "images/encamp.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture3 = "images/encamp.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
 let outcomes3 = [new Outcome("You choose to go in by nightfall.",
@@ -95,7 +95,7 @@ let choices4 = ["Let the best man win, face this bully in combat.",
     "Apologize for the inconvenience you have caused.",
     "Pay for your error with Zarlocks(15)."];
 
-let picture4 = "images/beast.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture4 = "images/beast.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
 let outcomes4 = [new Outcome("You engage the bully in combat! ",
@@ -121,7 +121,7 @@ let choices5 = ["Accept, but only if he is willing to do work around camp.",
     "Turn him away.",
     "Agree to his request."];
 
-let picture5 = "images/prophet.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture5 = "images/prophet.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
 let outcomes5 = [new Outcome("You drive a hard bargain and ask for work in return. ",
@@ -147,7 +147,7 @@ let choices6 = ["The white colored berries.",
     "The yellow colored berries",
     "The blue colored berries"];
 
-let picture6 = "images/berries.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture6 = "images/berries.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
 let outcomes6 = [new SpecialOutcome("You eat some of the white berries in hopes for relief. ",
@@ -174,7 +174,7 @@ let choices7 = ["Fake reach for your satchel, but instead grab your sword and ho
     "Find another way around, maybe you can swim across??.",
     "Pay the fee demanded by the Troll. (25 Zarlock)"];
 
-let picture7 = "images/troll.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture7 = "images/troll.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes7 = [new Outcome("You deceive the Troll and engage in combat.",
@@ -197,7 +197,7 @@ let choices8 = ["You buy the necessary garb.(50 Zarlock)",
     "You go as you are,customs be damned.",
     "You go as you are, but make it a point to explain to locals the limitation of their customs."];
 
-let picture8 = "images/ball.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture8 = "images/ball.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
 let outcomes8 = [new Outcome("You decide to buy the traditional garb.",
@@ -220,7 +220,7 @@ let choices9 = ["You go directly up and over the scramble, the shortest possible
     "You find a cave for shelter and make a camp for the night. " +
     "choosing to go around the long way with a full day at your back."];
 
-let picture9 = "images/cliff.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture9 = "images/cliff.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 
 let outcomes9 = [new Outcome("You boulder up the scramble.",

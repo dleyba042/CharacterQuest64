@@ -13,10 +13,10 @@
             <ul class="navbar-nav text-center">
                 <check if="{{ empty(@loggedIn) }}">
                     <li class="nav-item px-2">
-                        <button class="btn nav-link" type="button" data-toggle="modal" data-target="#create-a-profile"><i class="fa-solid fa-user-plus"></i> Create A Profile</button>
+                        <button class="btn nav-link" id="signup" type="button" data-toggle="modal" data-target="#create-a-profile"><i class="fa-solid fa-user-plus"></i> Create A Profile</button>
                     </li>
                     <li class="nav-item px-2">
-                        <button class="btn nav-link" type="button" data-toggle="modal" data-target="#login-modal"><i class="fa-solid fa-arrow-right-to-bracket"></i> Log In</button>
+                        <button class="btn nav-link" id="login" type="button" data-toggle="modal" data-target="#login-modal"><i class="fa-solid fa-arrow-right-to-bracket"></i> Log In</button>
                     </li>
                 </check>
                 <check if="{{ @loggedIn }}">
@@ -51,20 +51,28 @@
                     <form action="#" method="post" id="signup-form">
                         <fieldset class="form-group border mx-auto mb-0">
                             <div class="mx-auto px-3 form-entry-fields">
+                                <!-- Display an error if there is one -->
+                                <check if="{{ isset(@errors['user-exists']) }}">
+                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["user-exists"] }}</strong></span>
+                                </check>
 
                                 <div class="form-group text-left">
                                     <label for="create-username">Username</label>
-                                    <input type="text" class="form-control" id="create-username" name="create-username">
+                                    <input type="text" class="form-control" id="create-username" name="create-username"
+                                           value="<check if='{{ isset(@createUsername) }}'>{{ @createUsername }}</check>">
                                 </div>
 
                                 <!-- Display an error if there is one -->
                                 <check if="{{ isset(@errors['create-username']) }}">
-                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["create-username"] }}</strong></span>
+                                    <span class="err d-flex justify-content-center">
+                                        <strong>{{ @errors["create-username"] }}</strong>
+                                    </span>
                                 </check>
 
                                 <div class="form-group text-left">
                                     <label for="create-password">Password</label>
-                                    <input type="password" class="form-control" id="create-password" name="create-password">
+                                    <input type="password" class="form-control" id="create-password" name="create-password"
+                                           value="<check if='{{ isset(@createPassword) }}'>{{ @createPassword }}</check>">
                                 </div>
 
                                 <!-- Display an error if there is one -->
@@ -74,7 +82,8 @@
 
                                 <div class="form-group text-left">
                                     <label for="confirm-password">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password">
+                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+                                           value="<check if='{{ isset(@confirm) }}'>{{ @confirm }}</check>">
                                 </div>
 
                                 <!-- Display an error if there is one -->
@@ -85,11 +94,6 @@
 
                             <button class="btn modal-button" name="signup" type="submit">Sign Up</button>
                         </fieldset>
-
-                        <!-- Display an error if there is one -->
-                        <check if="{{ isset(@errors['user-exists']) }}">
-                            <span class="err d-flex justify-content-center"><strong>{{ @errors["user-exists"] }}</strong></span>
-                        </check>
                     </form>
                 </div><!-- Modal Body -->
             </div><!-- Modal Content -->
@@ -110,10 +114,15 @@
                     <form action="#" method="post">
                         <fieldset class="form-group border mx-auto mb-0">
                             <div class="mx-auto px-3 form-entry-fields">
+                                <!-- Display an error if there is one -->
+                                <check if="{{ isset(@errors['user']) }}">
+                                    <span class="err d-flex justify-content-center"><strong>{{ @errors["user"] }}</strong></span>
+                                </check>
 
                                 <div class="form-group text-left">
                                     <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username">
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           value="<check if='{{ isset(@username) }}'>{{ @username }}</check>">
                                 </div>
 
                                 <!-- Display an error if there is one -->
@@ -123,8 +132,10 @@
 
                                 <div class="form-group text-left mb-0">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           value="<check if='{{ isset(@password) }}'>{{ @password }}</check>">
                                 </div>
+
                                 <!-- Display an error if there is one -->
                                 <check if="{{ isset(@errors['password']) }}">
                                     <span class="err d-flex justify-content-center"><strong>{{ @errors["password"] }}</strong></span>
@@ -138,11 +149,6 @@
                                 <button class="btn modal-button" name="login" type="submit">Log In</button>
                             </div>
                         </fieldset>
-
-                        <!-- Display an error if there is one -->
-                        <check if="{{ isset(@errors['user']) }}">
-                            <span class="err d-flex justify-content-center"><strong>{{ @errors["user"] }}</strong></span>
-                        </check>
                     </form>
                 </div><!-- Modal Body -->
             </div><!-- Modal Content -->

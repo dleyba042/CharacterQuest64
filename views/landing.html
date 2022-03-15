@@ -21,7 +21,7 @@
     <title>Character Quest 64</title>
 
     <!--favicon-->
-    <link rel="shortcut icon" type="image/jpg" href="images/potion.png"/>
+    <link rel="shortcut icon" type="image/jpg" href="images/potion.webp"/>
 </head>
 <body>
 <include href="views/header.html"></include>
@@ -37,7 +37,7 @@
             <p id="description"> This app will allow users to create a custom character to play through an adventure
                 scenario. The character stats are based on a random roll of ranges. Stats would include
                 strength, intellect, stamina, dexterity, and luck. Character customization would include fantasy
-                races (i.e. elves, orcs, dwarves, humans, tieflings). Races will dictate the ranges of stats
+                races (i.e. elves, orcs, dwarves, humans). Races will dictate the ranges of stats
                 possible for each character. For example, an Orc would have a higher range of strength and
                 Elves would have a higher range of intellect. The app will have a basic inventory system.
                 Different paths can open up depending on what the character is carrying. The inventory will
@@ -50,13 +50,13 @@
         <div id="carousel-head" class="carousel carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="images/colts-char.png" class="d-block w-100" alt="first slide coltons character">
+                    <img src="images/colts-char.webp" class="d-block w-100" alt="first slide coltons character">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/lyra-char.png" class="d-block w-100" alt="second slide lyras character">
+                    <img src="images/lyra-char.webp" class="d-block w-100" alt="second slide lyras character">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/dev-char.png" class="d-block w-100" alt="third slide devins character">
+                    <img src="images/dev-char.webp" class="d-block w-100" alt="third slide devins character">
                 </div>
             </div>
         </div>
@@ -67,11 +67,29 @@
 
 </div>
 
-<script type="module" src="scripts/landing.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="//code.jquery.com/jquery.js"></script>
+<script type="module" src="scripts/landing.js"></script>
 
+<check if="{{ isset(@createUsername) && !empty(@errors) }}">
+    <script>
+        // On page load, click open the signup modal
+        $(window).load(function() {
+            $("#signup").click();
+        });
+    </script>
+</check>
+
+<check if="{{ isset(@username) && !empty(@errors) }}">
+    <script>
+        // On page load, click open the login modal
+        $(window).load(function() {
+            $("#login").click();
+        });
+    </script>
+</check>
 
 </body>
 </html>

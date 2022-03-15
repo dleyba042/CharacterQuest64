@@ -8,7 +8,7 @@ let choices1 = ["Attack dragon with all your might.",
     "Run away.",
     "Play dead."];
 
-let picture1 = "images/dragon.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture1 = "images/dragon.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes1 = [new SpecialOutcome("Outcome 1.",
@@ -34,7 +34,7 @@ let choices2 = ["Grab a nearby bow and take the leader out from a distance.",
     "Take the whole group head on.",
     "Try to convince them to leave and never come back."];
 
-let picture2 = "images/boss.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture2 = "images/boss.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes2 = [new SpecialOutcome("You reach for a bow and take aim at the leader.",

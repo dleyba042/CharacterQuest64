@@ -12,7 +12,7 @@ let choices = ["Fight them head on...",
     "Do your best to retreat...",
     "Try to reason out of the situation..."];
 
-let picture = "images/grotto.jpeg"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
+let picture = "images/grotto.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
 let outcomes = [new Outcome("You stand your ground and fight. ",

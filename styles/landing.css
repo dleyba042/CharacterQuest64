@@ -7,7 +7,7 @@
 }
 
 body{
-    background: url("../../CharacterQuest64/images/city3.jpg") no-repeat ;
+    background: url("../../CharacterQuest64/images/city3.webp") no-repeat ;
     background-size: cover;
 }
 
@@ -55,7 +55,7 @@ hr {
 
 #summary-container{
     margin-top: -14px;
-    background: url(../../CharacterQuest64/images/scroll4.png) no-repeat center;
+    background: url(../../CharacterQuest64/images/scroll4.webp) no-repeat center;
     background-size: cover;
     height: 500px;
 }
@@ -67,13 +67,13 @@ hr {
 @media screen and (min-width: 1240px) {
 
     body{
-        background: url("../../CharacterQuest64/images/city3.jpg") no-repeat ;
+        background: url("../../CharacterQuest64/images/city3.webp") no-repeat ;
         background-size: cover;
     }
 
     #summary-container{
         margin-top: -14px;
-        background: url(../../CharacterQuest64/images/scroll4.png) no-repeat center;
+        background: url(../../CharacterQuest64/images/scroll4.webp) no-repeat center;
         background-size: 825px;
         height: 600px;
     }

@@ -1,4 +1,4 @@
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Body Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Body Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 body {
     font-family: 'Quintessential', cursive;
@@ -8,7 +8,7 @@ body {
 
 header {
     border-bottom: 2px solid #48291e;
-    background: url("../images/paper.jpg") no-repeat center;
+    background: url("../images/paper.webp") no-repeat center;
 }
 
 .navbar-brand {
@@ -16,7 +16,7 @@ header {
     font-weight: bold;
 }
 
-.navbar-brand, .navbar-brand i {
+.navbar-brand, .navbar-brand i, .nav-item h4 {
     color: #48291e;
 }
 
