@@ -394,7 +394,7 @@ const useItem = (button,str,usedAlready,statsInc) => {
             usedAlready = true;
             break;
 
-        case "SkeletonKey": displayScene("dragon",currentIndex--); // display special scene
+        case "SkeletonKey": displayScene("dragon",currentIndex-=2); // display special scene
             break;
 
         default: break;

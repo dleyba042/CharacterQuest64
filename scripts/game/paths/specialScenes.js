@@ -2,26 +2,26 @@ import {SpecialOutcome} from "../classes/SpecialOutcome.js";
 import {Scenario} from "../classes/Scenario.js";
 import {Item} from "../classes/Item.js";
 
-let text1 = " The Dragons bear down before you...\n Choosing this key may have been a grave error ";
+let text1 = " You suddenly find yourself in a grave situation. A Dragon bears down before you.\n Choosing this key may have been a fatal error... ";
 
-let choices1 = ["Attack dragon with all your might.",
-    "Run away.",
-    "Play dead."];
+let choices1 = ["Attack dragon using the Phalanx technique you learned from your instructor Leonidas..",
+    "Run away and hope that you are fast enough...",
+    "Play dead and hope the dragon shows mercy..."];
 
 let picture1 = "images/dragon.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS INSERTING IT IE >>> THE JS MAIN SCRIPT
 
 //SCENE WILL HOLD AN ARRAY OF THREE OUTCOMES IN ORDER OF BUTTON CHOICE [A,B,C]
-let outcomes1 = [new SpecialOutcome("Outcome 1.",
-    "You fell the beast and craft a sword made from its scales",
-    "The dragon mauls you.",4,
+let outcomes1 = [new SpecialOutcome("You utilize the technique perfectly and fell the massive beast.",
+    "As a trophy you craft a sword made from the dragons scales.",
+    "The dragon mauls you.",5,
     "strength",new Item("msword","Dragon Sword","Adds 6 Strength"), "Death"),
     new SpecialOutcome("Outcome 2.",
-        "You make your escape and stumble upon a treasure chest containing Mythril Armor",
-        "The dragon mauls you.",4,"stamina",
+        "You make your escape and stumble upon a treasure chest containing Mythril Armor!",
+        "The dragon mauls you.",5,"stamina",
         new Item("mshield","Mythril Armor","Adds 6 Stamina"),"Death"),
     new SpecialOutcome("Outcome 3.",
         "The Dragon leaves you be and your luck continues when you find a Pendant left behind...",
-        "The dragon mauls you.",4,"luck",
+        "The dragon mauls you.",5,"luck",
         new Item("mpendant","Dragon Pendant","Adds 6 Luck"),"Death")]
 
 export let dragon = new Scenario(text1, choices1, picture1,outcomes1);

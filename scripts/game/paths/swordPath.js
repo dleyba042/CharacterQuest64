@@ -3,9 +3,10 @@ import {SpecialOutcome} from "../classes/SpecialOutcome.js";
 import {Scenario} from "../classes/Scenario.js";
 import {maurader} from "./specialScenes.js";
 import {sceneOne as start} from "../startScene.js";
+import {death} from "./specialScenes.js";
 
 let text1 = " You journey into a nearby town and enter the local tavern. You are greeted by the" +
-             " sweet smell of fresh ale. As you sit at a table you are approached by a group of " +
+             " smell of fresh ale. As you sit at a table you are approached by a group of " +
              "locals who remind you they don't like visitors in these parts. You... ";
 
 let choices1 = ["Flip the table and prepare for a brawl, you refuse to be disrespected.",
@@ -16,7 +17,7 @@ let picture1 = "images/wizard.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT I
 
 
 let outcomes1 = [new Outcome("You flip the table and raise your fists. ",
-    "You easily beat them into submission. You quickly gain a reputation in this village",
+    "You easily beat them into submission. You quickly gain a reputation in this village.",
     "You are beaten and made to look a fool for the townsfolk to see.."
     ,4,"strength"),
     new Outcome("You turn your back as if noticing nothing."
@@ -25,7 +26,7 @@ let outcomes1 = [new Outcome("You flip the table and raise your fists. ",
         ,4,"luck"),
     new Outcome("You ask them to pull up a chair and sit with you.",
         " By the nights end you have made new friends and potential adventure partners.",
-        " The bully pours his ale on your head making you to look like a fool",
+        " The bully pours his ale on your head making you look like a fool.",
         4,"intelligence")]
 
 let sceneOne = new Scenario(text1, choices1, picture1,outcomes1);
@@ -87,7 +88,7 @@ let outcomes3 = [new Outcome("You choose to go in by nightfall.",
 let sceneThree = new Scenario(text3, choices3, picture3,outcomes3);
 
 
-let text4 = " You are exiting the local pup when you bump shoulders with one of the townsfolk." +
+let text4 = "You are exiting the local pup when you bump shoulders with one of the townsfolk." +
     " This one has a reputation for mischief. Soon you are facing an ultimatum." +
     " Apologize for your transgression, pay for your error in Zarlocks, or in blood.. ";
 
@@ -99,7 +100,7 @@ let picture4 = "images/beast.webp"; // THIS MUST BE RELATIVE TO THE PAGE THAT IS
 
 
 let outcomes4 = [new Outcome("You engage the bully in combat! ",
-    "You vanquish this foe like an afterthought.",
+    "You vanquish the foe like an afterthought.",
     "You are beaten and left to sleep in the cold."
     ,4,"strength"),
     new Outcome("You apologize and seek peace."
@@ -113,7 +114,7 @@ let outcomes4 = [new Outcome("You engage the bully in combat! ",
 
 let sceneFour = new Scenario(text4, choices4, picture4,outcomes4);
 
-let text5 = " One day when setting camp you are approached by an odd man with a proposition." +
+let text5 = "One day when setting camp you are approached by an odd man with a proposition." +
     " He shares stories of his faith and a concept called 'Karma'." +
     " Let him share your fire and food for the evening and you will be rewarded 10 times over in the future...";
 
@@ -139,7 +140,7 @@ let outcomes5 = [new Outcome("You drive a hard bargain and ask for work in retur
 
 let sceneFive = new Scenario(text5, choices5, picture5,outcomes5);
 
-let text6 = " During your travels the gap between towns turns up to be longer than anticipated." +
+let text6 = "During your travels the gap between towns turns up to be longer than anticipated." +
     " At this point starvation is beginning to cloud your thinking." +
     " In desperation you choose to forage for some random berries, which do you choose to eat?";
 
@@ -161,7 +162,7 @@ let outcomes6 = [new SpecialOutcome("You eat some of the white berries in hopes 
     new SpecialOutcome("You eat some of the blue berries and pray they are safe.",
         " The berries taste great and carry you thru to the next town.",
         " You get a mild stomach ache.",
-        2,"intelligence","","")]
+        1,"intelligence","","")]
 
 let sceneSix = new Scenario(text6, choices6, picture6,outcomes6);
 
@@ -193,7 +194,7 @@ let text8 = " You are about to attend the local mead hall for the annual harvest
     " Town custom requires you be dressed in the formal garb prescribed for such an event."+
     " What do you do?" ;
 
-let choices8 = ["You buy the necessary garb.(50 Zarlock)",
+let choices8 = ["You buy the necessary garb.(50 Zarlocks)",
     "You go as you are,customs be damned.",
     "You go as you are, but make it a point to explain to locals the limitation of their customs."];
 
@@ -235,4 +236,4 @@ let outcomes9 = [new Outcome("You boulder up the scramble.",
 
 let sceneNine = new Scenario(text9, choices9, picture9,outcomes9);
 
-export let swordPath = [start,sceneOne,sceneTwo,sceneThree,sceneFour,maurader,sceneFive,sceneSix,sceneSeven,sceneEight,sceneNine];
+export let swordPath = [start,sceneOne,sceneTwo,sceneThree,sceneFour,maurader,sceneFive,sceneSix,sceneSeven,sceneEight,sceneNine,death];
