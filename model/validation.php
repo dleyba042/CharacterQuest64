@@ -17,13 +17,13 @@ class Validation
     }
 
     /**
-     * Validate's a new user's password.
+     * Validates a new user's password.
      * @param String $password the user's password
      * @return bool true for valid, false for invalid
      */
     static function validPassword($password)
     {
-        return preg_match("/^[a-zA-Z0-9!@#?]{8,30}$/", $password);
+        return preg_match("/^[a-zA-Z0-9!@#?]{5,30}$/", $password);
     }
 
     /**

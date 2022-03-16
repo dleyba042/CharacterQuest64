@@ -70,11 +70,6 @@
                                         {{ @item->getEffect() }}</li></false>
                                     </check>
                                 </repeat>
-
-                                <!--<repeat group="{{ @SESSION.items }}" key="{{ @item }}" value="{{ @effect }}">
-                                    <li id = "{{ @item }}:{{ @effect }}" ><a class="btn choice-btn my-2"type="button">{{ @item }}  : {{ @effect }} </a></li>
-                                </repeat>-->
-                                <!--<li>{{ @SESSION.item }}</li>-->
                             </ul>
                             <h5 id = "item-message"></h5>
                         </div><!-- Body -->
@@ -146,7 +141,7 @@
 
     </div><!-- main row -->
     <div hidden>
-        <label><input name = "progress" id = "progress" type="text" value= "{{ @progress }}"></label>
+        <label><input name = "progress" id = "progress" type="text" value= "{{ @SESSION.character->getProgress() }}"></label>
     </div>
 
     </form>

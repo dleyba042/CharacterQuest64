@@ -5,7 +5,7 @@
  */
 class Character
 {
-    private $_name, $_race, $_stats, $_inventory;
+    private $_name, $_race, $_stats, $_inventory, $_progress;
 
     /**
      * Default/Parameterized constructor for the player's character.
@@ -19,6 +19,7 @@ class Character
         $this->_race = $race;
         $this->_stats = $stats;
         $this->_inventory = array();
+        $this->_progress = "swordPath[0]";
     }
 
     /**
@@ -91,5 +92,23 @@ class Character
     public function setInventory($inventory)
     {
         $this->_inventory[] = $inventory;
+    }
+
+    /**
+     * Gets the character's progress.
+     * @return string
+     */
+    public function getProgress()
+    {
+        return $this->_progress;
+    }
+
+    /**
+     * Sets the character's progress.
+     * @param string $progress
+     */
+    public function setProgress($progress)
+    {
+        $this->_progress = $progress;
     }
 }

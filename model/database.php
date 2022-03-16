@@ -85,8 +85,8 @@ class Database
     function setCharacter($character, $id)
     {
         //1. Define the query
-        $sql = "INSERT INTO `character`(name, dexterity, intelligence, luck, stamina, strength, race, user_id) 
-                VALUES (:name, :dexterity, :intelligence, :luck, :stamina, :strength, :race, :user_id)";
+        $sql = "INSERT INTO `character`(name, dexterity, intelligence, luck, stamina, strength, race, progress, user_id) 
+                VALUES (:name, :dexterity, :intelligence, :luck, :stamina, :strength, :race, :progress, :user_id)";
 
         //2. Prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -100,7 +100,8 @@ class Database
         $stamina= $stats['stamina'];
         $strength= $stats['strength'];
         $race = $character->getRace();
-        $userid= $id; //TODO: FIX WHEN LOGIN WORKS
+        $progress = $character->getProgress();
+        $userid= $id;
 
         $statement->bindParam(':name', $name);
         $statement->bindParam(':dexterity', $dexterity);
@@ -109,6 +110,7 @@ class Database
         $statement->bindParam(':stamina', $stamina);
         $statement->bindParam(':strength', $strength);
         $statement->bindParam(':race', $race);
+        $statement->bindParam(':progress', $progress);
         $statement->bindParam(':user_id', $userid);
 
         //4. Execute the query
@@ -203,7 +205,11 @@ class Database
      */
     function getItemID($item)
     {
-        $name =  strtolower(get_class($item));
+        $name = strtolower(get_class($item));
+
+        if($name == "skeletonkey") {
+            $name = "skeleton key";
+        }
 
         //1. Define the query
         $sql = "SELECT item_id from items WHERE name = :name ";

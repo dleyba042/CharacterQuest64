@@ -52,7 +52,7 @@
                 <!-- Left Column -->
                 <div class="col-12 col-md-5 mt-3">
 
-                    <label class="control-label d-block text-center mb-4 pb-2" id="traits-header"><strong>Choose Your Race & Roll For Stats</strong></label>
+                    <label class="control-label d-block text-center mb-4 pb-2" id="traits-header"><strong>Choose Your Race & Roll The Dice To Get Your Stats</strong></label>
 
                     <!-- Race -->
                     <div class="form-group row justify-content-between">
@@ -144,7 +144,7 @@
                         <div class="modal-content text-center">
 
                             <div class="modal-header">
-                                <h4 class="modal-title mx-auto my-auto pl-4">{{ ucwords(@name) }} | {{ ucfirst(@userRace) }}</h4>
+                                <h4 class="modal-title mx-auto my-auto pl-4">{{ ucwords(@name) }} - {{ ucfirst(@userRace) }}</h4>
                                 <button class="modal-button close-button" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -152,7 +152,7 @@
 
                             <div class="modal-body">
                                 <repeat group="{{ @stats }}" key="{{ @key }}" value="{{ @value }}">
-                                    <span><strong>{{ @key }}:</strong> {{ @value }}</span><br>
+                                    <span><strong>{{ ucfirst(@key) }}:</strong> {{ @value }}</span><br>
                                 </repeat>
                                 <br>
                                 <span><u><strong>Starting Item</strong></u></span><br>

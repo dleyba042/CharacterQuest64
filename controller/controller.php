@@ -52,7 +52,7 @@ class Controller
                         $_SESSION["user"]->setPassword(password_hash($createPassword, PASSWORD_DEFAULT));
                     } else {
                         $this->_f3->set('errors["create-password"]', 'Please only use letters, numbers, 
-                    or the following special characters (!, @, #, ?) (5 character min - 30 character max)');
+                        or the following special characters (!, @, #, ?) (5 character min - 30 character max)');
                     }
 
                     //Validate the user's password & it's confirmation match
@@ -119,7 +119,7 @@ class Controller
                         // add them to character objects inventory
                         foreach($items as $item) {
                             foreach ($inventory as $inv) {
-                                if (strtolower(get_class($item)) === $inv["name"]) {
+                                if (strtolower(get_class($item)) === str_replace(" ", "", $inv["name"])) {
                                     $_SESSION["character"]->setInventory($item);
                                 }
                             }
@@ -146,7 +146,7 @@ class Controller
                         $_SESSION["character"]->setStats($stats);
 
                         //Loads progress to continue where the user left off & reroutes to the game
-                        $_SESSION["progress"] = $character["progress"];
+                        $_SESSION["character"]->setProgress($character["progress"]);
                         $this->_f3->reroute("game");
                     }
                 }
@@ -203,7 +203,8 @@ class Controller
             if (Validation::validName($name)) {
                 $_SESSION['character']->setName($name);
             } else {
-                $this->_f3->set('errors["name"]', 'Please only use letters, hyphens, apostrophes or spaces (30-character limit)');
+                $this->_f3->set('errors["name"]',
+                                'Please only use letters, hyphens, apostrophes or spaces (30-character limit)');
             }
 
             //Validate the character's race
@@ -235,10 +236,8 @@ class Controller
             //If no errors, add user's character/chosen item to the database, & reroutes to the game
             if (empty($this->_f3->get('errors')) && isset($_POST['start'])) {
 
-                $charID = $database->setCharacter($_SESSION['character'], $_SESSION["userid"]);
-                $_SESSION['char_id'] = $charID;
-                $_SESSION["progress"] = "swordPath[0]";
-                $database->setInventory($charID, $item);
+                $_SESSION['char_id'] = $database->setCharacter($_SESSION['character'], $_SESSION["userid"]);
+                $database->setInventory($_SESSION['char_id'], $item);
 
                 $this->_f3->reroute('game');
             }
@@ -290,7 +289,7 @@ class Controller
             $dbh->setProgress($_SESSION['char_id'],$_POST['progress']);
             //TODO: Set inventory in database
 
-            $this->_f3->reroute('/');
+            $this->_f3->reroute('logout');
         }
     }
 
