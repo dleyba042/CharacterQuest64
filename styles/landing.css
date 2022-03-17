@@ -50,6 +50,11 @@ html {
     background-size: cover;
 }
 
+.item {
+    display: none;
+    position: relative;
+    .transition(.3s ease-in-out left);
+}
 
 #intro{
     margin-top: 75px;
@@ -61,7 +66,7 @@ html {
 
 
 #summary-container{
-    margin-top: -14px;
+    margin-top: 25px;
     background: url(../../CharacterQuest64/images/scroll4.webp) no-repeat center;
     background-size: cover;
     height: 500px;
@@ -198,23 +203,12 @@ html {
         margin-left: 81px;
 
     }
-}
 
-@media screen and (max-width: 1245px) {
-
-    #summary-container{
-        margin-top: -14px;
-        background: url(../../CharacterQuest64/images/scroll4.webp) no-repeat center;
-        background-size: 738px;
-        height: 532px;
-    }
-
-    #description{
-        width: 74%;
-        margin-left: 81px;
-
+    .w-100 {
+        width: 49%!important;
     }
 }
+
 
 @media screen and (max-width: 1170px) {
 
@@ -262,7 +256,7 @@ html {
 }
 
 
-@media screen and (max-width: 955px){
+@media screen and (max-width: 900px){
 
     #summary-container {
         width: 150%;
@@ -273,7 +267,7 @@ html {
     }
 
     #description {
-        width: 48%;
+        width: 41%;
         margin-left: 181px;
     }
 
@@ -301,12 +295,12 @@ html {
         margin-bottom: 0 !important;
     }
     #description {
-        width: 74%;
-        margin-left: 61px;
+        width: 41%;
+        margin-left: 181px;
     }
 
     #created-by {
-        margin: 0 50px;
+        margin: 0 147px;
     }
 }
 
@@ -328,11 +322,83 @@ html {
         margin-bottom: 0 !important;
     }
     #description {
-        width: 74%;
-        margin-left: 61px;
+        width: 67%;
+        margin-left: 93px;
     }
 
     #created-by {
-        margin: 0 50px;
+        margin: 0 113px;
+    }
+
+    #carousel-head{
+        margin-left: 43px;
+        margin-top: 42px;
+    }
+    .w-100 {
+        width: 70%!important;
+    }
+}
+
+@media screen and (max-width: 790px){
+
+    #container-form{
+        margin-top: 200px;
+    }
+
+    #summary-container {
+        margin-top: -14px;
+        background: url(../../CharacterQuest64/images/scroll4.webp) no-repeat center;
+        background-size: 617px;
+        height: 506px;
+    }
+
+    #intro {
+        margin-top: 74px;
+        margin-bottom: 0 !important;
+    }
+    #description {
+        width: 55%;
+        margin-left: 118px;
+    }
+
+    #created-by {
+        margin: 0 93px;
+    }
+
+    #carousel-head{
+        margin-left: 43px;
+        margin-top: 42px;
+    }
+}
+
+@media screen and (max-width: 735px){
+
+    #container-form{
+        margin-top: 200px;
+    }
+
+    #summary-container {
+        margin-top: -14px;
+        background: url(../../CharacterQuest64/images/scroll4.webp) no-repeat center;
+        background-size: 617px;
+        height: 506px;
+    }
+
+    #intro {
+        margin-top: 74px;
+        margin-bottom: 0 !important;
+    }
+    #description {
+        width: 55%;
+        margin-left: 118px;
+    }
+
+    #created-by {
+        margin: 0 93px;
+    }
+
+    #carousel-head{
+        margin-left: 43px;
+        margin-top: 42px;
     }
 }
